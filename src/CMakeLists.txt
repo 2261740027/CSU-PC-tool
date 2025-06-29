@@ -51,6 +51,12 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         User/backend/include/SlipProtocol.h
         User/backend/source/utilsCrc16.cpp User/backend/source/utilsType.cpp
         User/backend/include/utilsCrc16.h User/backend/include/utilsType.h
+        User/backend/include/SerialController.h
+        User/backend/include/ProtocolManager.h
+        User/backend/source/ProtocolManager.cpp
+        User/backend/include/Iprotocol.h
+        User/backend/source/dbTab/querry/testpage1.cpp User/backend/source/dbTab/dbTable.cpp
+        User/backend/include/dbTab/querry/testpage1.h User/backend/include/dbTab/dbTable.h
     )
 else()
     add_executable(${PROJECT_NAME}

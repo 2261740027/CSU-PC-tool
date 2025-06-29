@@ -7,6 +7,7 @@
 #include <QTimer>
 #include "Singleton.h"
 #include "SlipProtocol.h"
+#include "ProtocolManager.h"
 
 class SerialController : public QObject ,public Singleton<SerialController> {
     Q_OBJECT
@@ -27,7 +28,9 @@ public:
     bool isOpen() const { return m_open; }
 
 public slots:
+
     void receivedRaw(QByteArray);       //接收到原始数据
+    
 signals:
     void sendToWorker(QString);
     void openRequest(QString, int, int, int, int);
@@ -42,9 +45,9 @@ private:
 
     QThread thread;
     SerialWorker* worker;
+    protocol::ProtocolManager *_protocolManager;
     QTimer m_portScanTimer;
     QStringList m_ports;
-    slip::SlipProtocol slip;
 
     bool m_open = false;
 };

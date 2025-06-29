@@ -3,110 +3,117 @@
 #include "utilsType.h"
 #include <QDebug>
 
-namespace slip {
-
-void SlipProtocol::decode(QByteArray &rxMsg ,QByteArray &decodeMsg)
+namespace protocol
 {
-    for(unsigned char rxChar: rxMsg)
+    namespace slip
     {
-        switch(rxChar)
+        void slipProtocol::decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)
         {
-            case 0xC0:
-
-                if(this->verifyMsg(decodeMsg) == true)
+            for (unsigned char rxChar : rxMsg)
+            {
+                switch (rxChar)
                 {
-                    isGotMsgFlag = true;
-                    //this->isGotMsgFlag = true;
-                    // true;
-                }
-                else
-                {
-                     //my.clear();
-                    //rxMsg.clear();
-                    decodeMsg.clear();
-                }
+                case 0xC0:
 
-            break;
-
-            case (unsigned char)slip::reserve::esc :
-
-                nextByteMode = slip::next::esc;
-            break;
-
-            default:
-
-                if(nextByteMode == slip::next::esc)
-                {
-                    unsigned char reserveCode;
-
-                    switch(rxChar)
+                    if (this->verifyMsg(decodeMsg) == true)
                     {
-                        case slip::special::esc :
+                        _isGotMsgFlag = true;
+                        // this->isGotMsgFlag = true;
+                        //  true;
+                    }
+                    else
+                    {
+                        // my.clear();
+                        // rxMsg.clear();
+                        decodeMsg.clear();
+                    }
 
-                        reserveCode = slip::reserve::esc;
-                        //rxMsg.push(reserveCode);
-                        decodeMsg.append(reserveCode);
+                    break;
 
-                        break;
+                case (unsigned char)slip::reserve::esc:
 
-                        case slip::special::end :
+                    _nextByteMode = slip::next::esc;
+                    break;
+
+                default:
+
+                    if (_nextByteMode == slip::next::esc)
+                    {
+                        unsigned char reserveCode;
+
+                        switch (rxChar)
+                        {
+                        case slip::special::esc:
+
+                            reserveCode = slip::reserve::esc;
+                            // rxMsg.push(reserveCode);
+                            decodeMsg.append(reserveCode);
+
+                            break;
+
+                        case slip::special::end:
 
                             reserveCode = slip::reserve::end;
-                            //rxMsg.push(reserveCode);
+                            // rxMsg.push(reserveCode);
                             decodeMsg.append(reserveCode);
 
                             break;
 
                         default:
-                            //my.onError();
-                        break;
+                            // my.onError();
+                            break;
+                        }
                     }
-                }
-                else
-                {
-                    decodeMsg.append(rxChar);
-                }
+                    else
+                    {
+                        decodeMsg.append(rxChar);
+                    }
 
-                nextByteMode = slip::next::general;
-                break;
+                    _nextByteMode = slip::next::general;
+                    break;
+                }
+            }
         }
-    }
 
+        bool slipProtocol::verifyMsg(QByteArray &rxMsg)
+        {
+            static const unsigned int packetMinLength = 5;
+
+            if (rxMsg.length() < packetMinLength)
+            {
+                return false;
+            }
+
+            utils::Crc16 crc16;
+
+            unsigned short myCrc;
+            utils::type::Word receivedPacketCrc;
+
+            myCrc = crc16.calc(rxMsg, rxMsg.length() - 2);
+
+            // last two bytes of packet are crc16 code
+            receivedPacketCrc.field.hi = rxMsg[rxMsg.length() - 1];
+            receivedPacketCrc.field.lo = rxMsg[rxMsg.length() - 2];
+
+            //    printf("myCrc:             %4x\r\n",myCrc);
+            //    printf("receivedPacketCrc: %4x\r\n",receivedPacketCrc.value);
+
+            if (myCrc == receivedPacketCrc.value)
+            {
+                //----- to deduct crc16(last 2 bytes) from rxQueue,because crc16 just for verify
+                rxMsg.remove(rxMsg.length() - 2, 2);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        void slipProtocol::buildFrame()
+        {
+
+        }
+
+    }
 }
-bool SlipProtocol::verifyMsg(QByteArray &rxMsg)
-{
-    static const unsigned int packetMinLength = 5;
-
-    if (rxMsg.length() < packetMinLength)
-    {
-        return false;
-    }
-
-    utils::Crc16 crc16;
-
-    unsigned short myCrc;
-    utils::type::Word receivedPacketCrc;
-
-    myCrc = crc16.calc(rxMsg, rxMsg.length() - 2);
-
-    // last two bytes of packet are crc16 code
-    receivedPacketCrc.field.hi = rxMsg[rxMsg.length() - 1];
-    receivedPacketCrc.field.lo = rxMsg[rxMsg.length() - 2];
-
-    //    printf("myCrc:             %4x\r\n",myCrc);
-    //    printf("receivedPacketCrc: %4x\r\n",receivedPacketCrc.value);
-
-    if (myCrc == receivedPacketCrc.value)
-    {
-        //----- to deduct crc16(last 2 bytes) from rxQueue,because crc16 just for verify
-        rxMsg.remove(rxMsg.length() - 2,2);
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-}
-

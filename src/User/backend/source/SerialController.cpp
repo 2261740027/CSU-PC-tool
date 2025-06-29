@@ -1,9 +1,12 @@
 #include "SerialController.h"
+#include "ProtocolManager.h"
 #include <QSerialPortInfo>
 
 SerialController::SerialController() {
     worker = new SerialWorker;
     worker->moveToThread(&thread);
+
+    _protocolManager = protocol::ProtocolManager::getInstance();
 
     connect(this, &SerialController::sendToWorker, worker, &SerialWorker::send);
     connect(this, &SerialController::openRequest, worker, &SerialWorker::open);
@@ -63,5 +66,9 @@ void SerialController::send(QString text) {
 void SerialController::receivedRaw(QByteArray data)
 {
     // 根据协议类型和页面进行有效数据提取
-    slip.decode(data,slip.recvData);
+    if(_protocolManager->currentProtocol() != nullptr)
+    {
+        _protocolManager->HandleRecvData(data);
+    }
+
 }

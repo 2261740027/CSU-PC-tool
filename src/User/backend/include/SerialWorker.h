@@ -12,7 +12,7 @@ public slots:
     void send(QString text);
 signals:
     void receivedText(QString text);
-    void receivedRaw(QString data);
+    void receivedRaw(QByteArray data);
     void portOpened(bool success);
 private slots:
     void onReadyRead();

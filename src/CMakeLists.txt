@@ -47,6 +47,10 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         User/backend/source/SerialController.cpp
         User/backend/include/SerialController.h
         User/backend/include/Singleton.h
+        User/backend/source/SlipProtocol.cpp
+        User/backend/include/SlipProtocol.h
+        User/backend/source/utilsCrc16.cpp User/backend/source/utilsType.cpp
+        User/backend/include/utilsCrc16.h User/backend/include/utilsType.h
     )
 else()
     add_executable(${PROJECT_NAME}

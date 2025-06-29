@@ -29,13 +29,13 @@ FluContentPage{
         //height: 400
         padding: 10
 
-        Connections {
-            target: serial
+        // Connections {
+        //     target: serial
 
-            function onReceivedRaw(data) {
-                console.log("receivedata  "+ data )
-            }
-        }
+        //     function onReceivedRaw(data) {
+        //         console.log("receivedata  "+ data )
+        //     }
+        // }
 
         GridLayout {
 

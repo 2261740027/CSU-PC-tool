@@ -59,3 +59,9 @@ void SerialController::disconnectPort() {
 void SerialController::send(QString text) {
     emit sendToWorker(text);
 }
+
+void SerialController::receivedRaw(QByteArray data)
+{
+    // 根据协议类型和页面进行有效数据提取
+    slip.decode(data,slip.recvData);
+}

@@ -6,8 +6,8 @@
 namespace protocol
 {
     namespace slip
-    {
-        void slipProtocol::decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)
+    {  
+        void slipProtocol::extractRawData(QByteArray &rxMsg, QByteArray &decodeMsg)
         {
             for (unsigned char rxChar : rxMsg)
             {
@@ -73,6 +73,17 @@ namespace protocol
                     break;
                 }
             }
+
+
+        }
+
+        void slipProtocol::decodeFrame(QByteArray &rxMsg , std::vector<QByteArray> &decodeMsg)
+        {
+            QByteArray extractData;
+            extractRawData(rxMsg, extractData);
+
+            
+
         }
 
         bool slipProtocol::verifyMsg(QByteArray &rxMsg)
@@ -111,6 +122,11 @@ namespace protocol
         }
 
         void slipProtocol::buildFrame()
+        {
+
+        }
+
+        void slipProtocol::handleRecvData(QByteArray &data)
         {
 
         }

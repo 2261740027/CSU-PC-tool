@@ -31,8 +31,8 @@ namespace protocol
         QByteArray rxData;
         if(_current != nullptr)
         {
-            _current->decodeFrame(data,rxData);
-            qDebug() << "recvData: " + data.toHex(' ').toUpper();
+            //_current->decodeFrame(data,rxData);
+            //qDebug() << "recvData: " + data.toHex(' ').toUpper();
         }
     }
 }

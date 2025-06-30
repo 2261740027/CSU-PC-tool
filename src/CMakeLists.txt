@@ -55,8 +55,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         User/backend/include/ProtocolManager.h
         User/backend/source/ProtocolManager.cpp
         User/backend/include/Iprotocol.h
-        User/backend/source/dbTab/querry/testpage1.cpp User/backend/source/dbTab/dbTable.cpp
-        User/backend/include/dbTab/querry/testpage1.h User/backend/include/dbTab/dbTable.h
+        User/backend/source/dbTab/dbTable.cpp
+        User/backend/include/dbTab/dbTable.h
+        User/backend/source/dbTab/dbTabQuerry.cpp User/backend/include/dbTab/dbTabQuerry.h
+        User/backend/include/dbTab/querry/testpage1.h
+        User/backend/source/dbTab/querry/testpage1.cpp
+        User/backend/include/dbTab/dbTableMang.h
+        User/backend/source/dbTab/dbTableMang.cpp
     )
 else()
     add_executable(${PROJECT_NAME}

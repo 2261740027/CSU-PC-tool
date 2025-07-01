@@ -66,9 +66,11 @@ void SerialController::send(QString text) {
 void SerialController::receivedRaw(QByteArray data)
 {
     // 根据协议类型和页面进行有效数据提取
+    QByteArray decodeData;
     if(_protocolManager->currentProtocol() != nullptr)
     {
-        _protocolManager->HandleRecvData(data);
+        decodeData = _protocolManager->HandleRecvData(data);
+        emit notificationsPageRecvData(decodeData);
     }
 
 }

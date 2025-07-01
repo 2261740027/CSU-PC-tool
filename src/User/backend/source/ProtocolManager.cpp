@@ -11,7 +11,6 @@ namespace protocol
 
         registerProtocol(&slipProtocol);
         
-
         _current = &slipProtocol;           //默认协议为slip协议
     }
 
@@ -26,13 +25,15 @@ namespace protocol
         return true;
     }
 
-    void ProtocolManager::HandleRecvData(QByteArray &data)
+    QByteArray ProtocolManager::HandleRecvData(QByteArray &data)
     {
         QByteArray rxData;
         if(_current != nullptr)
         {
-            //_current->decodeFrame(data,rxData);
+            _current->decodeFrame(data,rxData);
+            return rxData;
             //qDebug() << "recvData: " + data.toHex(' ').toUpper();
         }
+        return QByteArray();
     }
 }

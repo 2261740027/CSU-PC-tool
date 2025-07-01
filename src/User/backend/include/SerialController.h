@@ -39,6 +39,7 @@ signals:
     //void receivedRaw(QString);
     void isOpenChanged();
     void availablePortsChanged();
+    void notificationsPageRecvData(QByteArray data);
 
 private:
     void refreshPorts();

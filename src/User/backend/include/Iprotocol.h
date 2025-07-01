@@ -16,7 +16,7 @@ namespace protocol {
         virtual QString name() const = 0;
 
         virtual bool verifyMsg(QByteArray &rxMsg) = 0;
-        virtual void decodeFrame(QByteArray &rxMsg , std::vector<QByteArray> &decodeMsg) = 0;
+        virtual void decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg) = 0;
         virtual void buildFrame() = 0;
         
     };

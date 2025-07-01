@@ -7,7 +7,7 @@ namespace protocol
 {
     namespace slip
     {  
-        void slipProtocol::extractRawData(QByteArray &rxMsg, QByteArray &decodeMsg)
+        void slipProtocol::decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)
         {
             for (unsigned char rxChar : rxMsg)
             {
@@ -74,15 +74,6 @@ namespace protocol
                 }
             }
 
-
-        }
-
-        void slipProtocol::decodeFrame(QByteArray &rxMsg , std::vector<QByteArray> &decodeMsg)
-        {
-            QByteArray extractData;
-            extractRawData(rxMsg, extractData);
-
-            
 
         }
 

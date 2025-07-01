@@ -3,6 +3,7 @@
 #include <QQmlContext>
 #include <QTranslator>
 #include "SerialController.h"
+#include "page/pageMang.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,7 +24,12 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
 
     //qmlRegisterType<SerialController>("Serial", 1, 0, "SerialController");
-    engine.rootContext()->setContextProperty("serial", SerialController::getInstance());
+    SerialController *serialControllerI = SerialController::getInstance();
+    page::pageMange *pageMangeI = new page::pageMange();
+    QObject::connect(serialControllerI, &SerialController::notificationsPageRecvData, pageMangeI, &page::pageMange::handleDataUpdate);
+
+    engine.rootContext()->setContextProperty("pageManager", pageMangeI);
+    engine.rootContext()->setContextProperty("serial", serialControllerI);
 
     const QUrl url(QStringLiteral("qrc:/App.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,

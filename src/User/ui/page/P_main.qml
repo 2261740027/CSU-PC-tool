@@ -11,6 +11,7 @@ FluContentPage{
 
 
     FluButton {
+        id:testButton
         anchors.centerIn: parent
         font:FluTextStyle.caption
 
@@ -20,6 +21,16 @@ FluContentPage{
                 serial.send("test");
             }
         }
+    }
+
+    FluText {
+        width:50
+        height: 50
+        x:300
+        y:100
+        z:50
+        text: pageManager.getPageData("Voltage")
+        //text: pageManager.testfunc()
     }
 
     FluFrame{

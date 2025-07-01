@@ -25,7 +25,7 @@ namespace protocol
     	}
 
 		bool registerProtocol(iProtocol* proto);
-		void HandleRecvData(QByteArray &data);       //处理接受到的数据
+        QByteArray HandleRecvData(QByteArray &data);       //处理接受到的数据
 		
 	private:
 		

@@ -54,14 +54,13 @@ namespace protocol
                 return "slip";
             }
 
-            void decodeFrame(QByteArray &rxMsg , std::vector<QByteArray> &dataList)  override;
+            void decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)  override;
             bool verifyMsg(QByteArray &rxMsg) override;
             void buildFrame() override;
 
             void handleRecvData(QByteArray &data);
 
         private:
-            void extractRawData(QByteArray &rxMsg, QByteArray &decodeMsg);
             void handleRecvQueryData(QByteArray &data, QMap<QString, dbTable::DBItem>& dbTable);
             void handleRecvSettingData(QByteArray &data, QMap<QString, dbTable::DBItem>& dbTable);
 

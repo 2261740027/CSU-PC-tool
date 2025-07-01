@@ -62,6 +62,13 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         User/backend/source/dbTab/querry/testpage1.cpp
         User/backend/include/dbTab/dbTableMang.h
         User/backend/source/dbTab/dbTableMang.cpp
+        User/backend/source/page/pageMang.cpp
+        User/backend/include/page/pageMang.h
+        User/backend/include/page/IpageController.h
+        User/backend/include/page/IpageController.h
+        User/backend/include/page/PageFieldTable.h
+        User/backend/source/page/PageFieldTable.cpp
+        User/backend/include/page/page1.h
     )
 else()
     add_executable(${PROJECT_NAME}

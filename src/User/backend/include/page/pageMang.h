@@ -30,7 +30,7 @@ namespace page
         Q_INVOKABLE QVariant getPageData(QString name);
 
         QString currentPage() const;
-        QVariantMap pageData() const; // 返回所有数据的map
+        QVariantMap pageData(); // 返回所有数据的map
 
     private:
 
@@ -42,10 +42,11 @@ namespace page
 
 
     signals:
-        void currentControllerChanged();
+        void currentControllerChanged(); 
+        void pageDataChanged();
 
     public slots:
-        void pageDataChanged();
+       
         void handleDataUpdate(QByteArray data);
     };
 

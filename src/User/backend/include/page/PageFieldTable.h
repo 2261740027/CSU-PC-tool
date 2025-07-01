@@ -38,6 +38,10 @@ namespace page {
         void uiSetValue(const QString& name, const QVariant val); //发送设置数据
 
         void fieldUpdated(QByteArray &value);
+        QMap<QString, pageMapField> &getValueMap()
+        {
+            return _valueMap;
+        }
 
 
     // signals:

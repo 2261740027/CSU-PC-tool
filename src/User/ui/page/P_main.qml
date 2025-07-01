@@ -29,7 +29,8 @@ FluContentPage{
         x:300
         y:100
         z:50
-        text: pageManager.getPageData("Voltage")
+        //text: pageManager.getPageData("Voltage")
+        text:pageManager.pageData["Voltage"]
         //text: pageManager.testfunc()
     }
 

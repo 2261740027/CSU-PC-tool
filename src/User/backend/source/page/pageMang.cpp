@@ -34,6 +34,7 @@ namespace page
     {
         qDebug() << "recvData " + _currentPage;
         _pageHash[_currentPage]->upPageData(data);
+        emit pageDataChanged();
     }
 
     QVariant pageMange::getPageData(QString name)
@@ -46,13 +47,20 @@ namespace page
         return currentPage->getData(name);
     }
 
-    QVariantMap pageMange::pageData() const {
-        QVariantMap map;
-        // 假设你有字段名列表
-        for (const QString& key : ) {
-            map[key] = getPageData(key);
+    QVariantMap pageMange::pageData() {
+
+        QMap<QString, pageMapField> pageTable;
+
+        pageTable = _pageHash[_currentPage]->getPageTable();
+        
+        QList<QString> keyList = pageTable.keys(); // 存放的就是QMap的key值
+        for(int i=0;i<keyList.size();i++)
+        {
+            _currPageData[keyList[i]] = pageTable[keyList[i]].value;
         }
-        return map;
+
+        return _currPageData;
+
     }
 
 }

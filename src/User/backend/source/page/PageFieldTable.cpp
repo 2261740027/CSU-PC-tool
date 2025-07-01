@@ -32,7 +32,7 @@ namespace page {
     {
         unsigned short group = recValue[0];
         unsigned short category = recValue[1];
-        unsigned short value = (recValue[2] << 8 | recValue[3]);
+        unsigned short value = ((unsigned short)recValue[2] << 8 | (recValue[3] & 0xFF));
         QString valueName;
 
         valueName = _reValueMap[(group << 8) | category];

@@ -31,7 +31,7 @@ namespace page
         }
 
          QMap<QString, pageMapField> &getPageTable() override{
-            return _pageField.;
+            return _pageField.getValueMap();
         }
 
 

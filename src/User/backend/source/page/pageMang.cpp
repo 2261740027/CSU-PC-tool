@@ -1,5 +1,5 @@
 #include "page/pageMang.h"
-#include "QDebug"
+#include <QDebug>
 
 namespace page
 {

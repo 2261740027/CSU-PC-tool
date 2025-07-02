@@ -32,6 +32,35 @@ add_custom_target(Script-UpdateTranslations
     SOURCES ${TS_FILE_PATHS}
 )
 
+set(UTILS_SOURCES
+   User/backend/source/utils/utilsCrc16.cpp
+   User/backend/source/utils/utilsType.cpp
+   User/backend/include/utils/utilsCrc16.h
+   User/backend/include/utils/utilsType.h
+)
+
+set(SERIAL_SOURCES
+    User/backend/include/serial/Iprotocol.h
+    User/backend/include/serial/ProtocolManager.h
+    User/backend/include/serial/SerialController.h
+    User/backend/include/serial/SerialWorker.h
+    User/backend/include/serial/Singleton.h
+    User/backend/include/serial/SlipProtocol.h
+    User/backend/source/serial/ProtocolManager.cpp
+    User/backend/source/serial/SerialController.cpp
+    User/backend/source/serial/SerialWorker.cpp
+    User/backend/source/serial/SlipProtocol.cpp
+)
+
+set(PAGE_SOURCES
+    User/backend/source/page/pageMang.cpp
+    User/backend/include/page/pageMang.h
+    User/backend/include/page/IpageController.h
+    User/backend/include/page/PageFieldTable.h
+    User/backend/source/page/PageFieldTable.cpp
+    User/backend/include/page/page1.h
+)
+
 set(PROJECT_SOURCES
     main.cpp
     qml.qrc
@@ -41,34 +70,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        User/backend/include/SerialWorker.h User/backend/source/SerialWorker.cpp
-        User/backend/source/SerialWorker.cpp
-        User/backend/include/SerialWorker.h
-        User/backend/source/SerialController.cpp
-        User/backend/include/SerialController.h
-        User/backend/include/Singleton.h
-        User/backend/source/SlipProtocol.cpp
-        User/backend/include/SlipProtocol.h
-        User/backend/source/utilsCrc16.cpp User/backend/source/utilsType.cpp
-        User/backend/include/utilsCrc16.h User/backend/include/utilsType.h
-        User/backend/include/SerialController.h
-        User/backend/include/ProtocolManager.h
-        User/backend/source/ProtocolManager.cpp
-        User/backend/include/Iprotocol.h
-        User/backend/source/dbTab/dbTable.cpp
-        User/backend/include/dbTab/dbTable.h
-        User/backend/source/dbTab/dbTabQuerry.cpp User/backend/include/dbTab/dbTabQuerry.h
-        User/backend/include/dbTab/querry/testpage1.h
-        User/backend/source/dbTab/querry/testpage1.cpp
-        User/backend/include/dbTab/dbTableMang.h
-        User/backend/source/dbTab/dbTableMang.cpp
-        User/backend/source/page/pageMang.cpp
-        User/backend/include/page/pageMang.h
-        User/backend/include/page/IpageController.h
-        User/backend/include/page/IpageController.h
-        User/backend/include/page/PageFieldTable.h
-        User/backend/source/page/PageFieldTable.cpp
-        User/backend/include/page/page1.h
+        ${UTILS_SOURCES}
+        ${SERIAL_SOURCES}
+        ${PAGE_SOURCES}
+        
+      
     )
 else()
     add_executable(${PROJECT_NAME}
@@ -87,6 +93,9 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     User/backend/include
+    User/backend/include/page
+    User/backend/include/utils
+    User/backend/include/serial
 )
 
 if(${QT_VERSION} VERSION_LESS 6.1.0)

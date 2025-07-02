@@ -5,7 +5,6 @@
 #include <QObject>
 #include <QElapsedTimer>
 #include "Iprotocol.h"
-#include "dbTab/dbTable.h"
 
 // #include <functional>
 // #include "Singleton.h"
@@ -61,8 +60,8 @@ namespace protocol
             void handleRecvData(QByteArray &data);
 
         private:
-            void handleRecvQueryData(QByteArray &data, QMap<QString, dbTable::DBItem>& dbTable);
-            void handleRecvSettingData(QByteArray &data, QMap<QString, dbTable::DBItem>& dbTable);
+            //void handleRecvQueryData(QByteArray &data, QMap<QString, dbTable::DBItem>& dbTable);
+            //void handleRecvSettingData(QByteArray &data, QMap<QString, dbTable::DBItem>& dbTable);
 
             bool _isGotMsgFlag;
             unsigned char _nextByteMode;

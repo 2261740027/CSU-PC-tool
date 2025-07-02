@@ -25,15 +25,22 @@ namespace protocol
         return true;
     }
 
-    QByteArray ProtocolManager::HandleRecvData(QByteArray &data)
+    QByteArray ProtocolManager::handleRecvData(QByteArray &data)
     {
         QByteArray rxData;
-        if(_current != nullptr)
+        if(true == _current->decodeFrame(data,rxData))
         {
-            _current->decodeFrame(data,rxData);
             return rxData;
-            //qDebug() << "recvData: " + data.toHex(' ').toUpper();
         }
-        return QByteArray();
+
+        return QByteArray(); //返回空数据表示没有有效数据
     }
+    
+    void ProtocolManager::handleSendData(QByteArray &data,QByteArray &sendFram)
+    {
+		if (_current != nullptr) {
+			_current->encodeFrame(data,sendFram);
+			//qDebug() << "sendData: " + data.toHex(' ').toUpper();
+		}
+	}
 }

@@ -36,7 +36,6 @@ namespace page
     private:
 
         void updatePageData();   //刷新mang向qml界面显示缓冲
-
         QVariantMap _currPageData;      //当前页面数据
         QHash<QString, IpageController *> _pageHash;
         QString _currentPage = "main";

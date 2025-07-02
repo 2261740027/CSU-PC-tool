@@ -15,6 +15,7 @@ namespace page {
         unsigned short length;
         unsigned short group;
         unsigned short category;
+        unsigned short number;
     };
 
 
@@ -23,6 +24,7 @@ namespace page {
         unsigned short length;
         unsigned short group;
         unsigned short category;
+        unsigned short number;
         QVariant value;
     };
 

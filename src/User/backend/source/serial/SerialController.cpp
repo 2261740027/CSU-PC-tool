@@ -7,12 +7,11 @@ SerialController::SerialController() {
     worker->moveToThread(&thread);
 
     _protocolManager = protocol::ProtocolManager::getInstance();
-
+    
     connect(this, &SerialController::sendToWorker, worker, &SerialWorker::send);
     connect(this, &SerialController::openRequest, worker, &SerialWorker::open);
     connect(this, &SerialController::closeRequest, worker, &SerialWorker::close);
-    connect(worker, &SerialWorker::receivedText, this, &SerialController::receivedText);
-    connect(worker, &SerialWorker::receivedRaw, this, &SerialController::receivedRaw);
+    connect(worker, &SerialWorker::receivedRaw, this, &SerialController::decodedRaw);
     connect(worker, &SerialWorker::portOpened, this, [this](bool ok) {
         m_open = ok;
         emit isOpenChanged();
@@ -59,26 +58,26 @@ void SerialController::disconnectPort() {
     emit isOpenChanged();
 }
 
-void SerialController::send(QString text) {
-    //emit sendToWorker(text);
-}
-
-void SerialController::receivedRaw(QByteArray data)
+void SerialController::decodedRaw(QByteArray data)
 {
-    // 根据协议类型和页面进行有效数据提取
+    // 根据协议类型校验提取有效内容
     QByteArray decodeData;
     if(_protocolManager->currentProtocol() != nullptr)
     {
-        decodeData = _protocolManager->HandleRecvData(data);
-        emit notificationsPageRecvData(decodeData);
+        decodeData = _protocolManager->handleRecvData(data);
+
+        if(!decodeData.isEmpty())       //接收数据有效，交给page处理
+        {
+           emit notificationsPageRecvData(decodeData); 
+        }
     }
 }
 
 
-void SerialController::sendDataToWorker(QByteArray data)
+void SerialController::handlePageSendData(QByteArray data)
 {
     //_protocolManager->_current->buildFrame(data);
     QByteArray sendFrame;
-    _protocolManager->HandleSendData(data,sendFrame);
+    _protocolManager->handleSendData(data,sendFrame);
     emit sendToWorker(sendFrame);
 }

@@ -22,36 +22,38 @@ public:
 
     Q_INVOKABLE void connectPort(QString port, int baud, int dataBits, int stopBits, int parity);
     Q_INVOKABLE void disconnectPort();
-    Q_INVOKABLE void send(QString text);
 
     QStringList availablePorts() const { return m_ports; }
     bool isOpen() const { return m_open; }
 
-public slots:
-
-    void receivedRaw(QByteArray);       //接收到原始数据
-    void sendDataToWorker(QByteArray data); //发送数据到worker
-    
-signals:
-    void sendToWorker(QByteArray);
-    void openRequest(QString, int, int, int, int);
-    void closeRequest();
-    void receivedText(QString);
-    //void receivedRaw(QString);
-    void isOpenChanged();
-    void availablePortsChanged();
-    void notificationsPageRecvData(QByteArray data);
 
 private:
     void refreshPorts();
 
     QThread thread;
-    SerialWorker* worker;
     protocol::ProtocolManager *_protocolManager;
     QTimer m_portScanTimer;
     QStringList m_ports;
-
     bool m_open = false;
+    
+    SerialWorker* worker;
+
+public slots:
+
+    void decodedRaw(QByteArray);                // 处理原始数据
+    void handlePageSendData(QByteArray data);   // 处理page请求发送的数据
+    
+signals:
+    //com状态管理
+    void openRequest(QString, int, int, int, int);
+    void availablePortsChanged();
+    void closeRequest();
+    void isOpenChanged();
+
+    void sendToWorker(QByteArray);      //通知serial发送数据
+
+    void notificationsPageRecvData(QByteArray);
+
 };
 
 #endif

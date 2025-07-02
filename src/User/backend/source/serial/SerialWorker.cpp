@@ -39,8 +39,5 @@ void SerialWorker::send(QByteArray data) {
 
 void SerialWorker::onReadyRead() {
     QByteArray data = serial->readAll();
-    //QString hexString = data.toHex(' ').toUpper();
-
-    //emit receivedText(QString::fromUtf8(data));
     emit receivedRaw(data);
 }

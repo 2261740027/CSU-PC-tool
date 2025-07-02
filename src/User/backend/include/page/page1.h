@@ -20,6 +20,7 @@ namespace page
             if (_pageField._valueMap.contains(name)) {
                 data.append( _pageField._valueMap[name].group); // group
                 data.append(_pageField._valueMap[name].category); // category
+                data.append(_pageField._valueMap[name].number);
             }
 
             return data;
@@ -47,8 +48,8 @@ namespace page
     private:
 
         QList<PageField> pageField{
-            { "Voltage", "short", 2, 0x50, 0x10 },
-            { "Current", "short", 2, 0x50, 0x11 },
+            { "Voltage", "short", 2, 0x50, 0x10, 0x01 },
+            { "Current", "short", 2, 0x50, 0x11, 0x01 },
         };
         PageFieldTable _pageField;
 

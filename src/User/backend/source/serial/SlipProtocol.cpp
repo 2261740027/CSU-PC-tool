@@ -7,8 +7,9 @@ namespace protocol
 {
     namespace slip
     {  
-        void slipProtocol::decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)
+        bool slipProtocol::decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)
         {
+            _isGotMsgFlag = false;
             for (unsigned char rxChar : rxMsg)
             {
                 switch (rxChar)
@@ -18,13 +19,9 @@ namespace protocol
                     if (this->verifyMsg(decodeMsg) == true)
                     {
                         _isGotMsgFlag = true;
-                        // this->isGotMsgFlag = true;
-                        //  true;
                     }
                     else
                     {
-                        // my.clear();
-                        // rxMsg.clear();
                         decodeMsg.clear();
                     }
 
@@ -74,7 +71,7 @@ namespace protocol
                 }
             }
 
-
+            return _isGotMsgFlag ? true : false;
         }
 
         bool slipProtocol::verifyMsg(QByteArray &rxMsg)
@@ -97,12 +94,9 @@ namespace protocol
             receivedPacketCrc.field.hi = rxMsg[rxMsg.length() - 1];
             receivedPacketCrc.field.lo = rxMsg[rxMsg.length() - 2];
 
-            //    printf("myCrc:             %4x\r\n",myCrc);
-            //    printf("receivedPacketCrc: %4x\r\n",receivedPacketCrc.value);
 
             if (myCrc == receivedPacketCrc.value)
             {
-                //----- to deduct crc16(last 2 bytes) from rxQueue,because crc16 just for verify
                 rxMsg.remove(rxMsg.length() - 2, 2);
                 return true;
             }
@@ -112,7 +106,7 @@ namespace protocol
             }
         }
 
-        void slipProtocol::buildFrame(QByteArray &data, QByteArray &sendFram)
+        void slipProtocol::encodeFrame(QByteArray &data, QByteArray &sendFram)
         {
             // if querry
             utils::Crc16 crc16;
@@ -131,11 +125,5 @@ namespace protocol
             sendFram.append(0xC0); // end of frame
             //emit notificationsSendData(sendFram);
         }
-
-        void slipProtocol::handleRecvData(QByteArray &data)
-        {
-
-        }
-
     }
 }

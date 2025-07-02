@@ -11,11 +11,10 @@ public slots:
     void close();
     void send(QByteArray data);
 signals:
-    void receivedText(QString text);
-    void receivedRaw(QByteArray data);
+    void receivedRaw(QByteArray data);      //接收到数据后通知serIalController
     void portOpened(bool success);
 private slots:
-    void onReadyRead();
+    void onReadyRead();             //从QSerialPort读取数据
 private:
     QSerialPort *serial = nullptr;
 };

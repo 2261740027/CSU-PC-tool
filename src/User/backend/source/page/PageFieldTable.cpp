@@ -12,6 +12,7 @@ namespace page {
             _valueMap[f.name].length = f.length;
             _valueMap[f.name].group = f.group;
             _valueMap[f.name].category = f.category;
+            _valueMap[f.name].number = f.number;
 
             _reValueMap.insert( ((f.group << 8)|f.category), f.name);
         }
@@ -30,15 +31,24 @@ namespace page {
 
     void PageFieldTable::fieldUpdated(QByteArray &recValue)
     {
-        unsigned short group = recValue[0];
-        unsigned short category = recValue[1];
-        unsigned short value = ((unsigned short)recValue[2] << 8 | (recValue[3] & 0xFF));
         QString valueName;
 
-        valueName = _reValueMap[(group << 8) | category];
-        _valueMap[valueName].value = value;
+        if(recValue.length() < 2)
+        {
+            return;
+        }
+        unsigned short group = recValue[0];
+        unsigned short category = recValue[1];
 
-        // 通知ui更新
+        valueName = _reValueMap[(group << 8) | category];
+
+        if(recValue.length() < (_valueMap[valueName].length + 3))
+        {
+            return;
+        }
+
+        unsigned short value = ((unsigned short)recValue[3] << 8 | (recValue[4] & 0xFF));
+        _valueMap[valueName].value = value;
     }
 }
 

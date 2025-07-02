@@ -15,24 +15,20 @@ namespace protocol
 		friend class Singleton<ProtocolManager>;
 
 	public:
-
 		// Add methods to manage protocols, e.g., register, unregister, etc.
 		iProtocol* currentProtocol() const { return _current; }
+		
+		bool registerProtocol(iProtocol* proto);
 		void unregisterProtocol(const QString &protocolName) { _protocolMap.remove(protocolName);}
-
+		
 		void setCurrentProtocol(const QString& name) {
  	    	_current = getProtocol(name);
     	}
 
-		bool registerProtocol(iProtocol* proto);
-        QByteArray HandleRecvData(QByteArray &data);       //处理接受到的数据
+		
+        QByteArray handleRecvData(QByteArray &data);       //处理接受到的数据
 
-		void HandleSendData(QByteArray &data,QByteArray &sendFram) {
-			if (_current != nullptr) {
-				_current->buildFrame(data,sendFram);
-				//qDebug() << "sendData: " + data.toHex(' ').toUpper();
-			}
-		}
+		void handleSendData(QByteArray &data,QByteArray &sendFram);
 		
 	private:
 		

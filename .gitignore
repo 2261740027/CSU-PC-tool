@@ -1,5 +1,6 @@
 bin/
 build/
 .vscode/
+.cache/
 CMakeLists.txt.user.0498dad
 Architecture.drawio

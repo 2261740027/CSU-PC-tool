@@ -30,9 +30,10 @@ public:
 public slots:
 
     void receivedRaw(QByteArray);       //接收到原始数据
+    void sendDataToWorker(QByteArray data); //发送数据到worker
     
 signals:
-    void sendToWorker(QString);
+    void sendToWorker(QByteArray);
     void openRequest(QString, int, int, int, int);
     void closeRequest();
     void receivedText(QString);

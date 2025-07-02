@@ -18,7 +18,7 @@ FluContentPage{
         text: "send"
         onClicked: {
             if (serial.isOpen) {
-                serial.send("test");
+                pageManager.setDeviceData("Voltage",20)
             }
         }
     }

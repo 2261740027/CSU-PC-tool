@@ -63,4 +63,13 @@ namespace page
 
     }
 
+    void pageMange::setDeviceData(QString name, QVariant value)
+    {
+        QByteArray sendData;
+
+        sendData = _pageHash[_currentPage]->parpareQuerryValueData(name,value);
+        //emit 
+        emit toSerialSend(sendData);
+    }
+
 }

@@ -31,9 +31,9 @@ void SerialWorker::close() {
     }
 }
 
-void SerialWorker::send(QString text) {
+void SerialWorker::send(QByteArray data) {
     if (serial && serial->isOpen()) {
-        serial->write(text.toUtf8());
+        serial->write(data);
     }
 }
 

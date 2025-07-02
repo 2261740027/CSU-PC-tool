@@ -112,9 +112,24 @@ namespace protocol
             }
         }
 
-        void slipProtocol::buildFrame()
+        void slipProtocol::buildFrame(QByteArray &data, QByteArray &sendFram)
         {
+            // if querry
+            utils::Crc16 crc16;
+            unsigned short myCrc = 0;
 
+            myCrc = crc16.calc(data, data.length());
+
+            data.append((char)(myCrc & 0x00FF)); // low byte
+            data.append((char)((myCrc >> 8) & 0x00FF)); // high byte
+
+            sendFram.append (0xC0);
+            for(int i = 0; i < data.length(); i++)
+            {
+                sendFram.append(data[i]);
+            }
+            sendFram.append(0xC0); // end of frame
+            //emit notificationsSendData(sendFram);
         }
 
         void slipProtocol::handleRecvData(QByteArray &data)

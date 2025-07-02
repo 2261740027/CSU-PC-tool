@@ -13,7 +13,7 @@ namespace page{
         IpageController() = default;
         ~IpageController() = default;
 
-        virtual void setValue(QString name, QVariant value) = 0;
+        virtual QByteArray parpareQuerryValueData(QString name, QVariant value) = 0;
         virtual void setCmd(QString cmd) = 0;
         virtual QVariant getData(QString name) = 0;
         virtual void readlAllPage() = 0;

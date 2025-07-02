@@ -17,7 +17,7 @@ namespace protocol {
 
         virtual bool verifyMsg(QByteArray &rxMsg) = 0;
         virtual void decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg) = 0;
-        virtual void buildFrame() = 0;
+        virtual void buildFrame(QByteArray &data, QByteArray &sendFram) = 0;
         
     };
 

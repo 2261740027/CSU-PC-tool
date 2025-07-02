@@ -56,7 +56,7 @@ namespace protocol
 
             void decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)  override;
             bool verifyMsg(QByteArray &rxMsg) override;
-            void buildFrame() override;
+            void buildFrame(QByteArray &data, QByteArray &sendFram) override;
 
             void handleRecvData(QByteArray &data);
 

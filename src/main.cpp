@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
     SerialController *serialControllerI = SerialController::getInstance();
     page::pageMange *pageMangeI = new page::pageMange();
     QObject::connect(serialControllerI, &SerialController::notificationsPageRecvData, pageMangeI, &page::pageMange::handleDataUpdate);
+    QObject::connect(pageMangeI, &page::pageMange::toSerialSend, serialControllerI, &SerialController::sendDataToWorker);
 
     engine.rootContext()->setContextProperty("pageManager", pageMangeI);
     engine.rootContext()->setContextProperty("serial", serialControllerI);

@@ -27,7 +27,8 @@ namespace page
 
         //QObject *currentController() const;
 
-        Q_INVOKABLE QVariant getPageData(QString name);
+        Q_INVOKABLE QVariant getPageData(QString name);         //获取单个数据
+        Q_INVOKABLE void setDeviceData(QString name, QVariant value); //设置单个数据
 
         QString currentPage() const;
         QVariantMap pageData(); // 返回所有数据的map
@@ -42,6 +43,7 @@ namespace page
 
 
     signals:
+        void toSerialSend(QByteArray data);
         void currentControllerChanged(); 
         void pageDataChanged();
 

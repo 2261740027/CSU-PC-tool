@@ -26,6 +26,13 @@ namespace protocol
 
 		bool registerProtocol(iProtocol* proto);
         QByteArray HandleRecvData(QByteArray &data);       //处理接受到的数据
+
+		void HandleSendData(QByteArray &data,QByteArray &sendFram) {
+			if (_current != nullptr) {
+				_current->buildFrame(data,sendFram);
+				//qDebug() << "sendData: " + data.toHex(' ').toUpper();
+			}
+		}
 		
 	private:
 		

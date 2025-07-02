@@ -60,7 +60,7 @@ void SerialController::disconnectPort() {
 }
 
 void SerialController::send(QString text) {
-    emit sendToWorker(text);
+    //emit sendToWorker(text);
 }
 
 void SerialController::receivedRaw(QByteArray data)
@@ -72,5 +72,13 @@ void SerialController::receivedRaw(QByteArray data)
         decodeData = _protocolManager->HandleRecvData(data);
         emit notificationsPageRecvData(decodeData);
     }
+}
 
+
+void SerialController::sendDataToWorker(QByteArray data)
+{
+    //_protocolManager->_current->buildFrame(data);
+    QByteArray sendFrame;
+    _protocolManager->HandleSendData(data,sendFrame);
+    emit sendToWorker(sendFrame);
 }

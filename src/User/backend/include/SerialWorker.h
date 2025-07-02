@@ -9,7 +9,7 @@ class SerialWorker : public QObject {
 public slots:
     void open(QString portName, int baudRate, int dataBits, int stopBits, int parity);
     void close();
-    void send(QString text);
+    void send(QByteArray data);
 signals:
     void receivedText(QString text);
     void receivedRaw(QByteArray data);

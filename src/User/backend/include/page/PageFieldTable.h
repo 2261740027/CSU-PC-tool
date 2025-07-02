@@ -46,10 +46,11 @@ namespace page {
 
     // signals:
     //     void fieldUpdated(const QString& name, const QVariant& val); // 通知UI或协议发送器
-
-    private:
         QMap<QString, pageMapField> _valueMap;     // name → value
         QMap<unsigned short, QString> _reValueMap; // (group|category) ----> name
+        
+    private:
+        
     };
 }
 

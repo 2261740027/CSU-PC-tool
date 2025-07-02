@@ -15,7 +15,16 @@ namespace page
             _pageField.loadFields(pageField);
         }
 
-        void setValue(QString name, QVariant value) override{};
+        QByteArray parpareQuerryValueData(QString name, QVariant value) override{
+            QByteArray data;
+            if (_pageField._valueMap.contains(name)) {
+                data.append( _pageField._valueMap[name].group); // group
+                data.append(_pageField._valueMap[name].category); // category
+            }
+
+            return data;
+        };
+        
         void setCmd(QString cmd) override{};
         QVariant getData(QString name) override
         {

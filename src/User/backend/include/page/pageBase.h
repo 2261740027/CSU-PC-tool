@@ -32,6 +32,9 @@ namespace page
 
         QList<PageField> _pageFieldList;
         PageFieldTable _pageFieldTable;
+
+        // 页面属性
+        bool _autoRefresh; // 自动刷新属性
     };
 }
 

@@ -1,6 +1,5 @@
 #include "page/pageBase.h"
 #include <QDebug>
-#include <QTimer>
 
 namespace page
 {
@@ -23,6 +22,5 @@ namespace page
 
     private:
         bool _pageReflashState = false;
-        QTimer *_timer;
     };
 }

@@ -6,6 +6,7 @@
 #include <QOBject>
 // #include "page/IpageController.h"
 #include "page/pageBase.h"
+#include <QTimer>
 
 namespace page
 {
@@ -23,6 +24,15 @@ namespace page
         Q_INVOKABLE void setItemData(QString name, QVariant value);   // 设置单个数据
         Q_INVOKABLE void notifyPageSwitch(const QString newPageName); // qml界面切换页面
 
+        // 定时刷新
+        Q_INVOKABLE void manualRefreshPage();
+        Q_INVOKABLE void startAutoRefresh();
+        Q_INVOKABLE void stopAutoRefresh();
+        Q_INVOKABLE bool autoRefreshEnabled() const { return _autoRefreshEnabled; }
+        Q_INVOKABLE void setAutoRefreshEnabled(bool enabled);
+        Q_INVOKABLE int refreshInterval() const { return _refreshInterval; }
+        Q_INVOKABLE void setRefreshInterval(int interval);
+
         void refreshPage();          // 刷新当前页面所有数据
         QString currentPage() const; // 获取当前页面名称
         QVariantMap pageData();      // UI界面获取当前界面数据
@@ -36,6 +46,11 @@ namespace page
         QHash<QString, pageBase *> _pageHash;
         QString _currentPage = "main";
 
+        // 定时刷新
+        QTimer *_refreshTimer;
+        bool _autoRefreshEnabled = false;
+        int _refreshInterval = 60 * 1000; // 定时刷新间隔1min
+
     signals:
         void toSerialSend(QByteArray data);
         void currentControllerChanged();
@@ -43,6 +58,9 @@ namespace page
 
     public slots:
         void handleDataUpdate(QByteArray data); // 处理数据更新
+
+    private slots:
+        void onRefreshTimer();
     };
 
 }

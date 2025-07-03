@@ -26,8 +26,7 @@ namespace protocol
     	}
 
 		
-        QByteArray handleRecvData(QByteArray &data);       //处理接受到的数据
-
+        QByteArray handleRecvData(QByteArray &data);       //处理接收到的数据
 		void handleSendData(QByteArray &data,QByteArray &sendFram);
 		
 	private:

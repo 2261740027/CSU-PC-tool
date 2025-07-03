@@ -4,37 +4,44 @@ import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import FluentUI 1.0
 
+FluContentPage {
 
-FluContentPage{
+    title: qsTr("main")
 
-    title: qsTr("Main")
+    Component.onCompleted: {
+        // 连接信号到C++槽函数
+        pageManager.notifyPageSwitch("main");
+    }
 
+    Component.onDestruction: {
+
+    }
 
     FluButton {
-        id:testButton
+        id: testButton
         anchors.centerIn: parent
-        font:FluTextStyle.caption
+        font: FluTextStyle.caption
 
         text: "send"
         onClicked: {
             if (serial.isOpen) {
-                pageManager.setDeviceData("Voltage",20)
+                pageManager.setItemData("Current", 20);
             }
         }
     }
 
     FluText {
-        width:50
+        width: 50
         height: 50
-        x:300
-        y:100
-        z:50
+        x: 300
+        y: 100
+        z: 50
         //text: pageManager.getPageData("Voltage")
-        text:pageManager.pageData["Voltage"]
+        text: pageManager.pageData["Current"]
         //text: pageManager.testfunc()
     }
 
-    FluFrame{
+    FluFrame {
         // Layout.fillWidth: true
         // Layout.preferredHeight: 200
         //width: 400
@@ -61,26 +68,19 @@ FluContentPage{
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 60
                 Layout.preferredHeight: 25
-                font:FluTextStyle.caption
+                font: FluTextStyle.caption
 
                 text: serial.isOpen ? "close" : "open"
-                checked:  serial.isOpen ? true : false
-
+                checked: serial.isOpen ? true : false
 
                 onClicked: {
                     if (serial.isOpen) {
-                        serial.disconnectPort()
+                        serial.disconnectPort();
                     } else {
-                        serial.connectPort(comBox.currentText,
-                                            parseInt(badRateBox.currentText),
-                                            parseInt(dataBitsBox.currentText),
-                                            stopBitsBox.currentIndex === 0 ? 1 : stopBitsBox.currentIndex === 1 ? 3 : 2,
-                                            parityBox.currentIndex === 0 ? 0 : parityBox.currentIndex === 1 ? 2 : 3
-                                            )
+                        serial.connectPort(comBox.currentText, parseInt(badRateBox.currentText), parseInt(dataBitsBox.currentText), stopBitsBox.currentIndex === 0 ? 1 : stopBitsBox.currentIndex === 1 ? 3 : 2, parityBox.currentIndex === 0 ? 0 : parityBox.currentIndex === 1 ? 2 : 3);
                     }
                 }
             }
-
 
             FluComboBox {
                 id: comBox
@@ -90,13 +90,11 @@ FluContentPage{
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 25
-                font:FluTextStyle.caption
+                font: FluTextStyle.caption
 
                 editable: false
                 model: serial.availablePorts
-                onCurrentIndexChanged: {
-
-                }
+                onCurrentIndexChanged: {}
             }
 
             FluText {
@@ -114,7 +112,7 @@ FluContentPage{
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 25
-                font:FluTextStyle.caption
+                font: FluTextStyle.caption
 
                 editable: false
                 model: ["9600", "115200"]
@@ -135,7 +133,7 @@ FluContentPage{
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 25
-                font:FluTextStyle.caption
+                font: FluTextStyle.caption
 
                 editable: false
                 model: ["5", "6", "7", "8"]
@@ -150,13 +148,13 @@ FluContentPage{
             }
 
             FluComboBox {
-                id:stopBitsBox
+                id: stopBitsBox
                 Layout.row: 3
                 Layout.column: 1
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 25
-                font:FluTextStyle.caption
+                font: FluTextStyle.caption
 
                 editable: false
                 model: ["1", "1.5", "2"]
@@ -177,12 +175,11 @@ FluContentPage{
                 Layout.alignment: Qt.AlignVCenter
                 Layout.preferredWidth: 100
                 Layout.preferredHeight: 25
-                font:FluTextStyle.caption
+                font: FluTextStyle.caption
 
                 editable: false
                 model: ["无", "奇校验", "偶校验"]
             }
-
         }
     }
 }

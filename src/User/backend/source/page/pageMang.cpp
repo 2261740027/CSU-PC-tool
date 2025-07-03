@@ -1,28 +1,23 @@
 #include "page/pageMang.h"
+#include "page/mainPage.h"
+#include "page/settingPage.h"
 #include <QDebug>
 
 namespace page
 {
 
-    void pageMange::switchPage(QString page)
+    pageMange::pageMange()
     {
-        IpageController *currPagController = _pageHash[_currentPage];
-        currPagController->setActive(false);
+        static mainPage page1Instance;
+        registerPage("main", &page1Instance);
 
-        IpageController *PagController = _pageHash[page];
-        PagController->setActive(true);
-
-        _currentPage = page;
-        emit currentControllerChanged();
+        static settingPage page2Instance;
+        registerPage("setting", &page2Instance);
     }
 
-    void pageMange::registerPage(const QString &pageName, IpageController *controller)
+    void pageMange::registerPage(const QString &pageName, pageBase *controller)
     {
         _pageHash.insert(pageName, controller);
-        if (pageName == _currentPage)
-        {
-            emit currentControllerChanged();
-        }
     }
 
     QString pageMange::currentPage() const
@@ -33,43 +28,39 @@ namespace page
     void pageMange::handleDataUpdate(QByteArray data)
     {
         qDebug() << "recvData " + _currentPage;
-        _pageHash[_currentPage]->upPageData(data);
+        _pageHash[_currentPage]->handlePageDataUpdate(data);
         emit pageDataChanged();
     }
 
-    QVariant pageMange::getPageData(QString name)
+    QVariantMap pageMange::pageData()
     {
-        IpageController * currentPage;
-        currentPage = _pageHash[_currentPage];
-        //currentPage->getData(name);
-        //currentPage->fieldTable()
-
-        return currentPage->getData(name);
-    }
-
-    QVariantMap pageMange::pageData() {
 
         QMap<QString, pageMapField> pageTable;
 
         pageTable = _pageHash[_currentPage]->getPageTable();
-        
+
         QList<QString> keyList = pageTable.keys(); // 存放的就是QMap的key值
-        for(int i=0;i<keyList.size();i++)
+        for (int i = 0; i < keyList.size(); i++)
         {
             _currPageData[keyList[i]] = pageTable[keyList[i]].value;
         }
 
         return _currPageData;
-
     }
 
-    void pageMange::setDeviceData(QString name, QVariant value)
+    void pageMange::setItemData(QString name, QVariant value)
     {
         QByteArray sendData;
 
-        sendData = _pageHash[_currentPage]->parpareQuerryValueData(name,value);
-        //emit 
+        sendData = _pageHash[_currentPage]->setItemData(name, value);
+        // emit
         emit toSerialSend(sendData);
     }
 
+    void pageMange::notifyPageSwitch(const QString newPageName)
+    {
+        _currentPage = newPageName;
+        qDebug() << "change page" + newPageName;
+        _currPageData.clear();
+    }
 }

@@ -7,10 +7,14 @@
 #include <QList>
 #include <QByteArray>
 
-namespace page {
+#define SLIPDATAINDEX(group, category, number) (((group << 15) & 0xFF0000) | ((category << 7) & 0xFF00) | (number & 0xFF))
 
-    struct PageField {
-        QString name;             // 逻辑名（例如 "Voltage"）
+namespace page
+{
+
+    struct PageField
+    {
+        QString name;
         QString valueType;
         unsigned short length;
         unsigned short group;
@@ -18,8 +22,8 @@ namespace page {
         unsigned short number;
     };
 
-
-    struct pageMapField {
+    struct pageMapField
+    {
         QString valueType;
         unsigned short length;
         unsigned short group;
@@ -28,34 +32,26 @@ namespace page {
         QVariant value;
     };
 
-
-    class PageFieldTable : public QObject {
+    class PageFieldTable : public QObject
+    {
         Q_OBJECT
+        friend class pageBase;
+
     public:
-        explicit PageFieldTable(QObject* parent = nullptr);
+        explicit PageFieldTable(QObject *parent = nullptr);
+        const QString indexToName(const unsigned short index) const;
+        void loadFields(const QList<PageField> &fields);
+        void fieldUpdata(const unsigned short index, const QVariant &value);
 
-        void loadFields(const QList<PageField>& fields);
-
-        QVariant uiGetValue(const QString& name) const;           // ui界面获取数据
-        void uiSetValue(const QString& name, const QVariant val); //发送设置数据
-
-        void fieldUpdated(QByteArray &value);
-        QMap<QString, pageMapField> &getValueMap()
+        const QMap<QString, pageMapField> &getValueMap() const
         {
             return _valueMap;
         }
 
-
-    // signals:
-    //     void fieldUpdated(const QString& name, const QVariant& val); // 通知UI或协议发送器
-        QMap<QString, pageMapField> _valueMap;     // name → value
-        QMap<unsigned short, QString> _reValueMap; // (group|category) ----> name
-        
     private:
-        
+        QMap<QString, pageMapField> _valueMap;     // name ----> value
+        QMap<unsigned short, QString> _reValueMap; // (group|category) ----> name
     };
 }
-
-
 
 #endif // PAGEFIELDTABLE_H

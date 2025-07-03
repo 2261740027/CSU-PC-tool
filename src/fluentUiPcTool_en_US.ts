@@ -38,8 +38,8 @@
 <context>
     <name>P_main</name>
     <message>
-        <location filename="User/ui/page/P_main.qml" line="10"/>
-        <source>Main</source>
+        <location filename="User/ui/page/P_main.qml" line="9"/>
+        <source>main</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -47,7 +47,8 @@
     <name>P_setting</name>
     <message>
         <location filename="User/ui/page/P_setting.qml" line="9"/>
-        <source>Setting</source>
+        <source>setting</source>
+        <oldsource>Setting</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

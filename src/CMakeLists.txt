@@ -55,10 +55,13 @@ set(SERIAL_SOURCES
 set(PAGE_SOURCES
     User/backend/source/page/pageMang.cpp
     User/backend/include/page/pageMang.h
-    User/backend/include/page/IpageController.h
+    # User/backend/include/page/IpageController.h
     User/backend/include/page/PageFieldTable.h
     User/backend/source/page/PageFieldTable.cpp
-    User/backend/include/page/page1.h
+    User/backend/include/page/pageBase.h
+    User/backend/source/page/pageBase.cpp
+    User/backend/include/page/mainPage.h
+    User/backend/include/page/settingPage.h
 )
 
 set(PROJECT_SOURCES

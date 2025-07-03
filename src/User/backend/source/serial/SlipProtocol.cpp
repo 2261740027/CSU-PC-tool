@@ -108,7 +108,6 @@ namespace protocol
 
         void slipProtocol::encodeFrame(QByteArray &data, QByteArray &sendFram)
         {
-            // if querry
             utils::Crc16 crc16;
             unsigned short myCrc = 0;
 

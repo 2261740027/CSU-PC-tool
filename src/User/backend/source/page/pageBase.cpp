@@ -5,7 +5,8 @@
 
 namespace page
 {
-    pageBase::pageBase(QList<PageField> pageFieldList)
+    pageBase::pageBase(QList<PageField> pageFieldList, pageMange* pageManager)
+    : _pageManager(pageManager)
     {
         _pageFieldTable.loadFields(pageFieldList);
     }

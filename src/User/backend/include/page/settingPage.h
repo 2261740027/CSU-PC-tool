@@ -11,7 +11,7 @@ namespace page
     class settingPage : public pageBase
     {
     public:
-        settingPage() : pageBase(settingPageFieldList) {
+        settingPage(pageMange* pageManager) : pageBase(settingPageFieldList, pageManager) {
 
                         };
         ~settingPage() = default;

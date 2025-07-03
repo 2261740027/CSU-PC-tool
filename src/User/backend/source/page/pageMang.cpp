@@ -8,15 +8,23 @@ namespace page
 
     pageMange::pageMange()
     {
-        static mainPage page1Instance;
+        static mainPage page1Instance(this);
         registerPage("main", &page1Instance);
 
-        static settingPage page2Instance;
+        static settingPage page2Instance(this);
         registerPage("setting", &page2Instance);
 
         // 页面定时刷新
         _refreshTimer = new QTimer(this);
         connect(_refreshTimer, &QTimer::timeout, this, &pageMange::onRefreshTimer);
+    }
+
+    void pageMange::sendRawData(const QByteArray& data)
+    {
+        if (!data.isEmpty())
+        {
+            emit toSerialSend(data);
+        }
     }
 
     void pageMange::registerPage(const QString &pageName, pageBase *controller)
@@ -103,8 +111,24 @@ namespace page
         }
     }
 
+    void pageMange::startAutoRefresh()
+    {
+        if (_autoRefreshEnabled)
+        {
+            _refreshTimer->start(_refreshInterval);
+        }
+    }
+
+    void pageMange::stopAutoRefresh()
+    {
+        if (_refreshTimer && _refreshTimer->isActive())
+        {
+            _refreshTimer->stop();
+        }
+    }
     void pageMange::onRefreshTimer()
     {
         qDebug() << "Auto refresh triggered for page:" << _currentPage;
+        _pageHash[_currentPage]->refreshPageAllData();
     }
 }

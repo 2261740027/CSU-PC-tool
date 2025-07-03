@@ -25,7 +25,7 @@ namespace page
         Q_INVOKABLE void notifyPageSwitch(const QString newPageName); // qml界面切换页面
 
         // 定时刷新
-        Q_INVOKABLE void manualRefreshPage();
+        Q_INVOKABLE void manualRefreshPage(){};
         Q_INVOKABLE void startAutoRefresh();
         Q_INVOKABLE void stopAutoRefresh();
         Q_INVOKABLE bool autoRefreshEnabled() const { return _autoRefreshEnabled; }
@@ -36,6 +36,7 @@ namespace page
         void refreshPage();          // 刷新当前页面所有数据
         QString currentPage() const; // 获取当前页面名称
         QVariantMap pageData();      // UI界面获取当前界面数据
+        void sendRawData(const QByteArray& data);  
 
     private:
         void updatePageData();                                            // 刷新mang向qml界面显示缓冲
@@ -48,7 +49,7 @@ namespace page
 
         // 定时刷新
         QTimer *_refreshTimer;
-        bool _autoRefreshEnabled = false;
+        bool _autoRefreshEnabled = true;
         int _refreshInterval = 60 * 1000; // 定时刷新间隔1min
 
     signals:

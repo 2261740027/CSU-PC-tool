@@ -61,6 +61,7 @@ set(PAGE_SOURCES
     User/backend/include/page/pageBase.h
     User/backend/source/page/pageBase.cpp
     User/backend/include/page/mainPage.h
+    User/backend/source/page/mainPage.cpp
     User/backend/include/page/settingPage.h
 )
 

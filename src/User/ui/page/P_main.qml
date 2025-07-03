@@ -10,7 +10,8 @@ FluContentPage {
 
     Component.onCompleted: {
         // 连接信号到C++槽函数
-        pageManager.notifyPageSwitch("main");
+        pageManager.notifyPageSwitch("main")
+        pageManager.startAutoRefresh();
     }
 
     Component.onDestruction: {

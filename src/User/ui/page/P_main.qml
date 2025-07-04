@@ -12,16 +12,53 @@ FluContentPage {
         // 连接信号到C++槽函数
         pageManager.notifyPageSwitch("main")
         pageManager.startAutoRefresh();
+
+        console.log("parent.width:" + parent.width)
+        console.log("parent.height:" + parent.height)
     }
 
     Component.onDestruction: {
 
     }
 
+    FluMultilineTextBox {
+        id: textViewer
+        property alias content: textViewer.text
+
+        // 设置为只读模式
+        readOnly: true
+
+        // 样式设置 - 使用anchors填充剩余空间
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: rightFrame.left
+        anchors.bottomMargin: 12 // 底部留出间距
+        anchors.rightMargin: 12  // 与右侧面板留出间距
+
+        // 允许选择文本但不允许编辑
+        selectByMouse: true
+
+        // 自动换行
+        wrapMode: Text.WordWrap
+
+        // 示例文本
+        text: "这是一个文本浏览框\n可以显示多行文本内容\n支持滚动和文本选择"
+
+        // 滚动条样式
+        ScrollBar.vertical: FluScrollBar {
+            anchors.right: parent.right
+            anchors.rightMargin: 2
+        }
+    }
+
     FluFrame {
-
-        padding: 10
-
+        id: rightFrame
+        
+        padding: 8
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 12
         GridLayout {
 
             columns: 2
@@ -37,7 +74,10 @@ FluContentPage {
                 font: FluTextStyle.caption
 
                 text: serial.isOpen ? "close" : "open"
-                checked: serial.isOpen ? true : false
+                checked: serial.isOpen
+                
+                clickListener: function() {
+                }
 
                 onClicked: {
                     if (serial.isOpen) {

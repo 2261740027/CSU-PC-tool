@@ -8,10 +8,8 @@ import "./User/ui/global"
 FluWindow {
     id:window
     title: "PCTool"
-    width: 1056
-    height: 660
-    minimumWidth: 668
-    minimumHeight: 320
+    minimumWidth: 1075
+    minimumHeight: 660
     launchMode: FluWindowType.SingleTask
     fitsAppBarWindows: true
     appBar: FluAppBar {

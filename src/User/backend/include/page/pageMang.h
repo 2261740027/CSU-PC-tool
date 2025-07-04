@@ -69,7 +69,7 @@ namespace page
         bool canSendNow();
 
         QVariantMap _currPageData; // 当前页面数据
-                                   // 全局数据
+                                   // 全局数据 --- 暂定
         QHash<QString, pageBase *> _pageHash;
         QString _currentPage = "main";
 

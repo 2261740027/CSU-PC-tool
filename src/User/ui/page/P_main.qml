@@ -18,44 +18,9 @@ FluContentPage {
 
     }
 
-    FluButton {
-        id: testButton
-        anchors.centerIn: parent
-        font: FluTextStyle.caption
-
-        text: "send"
-        onClicked: {
-            if (serial.isOpen) {
-                pageManager.setItemData("Current", 20);
-            }
-        }
-    }
-
-    FluText {
-        width: 50
-        height: 50
-        x: 300
-        y: 100
-        z: 50
-        //text: pageManager.getPageData("Voltage")
-        text: pageManager.pageData["Current"]
-        //text: pageManager.testfunc()
-    }
-
     FluFrame {
-        // Layout.fillWidth: true
-        // Layout.preferredHeight: 200
-        //width: 400
-        //height: 400
+
         padding: 10
-
-        // Connections {
-        //     target: serial
-
-        //     function onReceivedRaw(data) {
-        //         console.log("receivedata  "+ data )
-        //     }
-        // }
 
         GridLayout {
 
@@ -78,7 +43,10 @@ FluContentPage {
                     if (serial.isOpen) {
                         serial.disconnectPort();
                     } else {
-                        serial.connectPort(comBox.currentText, parseInt(badRateBox.currentText), parseInt(dataBitsBox.currentText), stopBitsBox.currentIndex === 0 ? 1 : stopBitsBox.currentIndex === 1 ? 3 : 2, parityBox.currentIndex === 0 ? 0 : parityBox.currentIndex === 1 ? 2 : 3);
+                        serial.connectPort(comBox.currentText, parseInt(badRateBox.currentText),
+                                           parseInt(dataBitsBox.currentText),
+                                           stopBitsBox.currentIndex === 0 ? 1 : stopBitsBox.currentIndex === 1 ? 3 : 2,
+                                           parityBox.currentIndex === 0 ? 0 : parityBox.currentIndex === 1 ? 2 : 3);
                     }
                 }
             }
@@ -94,7 +62,9 @@ FluContentPage {
                 font: FluTextStyle.caption
 
                 editable: false
+                enabled: !serial.isOpen
                 model: serial.availablePorts
+                currentIndex: serial.isOpen && serial.currentPortIndex >= 0 ? serial.currentPortIndex : 0
                 onCurrentIndexChanged: {}
             }
 
@@ -116,7 +86,9 @@ FluContentPage {
                 font: FluTextStyle.caption
 
                 editable: false
+                enabled: !serial.isOpen
                 model: ["9600", "115200"]
+                currentIndex: serial.isOpen ? serial.currentBaudRateIndex : 1
             }
 
             FluText {
@@ -137,7 +109,9 @@ FluContentPage {
                 font: FluTextStyle.caption
 
                 editable: false
+                enabled: !serial.isOpen
                 model: ["5", "6", "7", "8"]
+                currentIndex: serial.isOpen ? serial.currentDataBitsIndex : 3
             }
 
             FluText {
@@ -158,7 +132,9 @@ FluContentPage {
                 font: FluTextStyle.caption
 
                 editable: false
+                enabled: !serial.isOpen
                 model: ["1", "1.5", "2"]
+                currentIndex: serial.isOpen ? serial.currentStopBitsIndex : 0
             }
 
             FluText {
@@ -179,7 +155,9 @@ FluContentPage {
                 font: FluTextStyle.caption
 
                 editable: false
-                model: ["无", "奇校验", "偶校验"]
+                enabled: !serial.isOpen
+                model: ["none", "odd", "even"]
+                currentIndex: serial.isOpen ? serial.currentParityIndex : 0
             }
         }
     }

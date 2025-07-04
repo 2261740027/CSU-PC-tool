@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>App.qml</file>
-        <file>logo.ico</file>
         <file>User/ui/CofnigCommWindows.qml</file>
         <file>User/ui/global/ItemsSide.qml</file>
         <file>User/ui/global/qmldir</file>
@@ -10,5 +9,6 @@
         <file>User/ui/global/GlobalModel.qml</file>
         <file>User/ui/page/P_main.qml</file>
         <file>User/ui/page/P_setting.qml</file>
+        <file>image/Ace.ico</file>
     </qresource>
 </RCC>

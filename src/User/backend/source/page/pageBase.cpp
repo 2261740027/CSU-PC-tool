@@ -1,12 +1,14 @@
 #include <QByteArray>
 #include "pageBase.h"
 #include "page/PageFieldTable.h"
+#include "page/pageMang.h"
+#include <QDebug>
 // #include "page/IpageController.h"
 
 namespace page
 {
     pageBase::pageBase(QList<PageField> pageFieldList, pageMange *pageManager)
-        : _pageManager(pageManager)
+        : _pageManager(pageManager), _pageFieldList(pageFieldList)
     {
         _pageFieldTable.loadFields(pageFieldList);
     }
@@ -113,19 +115,28 @@ namespace page
     QByteArray pageBase::setItemData(const QString &name, const QVariant &value)
     {
         QByteArray data;
-        auto it = _pageFieldTable.getValueMap().find(name);
-        if (it != _pageFieldTable.getValueMap().end()) {
-            pageMapField field = it.value();
-            field.value = value;
+        
+        if (_pageFieldTable.getValueMap().contains(name))
+        {
+            // 更新字段值
+            _pageFieldTable.getValueMap()[name].value = value;
+            
+            // 获取字段信息
+            const pageMapField &field = _pageFieldTable.getValueMap()[name];
+            
             data.append(field.group);
-            data.append(field.category);
+            data.append(field.category); 
             data.append(field.number);
-
+            
             QByteArray packedData = packSettingData(name, value);
-            if (!packedData.isEmpty()) {
+            if (!packedData.isEmpty())
+            {
                 data.append(packedData);
             }
-            
+            else
+            {
+                return QByteArray();
+            }
             return data;
         }
 
@@ -272,5 +283,66 @@ namespace page
             return varName;
         }
         return QString();
+    }
+
+    // 轮询相关功能实现
+    void pageBase::refreshPageAllData()
+    {
+        if (_pageReflashState)
+        {
+            return; // 已在轮询中，避免重复启动
+        }
+
+        _pageReflashState = true;
+        _currentFieldIndex = 0;
+
+        queryCurrentField();
+    }
+
+    void pageBase::queryCurrentField()
+    {
+        if (_currentFieldIndex >= _pageFieldList.size())
+        {
+            // 所有字段都查询完成
+            _pageReflashState = false;
+            qDebug() << "All fields queried, cycle complete";
+            return;
+        }
+
+        QString fieldName = _pageFieldList[_currentFieldIndex].name;
+        qDebug() << "Querying field:" << fieldName;
+
+        // 通过pageMange发送查询数据，超时和重试由pageMang处理
+        if (_pageManager)
+        {
+            QByteArray queryData = querryItemData(fieldName);
+            if (!queryData.isEmpty())
+            {
+                _pageManager->sendRawData(queryData, fieldName);
+            }
+        }
+    }
+
+    void pageBase::moveToNextField()
+    {
+        _currentFieldIndex++;
+        queryCurrentField();
+    }
+
+    void pageBase::onFieldProcessed(const QString &fieldName, bool success)
+    {
+        if (_pageReflashState)
+        {
+            qDebug() << "Field processed:" << fieldName << "success:" << success;
+            // 无论成功还是失败，都继续下一个字段
+            moveToNextField();
+        }
+    }
+
+    void pageBase::resetPollingState()
+    {
+        qDebug() << "Resetting polling state for page";
+        _pageReflashState = false;
+        _currentFieldIndex = 0;
     }
 }

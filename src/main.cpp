@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QTranslator>
+#include <QIcon>
 #include "SerialController.h"
 #include "page/pageMang.h"
 
@@ -11,6 +12,9 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
     QGuiApplication app(argc, argv);
+
+    // 设置应用程序图标（任务管理器中显示的图标）
+    app.setWindowIcon(QIcon(":/image/Ace.ico"));
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

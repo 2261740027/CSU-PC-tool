@@ -185,15 +185,38 @@ namespace page
 
     void pageMange::notifyPageSwitch(const QString newPageName)
     {
-        // 页面切换时清空发送队列，避免发送过时的请求
+        // 1. 停止当前页面的轮询状态
+        if (_pageHash.contains(_currentPage))
+        {
+            _pageHash[_currentPage]->resetPollingState();
+            qDebug() << "Reset polling state for page:" << _currentPage;
+        }
+
+        // 2. 停止自动刷新定时器
+        stopAutoRefresh();
+        qDebug() << "Stopped auto refresh timer for page switch";
+
+        // 3. 清空发送队列，避免发送过时的请求
         _sendQueue.clear();
         _isSending = false;
         _sendQueueTimer->stop();
-        qDebug() << "Page switch: cleared send queue";
+        qDebug() << "Page switch: cleared send queue and reset sending state";
 
+        // 4. 切换到新页面
         _currentPage = newPageName;
-        qDebug() << "change page" + newPageName;
+        qDebug() << "Switched to page:" + newPageName;
         _currPageData.clear();
+
+        // 5. 重置重试计数器（避免旧页面的重试计数影响新页面）
+        _retryCount.clear();
+        qDebug() << "Cleared retry counters for new page";
+
+        // 6. 重新启动自动刷新（如果启用）
+        if (_autoRefreshEnabled)
+        {
+            startAutoRefresh();
+            qDebug() << "Restarted auto refresh timer for new page";
+        }
     }
 
     void pageMange::setAutoRefreshEnabled(bool enabled)

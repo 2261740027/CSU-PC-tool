@@ -16,18 +16,7 @@ namespace page
         mainPage(pageMange *pageManager);
         ~mainPage() = default;
 
-        void refreshPageAllData() override;
-
+        // 基类已经实现了所有轮询功能，只需要重写handlePageDataUpdate来添加特殊处理（如果需要）
         QString handlePageDataUpdate(const QByteArray &data) override;
-
-        void onFieldProcessed(const QString &fieldName, bool success) override;
-
-    private:
-        void queryCurrentField();
-        void moveToNextField();
-
-    private:
-        bool _pageReflashState = false;
-        int _currentFieldIndex = 0;
     };
 }

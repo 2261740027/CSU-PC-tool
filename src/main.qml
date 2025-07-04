@@ -8,8 +8,8 @@ import "./User/ui/global"
 FluWindow {
     id:window
     title: "PCTool"
-    width: 1000
-    height: 668
+    width: 1056
+    height: 660
     minimumWidth: 668
     minimumHeight: 320
     launchMode: FluWindowType.SingleTask
@@ -78,7 +78,7 @@ FluWindow {
             return FluTools.isMacos() ? 20 : 0
         }
         displayMode: GlobalModel.displayMode
-        logo: "qrc:/logo.ico"
+        logo: "qrc:/image/Ace.ico"
         title:"PCTool"
         onLogoClicked:{
             clickCount += 1

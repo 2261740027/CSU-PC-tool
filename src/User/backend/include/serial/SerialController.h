@@ -13,6 +13,11 @@ class SerialController : public QObject ,public Singleton<SerialController> {
     Q_OBJECT
     Q_PROPERTY(bool isOpen READ isOpen NOTIFY isOpenChanged)
     Q_PROPERTY(QStringList availablePorts READ availablePorts NOTIFY availablePortsChanged)
+    Q_PROPERTY(int currentPortIndex READ currentPortIndex NOTIFY currentParametersChanged)
+    Q_PROPERTY(int currentBaudRateIndex READ currentBaudRateIndex NOTIFY currentParametersChanged)
+    Q_PROPERTY(int currentDataBitsIndex READ currentDataBitsIndex NOTIFY currentParametersChanged)
+    Q_PROPERTY(int currentStopBitsIndex READ currentStopBitsIndex NOTIFY currentParametersChanged)
+    Q_PROPERTY(int currentParityIndex READ currentParityIndex NOTIFY currentParametersChanged)
 
     friend class Singleton<SerialController>; // 允许访问构造
 
@@ -25,7 +30,13 @@ public:
 
     QStringList availablePorts() const { return m_ports; }
     bool isOpen() const { return m_open; }
-
+    
+    // 获取当前连接参数索引
+    int currentPortIndex() const { return m_currentPortIndex; }
+    int currentBaudRateIndex() const { return m_currentBaudRateIndex; }
+    int currentDataBitsIndex() const { return m_currentDataBitsIndex; }
+    int currentStopBitsIndex() const { return m_currentStopBitsIndex; }
+    int currentParityIndex() const { return m_currentParityIndex; }
 
 private:
     void refreshPorts();
@@ -35,6 +46,13 @@ private:
     QTimer m_portScanTimer;
     QStringList m_ports;
     bool m_open = false;
+    
+    // 当前连接参数索引
+    int m_currentPortIndex = -1;
+    int m_currentBaudRateIndex = 1;   // 默认115200
+    int m_currentDataBitsIndex = 3;   // 默认8位
+    int m_currentStopBitsIndex = 0;   // 默认1位停止位
+    int m_currentParityIndex = 0;     // 默认无校验
     
     SerialWorker* worker;
 
@@ -49,6 +67,9 @@ signals:
     void availablePortsChanged();
     void closeRequest();
     void isOpenChanged();
+
+    // 串口参数变化信号（合并）
+    void currentParametersChanged();
 
     void sendToWorker(QByteArray);      //通知serial发送数据
 

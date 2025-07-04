@@ -63,6 +63,7 @@ set(PAGE_SOURCES
     User/backend/include/page/mainPage.h
     User/backend/source/page/mainPage.cpp
     User/backend/include/page/settingPage.h
+    User/backend/source/page/settingPage.cpp
 )
 
 set(PROJECT_SOURCES

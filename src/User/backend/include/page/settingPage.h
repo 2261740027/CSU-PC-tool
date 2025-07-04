@@ -4,16 +4,16 @@
 namespace page
 {
 
-    const static QList<PageField> settingPageFieldList = {
-        {"bus1", "ushort", 2, 0x60, 0x10, 0x01},
-        {"bus2", "ushort", 2, 0x60, 0x11, 0x01}};
+const static QList<PageField> settingPageFieldList = {
+    {"bus1", "ushort", 2, 0x60, 0x10, 0x01},
+    {"bus2", "ushort", 2, 0x60, 0x11, 0x01}};
 
-    class settingPage : public pageBase
-    {
-    public:
-        settingPage(pageMange* pageManager) : pageBase(settingPageFieldList, pageManager) {
+class settingPage : public pageBase
+{
+public:
+    settingPage(pageMange* pageManager) : pageBase(settingPageFieldList, pageManager) {
 
-                        };
-        ~settingPage() = default;
     };
+    ~settingPage() = default;
+};
 }

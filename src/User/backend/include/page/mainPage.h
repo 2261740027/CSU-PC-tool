@@ -1,7 +1,5 @@
 #include "page/pageBase.h"
 #include <QDebug>
-#include <QTimer>
-#include <QMap>
 
 namespace page
 {
@@ -15,16 +13,14 @@ namespace page
     {
         Q_OBJECT
     public:
-        mainPage(pageMange* pageManager);
+        mainPage(pageMange *pageManager);
         ~mainPage() = default;
 
         void refreshPageAllData() override;
 
-        // 重写handlePageDataUpdate来处理数据接收
-        void handlePageDataUpdate(const QByteArray &data) override;
+        QString handlePageDataUpdate(const QByteArray &data) override;
 
-    private slots:
-        void onQueryTimeout();
+        void onFieldProcessed(const QString &fieldName, bool success) override;
 
     private:
         void queryCurrentField();
@@ -32,9 +28,6 @@ namespace page
 
     private:
         bool _pageReflashState = false;
-        QTimer* _queryTimer = nullptr;
         int _currentFieldIndex = 0;
-        QMap<QString, int> _failureCount; // 每个字段的失败计数
-        pageMange* _pageManager = nullptr;
     };
 }

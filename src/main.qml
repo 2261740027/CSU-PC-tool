@@ -7,7 +7,7 @@ import "./User/ui/global"
 
 FluWindow {
     id:window
-    title: "FluentUI"
+    title: "PCTool"
     width: 1000
     height: 668
     minimumWidth: 668
@@ -79,7 +79,7 @@ FluWindow {
         }
         displayMode: GlobalModel.displayMode
         logo: "qrc:/logo.ico"
-        title:"FluentUI"
+        title:"PCTool"
         onLogoClicked:{
             clickCount += 1
             showSuccess("%1:%2".arg(qsTr("Click Time")).arg(clickCount))

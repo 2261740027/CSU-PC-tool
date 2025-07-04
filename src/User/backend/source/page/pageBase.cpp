@@ -5,8 +5,8 @@
 
 namespace page
 {
-    pageBase::pageBase(QList<PageField> pageFieldList, pageMange* pageManager)
-    : _pageManager(pageManager)
+    pageBase::pageBase(QList<PageField> pageFieldList, pageMange *pageManager)
+        : _pageManager(pageManager)
     {
         _pageFieldTable.loadFields(pageFieldList);
     }
@@ -113,23 +113,19 @@ namespace page
     QByteArray pageBase::setItemData(const QString &name, const QVariant &value)
     {
         QByteArray data;
-        const pageMapField &field = _pageFieldTable.getValueMap()[name];
+        auto it = _pageFieldTable.getValueMap().find(name);
+        if (it != _pageFieldTable.getValueMap().end()) {
+            pageMapField field = it.value();
+            field.value = value;
+            data.append(field.group);
+            data.append(field.category);
+            data.append(field.number);
 
-        if (_pageFieldTable.getValueMap().contains(name))
-        {
-            _pageFieldTable.getValueMap()[name].value = value;
-
-            data.append(_pageFieldTable.getValueMap()[name].group);    // group
-            data.append(_pageFieldTable.getValueMap()[name].category); // category
-            data.append(_pageFieldTable.getValueMap()[name].number);
-            if (!packSettingData(name, value).isEmpty())
-            {
-                data.append(packSettingData(name, value));
+            QByteArray packedData = packSettingData(name, value);
+            if (!packedData.isEmpty()) {
+                data.append(packedData);
             }
-            else
-            {
-                return QByteArray();
-            }
+            
             return data;
         }
 
@@ -226,12 +222,12 @@ namespace page
         return QVariant();
     }
 
-    void pageBase::handlePageDataUpdate(const QByteArray &data)
+    QString pageBase::handlePageDataUpdate(const QByteArray &data)
     {
 
         if (data.length() < 3)
         {
-            return;
+            return QString();
         }
 
         unsigned short group = data[0];
@@ -243,6 +239,7 @@ namespace page
         }
         else // handle query ack
         {
+            // 批量问询时检查应答数据的第一个数据名是否与请求数据名一致
             QByteArray handleRxData = data.mid(1, data.length() - 1);
             QString varName = _pageFieldTable.indexToName(SLIPDATAINDEX(group, category, number));
             int valueLength = 0, valueNum = 0;
@@ -258,7 +255,7 @@ namespace page
             }
             else
             {
-                return;
+                return QString();
             }
 
             for (int i = 0; i < valueNum; i++)
@@ -272,6 +269,8 @@ namespace page
                     _pageFieldTable.fieldUpdata(index, devalue);
                 }
             }
+            return varName;
         }
+        return QString();
     }
 }

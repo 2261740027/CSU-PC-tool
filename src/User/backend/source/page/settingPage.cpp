@@ -5,7 +5,7 @@
 namespace page
 {
     settingPage::settingPage(pageMange *pageManager)
-        : pageBase(settingPageFieldList, pageManager)
+        : pageBase(settingPageFieldList, pageManager, _settingPageAttribute)
     {
         // 所有轮询功能都由基类实现，构造函数只需要传递字段列表
     }

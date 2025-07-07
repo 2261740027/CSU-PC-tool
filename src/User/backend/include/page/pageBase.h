@@ -12,10 +12,15 @@ namespace page
 
 namespace page
 {
+    typedef struct pageAttribute 
+    {
+        int isRefresh;
+    }pageAttribute_t;
+
     class pageBase : public QObject
     {
     public:
-        pageBase(QList<PageField> pageFieldList, pageMange *pageManager);
+        pageBase(QList<PageField> pageFieldList, pageMange *pageManager, pageAttribute_t pageAttribute);
         ~pageBase() = default;
 
         virtual void setCmd(QString cmd) {}; // 发送命令
@@ -25,11 +30,14 @@ namespace page
         
         // 重置轮询状态（页面切换时使用）
         void resetPollingState();
-        
+        // 获取页面属性
+        const pageAttribute_t &getPageAttribute() const;       
+        //slip querry
         virtual QByteArray querryItemData(const QString &name);
+        //slip setting value
         virtual QByteArray setItemData(const QString &name, const QVariant &value);
+        // 
         const QMap<QString, pageMapField> &getPageValueMap() const;
-
         const QMap<QString, pageMapField> &getPageTable() const
         {
             return _pageFieldTable.getValueMap();
@@ -52,6 +60,7 @@ namespace page
 
         QList<PageField> _pageFieldList;
         PageFieldTable _pageFieldTable;
+        pageAttribute_t _pageAttribute;
     };
 }
 

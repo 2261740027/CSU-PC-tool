@@ -105,24 +105,41 @@ namespace protocol
                 return false;
             }
         }
-
-        void slipProtocol::encodeFrame(QByteArray &data, QByteArray &sendFram)
+        void slipProtocol::encodeFrame(QByteArray &data, QByteArray &sendFrame)
         {
             utils::Crc16 crc16;
-            unsigned short myCrc = 0;
+            unsigned short myCrc = crc16.calc(data, data.length());
 
-            myCrc = crc16.calc(data, data.length());
+            QByteArray dataWithCrc = data;
+            dataWithCrc.append((char)(myCrc & 0x00FF));        // CRC低字节
+            dataWithCrc.append((char)((myCrc >> 8) & 0x00FF)); // CRC高字节
 
-            data.append((char)(myCrc & 0x00FF)); // low byte
-            data.append((char)((myCrc >> 8) & 0x00FF)); // high byte
+            sendFrame.clear();
+            sendFrame.append((char)slip::reserve::end); // 0xC0 起始标记
 
-            sendFram.append (0xC0);
-            for(int i = 0; i < data.length(); i++)
+            for (int i = 0; i < dataWithCrc.length(); i++)
             {
-                sendFram.append(data[i]);
+                unsigned char txChar = (unsigned char)dataWithCrc[i];
+
+                switch (txChar)
+                {
+                case (unsigned char)slip::reserve::end: // 0xC0
+                    sendFrame.append((char)slip::reserve::esc); // 0xDB
+                    sendFrame.append((char)slip::special::end); // 0xDC
+                    break;
+
+                case (unsigned char)slip::reserve::esc: // 0xDB
+                    sendFrame.append((char)slip::reserve::esc); // 0xDB
+                    sendFrame.append((char)slip::special::esc); // 0xDD
+                    break;
+
+                default:
+                    sendFrame.append((char)txChar);
+                    break;
+                }
             }
-            sendFram.append(0xC0); // end of frame
-            //emit notificationsSendData(sendFram);
+
+            sendFrame.append((char)slip::reserve::end); // 0xC0 结束标记
         }
     }
 }

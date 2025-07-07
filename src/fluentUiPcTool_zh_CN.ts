@@ -22,8 +22,23 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/global/ItemsSide.qml" line="31"/>
-        <source>setting</source>
+        <location filename="User/ui/global/ItemsSide.qml" line="30"/>
+        <source>Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="33"/>
+        <source>MainInfo</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="42"/>
+        <source>10KvIsolator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="55"/>
+        <source>Setting</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -32,6 +47,38 @@
     <message>
         <location filename="User/ui/global/ItemsSideFooter.qml" line="16"/>
         <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_Info_10KvIsolator</name>
+    <message>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="10"/>
+        <source>10KvIsolator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="32"/>
+        <source>10Kv AC Isolator Info1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="33"/>
+        <source>10Kv AC Isolator Info2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="34"/>
+        <source>10Kv AC Isolator Info3</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_Info_mainInfo</name>
+    <message>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="9"/>
+        <source>MainInterface</source>
+        <oldsource>MainInfo</oldsource>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -11,7 +11,6 @@ FluContentPage {
     Component.onCompleted: {
         // 连接信号到C++槽函数
         pageManager.notifyPageSwitch("main")
-        pageManager.startAutoRefresh();
 
         console.log("parent.width:" + parent.width)
         console.log("parent.height:" + parent.height)
@@ -43,7 +42,7 @@ FluContentPage {
         wrapMode: Text.WordWrap
 
         // 示例文本
-        text: "这是一个文本浏览框\n可以显示多行文本内容\n支持滚动和文本选择"
+        //text: "这是一个文本浏览框\n可以显示多行文本内容\n支持滚动和文本选择"
 
         // 滚动条样式
         ScrollBar.vertical: FluScrollBar {
@@ -115,7 +114,6 @@ FluContentPage {
                 font: FluTextStyle.Caption
                 text: "badRate:"
             }
-
             FluComboBox {
                 id: badRateBox
                 Layout.row: 1
@@ -128,7 +126,12 @@ FluContentPage {
                 editable: false
                 enabled: !serial.isOpen
                 model: ["9600", "115200"]
-                currentIndex: serial.isOpen ? serial.currentBaudRateIndex : 1
+                currentIndex: serial.currentBaudRateIndex
+                onCurrentIndexChanged: {
+                    if (currentIndex !== serial.currentBaudRateIndex) {
+                        serial.setCurrentBaudRateIndex(currentIndex)
+                    }
+                }
             }
 
             FluText {
@@ -151,7 +154,12 @@ FluContentPage {
                 editable: false
                 enabled: !serial.isOpen
                 model: ["5", "6", "7", "8"]
-                currentIndex: serial.isOpen ? serial.currentDataBitsIndex : 3
+                currentIndex: serial.currentDataBitsIndex
+                onCurrentIndexChanged: {
+                    if (currentIndex !== serial.currentDataBitsIndex) {
+                        serial.setCurrentDataBitsIndex(currentIndex)
+                    }
+                }
             }
 
             FluText {
@@ -174,7 +182,12 @@ FluContentPage {
                 editable: false
                 enabled: !serial.isOpen
                 model: ["1", "1.5", "2"]
-                currentIndex: serial.isOpen ? serial.currentStopBitsIndex : 0
+                currentIndex: serial.currentStopBitsIndex
+                onCurrentIndexChanged: {
+                    if (currentIndex !== serial.currentStopBitsIndex) {
+                        serial.setCurrentStopBitsIndex(currentIndex)
+                    }
+                }
             }
 
             FluText {
@@ -197,7 +210,12 @@ FluContentPage {
                 editable: false
                 enabled: !serial.isOpen
                 model: ["none", "odd", "even"]
-                currentIndex: serial.isOpen ? serial.currentParityIndex : 0
+                currentIndex: serial.currentParityIndex
+                onCurrentIndexChanged: {
+                    if (currentIndex !== serial.currentParityIndex) {
+                        serial.setCurrentParityIndex(currentIndex)
+                    }
+                }
             }
         }
     }

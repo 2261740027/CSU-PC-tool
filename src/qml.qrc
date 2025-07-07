@@ -10,5 +10,8 @@
         <file>User/ui/page/P_main.qml</file>
         <file>User/ui/page/P_setting.qml</file>
         <file>image/Ace.ico</file>
+        <file>User/ui/page/P_Info_mainInfo.qml</file>
+        <file>User/ui/page/P_Info_10KvIsolator.qml</file>
+        <file>image/favicon.ico</file>
     </qresource>
 </RCC>

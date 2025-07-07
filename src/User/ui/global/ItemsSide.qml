@@ -25,10 +25,34 @@ FluObject{
         }
     }
 
+    FluPaneItemExpander{
+    id: item_expander_basic_input
+        title: qsTr("Info")
+        icon: FluentIcons.AllApps
+        FluPaneItem{
+            title: qsTr("MainInfo")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Info_mainInfo.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
+
+        FluPaneItem{
+            title: qsTr("10KvIsolator")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Info_10KvIsolator.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
+      
+    }
+
     FluPaneItem{
         id:item_setting
         count: 0
-        title: qsTr("setting")
+        title: qsTr("Setting")
         menuDelegate: paneItemMenu
         infoBadge: FluBadge{
             count: item_setting.count

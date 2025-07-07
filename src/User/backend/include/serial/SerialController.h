@@ -19,6 +19,12 @@ class SerialController : public QObject ,public Singleton<SerialController> {
     Q_PROPERTY(int currentStopBitsIndex READ currentStopBitsIndex NOTIFY currentParametersChanged)
     Q_PROPERTY(int currentParityIndex READ currentParityIndex NOTIFY currentParametersChanged)
 
+
+    Q_INVOKABLE void setCurrentBaudRateIndex(int index);
+    Q_INVOKABLE void setCurrentDataBitsIndex(int index);
+    Q_INVOKABLE void setCurrentStopBitsIndex(int index);
+    Q_INVOKABLE void setCurrentParityIndex(int index);
+
     friend class Singleton<SerialController>; // 允许访问构造
 
 public:

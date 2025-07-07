@@ -76,7 +76,7 @@ namespace page
         // 定时刷新
         QTimer *_refreshTimer;
         bool _autoRefreshEnabled = true;
-        int _refreshInterval = 60 * 1000; // 定时刷新间隔1min
+        int _refreshInterval = 10 * 1000; // 定时刷新间隔1min
 
         // 发送队列机制
         QQueue<SendRequest> _sendQueue;         // 发送队列

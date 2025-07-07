@@ -100,15 +100,60 @@ void SerialController::disconnectPort() {
     
     // 清除当前连接参数索引
     m_currentPortIndex = -1;
-    m_currentBaudRateIndex = 1;   // 默认115200
-    m_currentDataBitsIndex = 3;   // 默认8位
-    m_currentStopBitsIndex = 0;   // 默认1位停止位
-    m_currentParityIndex = 0;     // 默认无校验
+    //m_currentBaudRateIndex = 1;   // 默认115200
+    //m_currentDataBitsIndex = 3;   // 默认8位
+    //m_currentStopBitsIndex = 0;   // 默认1位停止位
+    //m_currentParityIndex = 0;     // 默认无校验
     
     // 发出参数变化信号
     emit currentParametersChanged();
     
     emit isOpenChanged();
+}
+
+void SerialController::handlePageSendData(QByteArray data)
+{
+    //_protocolManager->_current->buildFrame(data);
+    QByteArray sendFrame;
+    _protocolManager->handleSendData(data, sendFrame);
+    emit sendToWorker(sendFrame);
+}
+
+// 添加设置参数的方法实现
+void SerialController::setCurrentBaudRateIndex(int index)
+{
+    if (m_currentBaudRateIndex != index)
+    {
+        m_currentBaudRateIndex = index;
+        emit currentParametersChanged();
+    }
+}
+
+void SerialController::setCurrentDataBitsIndex(int index)
+{
+    if (m_currentDataBitsIndex != index)
+    {
+        m_currentDataBitsIndex = index;
+        emit currentParametersChanged();
+    }
+}
+
+void SerialController::setCurrentStopBitsIndex(int index)
+{
+    if (m_currentStopBitsIndex != index)
+    {
+        m_currentStopBitsIndex = index;
+        emit currentParametersChanged();
+    }
+}
+
+void SerialController::setCurrentParityIndex(int index)
+{
+    if (m_currentParityIndex != index)
+    {
+        m_currentParityIndex = index;
+        emit currentParametersChanged();
+    }
 }
 
 void SerialController::decodedRaw(QByteArray data)
@@ -124,13 +169,4 @@ void SerialController::decodedRaw(QByteArray data)
            emit notificationsPageRecvData(decodeData); 
         }
     }
-}
-
-
-void SerialController::handlePageSendData(QByteArray data)
-{
-    //_protocolManager->_current->buildFrame(data);
-    QByteArray sendFrame;
-    _protocolManager->handleSendData(data,sendFrame);
-    emit sendToWorker(sendFrame);
 }

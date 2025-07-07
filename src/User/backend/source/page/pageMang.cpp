@@ -1,6 +1,8 @@
 #include "page/pageMang.h"
 #include "page/mainPage.h"
 #include "page/settingPage.h"
+#include "page/pageInfoMainInfo.h"
+#include "page/pageInfo10kvIsolator.h"
 #include <QDebug>
 
 namespace page
@@ -12,6 +14,12 @@ namespace page
 
         static settingPage page2Instance(this);
         registerPage("setting", &page2Instance);
+
+        static infoMainInfoPage page3Instance(this);
+        registerPage("infoMainInfo", &page3Instance);
+
+        static infoIsolatro10KvPage page4Instance(this);
+        registerPage("info10KvIsolator", &page4Instance);
 
         // 页面定时刷新
         _refreshTimer = new QTimer(this);
@@ -75,40 +83,6 @@ namespace page
 
         // 启动超时定时器
         _sendQueueTimer->start(SEND_TIMEOUT_MS);
-    }
-
-    void pageMange::onSendQueueTimeout()
-    {
-        if (_isSending)
-        {
-            QString fieldName = _currentRequest.fieldName;
-            _retryCount[fieldName]++;
-
-            qDebug() << "Send timeout for field:" << fieldName
-                     << "retry count:" << _retryCount[fieldName];
-
-            if (_retryCount[fieldName] < MAX_RETRY_COUNT)
-            {
-                // 重试当前请求
-                qDebug() << "Retrying field:" << fieldName;
-                emit toSerialSend(_currentRequest.data);
-                _sendQueueTimer->start(SEND_TIMEOUT_MS);
-                return;
-            }
-            else
-            {
-                // 超过最大重试次数，跳过该字段
-                qDebug() << "Max retries reached for field:" << fieldName << ", skipping";
-                _retryCount[fieldName] = 0; // 重置计数
-
-                // 直接调用页面的onFieldProcessed方法
-                _pageHash[_currentPage]->onFieldProcessed(fieldName, false);
-            }
-        }
-
-        // 处理完成或失败，继续下一个请求
-        _isSending = false;
-        processSendQueue();
     }
 
     bool pageMange::canSendNow()
@@ -211,8 +185,8 @@ namespace page
         _retryCount.clear();
         qDebug() << "Cleared retry counters for new page";
 
-        // 6. 重新启动自动刷新（如果启用）
-        if (_autoRefreshEnabled)
+        // 6. 界面属性自动刷新且设置开启自动刷新
+        if  ((true== _autoRefreshEnabled )&& (1 == _pageHash[_currentPage]->getPageAttribute().isRefresh))
         {
             startAutoRefresh();
             qDebug() << "Restarted auto refresh timer for new page";
@@ -267,6 +241,43 @@ namespace page
             _refreshTimer->stop();
         }
     }
+
+/*****************************************定时器回调函数*****************************************/
+
+    void pageMange::onSendQueueTimeout()
+    {
+        if (_isSending)
+        {
+            QString fieldName = _currentRequest.fieldName;
+            _retryCount[fieldName]++;
+
+            qDebug() << "Send timeout for field:" << fieldName
+                     << "retry count:" << _retryCount[fieldName];
+
+            if (_retryCount[fieldName] < MAX_RETRY_COUNT)
+            {
+                // 重试当前请求
+                qDebug() << "Retrying field:" << fieldName;
+                emit toSerialSend(_currentRequest.data);
+                _sendQueueTimer->start(SEND_TIMEOUT_MS);
+                return;
+            }
+            else
+            {
+                // 超过最大重试次数，跳过该字段
+                qDebug() << "Max retries reached for field:" << fieldName << ", skipping";
+                _retryCount[fieldName] = 0; // 重置计数
+
+                // 直接调用页面的onFieldProcessed方法
+                _pageHash[_currentPage]->onFieldProcessed(fieldName, false);
+            }
+        }
+
+        // 处理完成或失败，继续下一个请求
+        _isSending = false;
+        processSendQueue();
+    }
+
     void pageMange::onRefreshTimer()
     {
         qDebug() << "Auto refresh triggered for page:" << _currentPage;

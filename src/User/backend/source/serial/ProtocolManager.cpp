@@ -36,10 +36,10 @@ namespace protocol
         return QByteArray(); //返回空数据表示没有有效数据
     }
     
-    void ProtocolManager::handleSendData(QByteArray &data,QByteArray &sendFram)
+    void ProtocolManager::handleSendData(QByteArray &data,QByteArray &sendFrame)
     {
 		if (_current != nullptr) {
-			_current->encodeFrame(data,sendFram);
+			_current->encodeFrame(data,sendFrame);
 			//qDebug() << "sendData: " + data.toHex(' ').toUpper();
 		}
 	}

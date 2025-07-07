@@ -50,7 +50,7 @@ namespace protocol
 
             bool decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)  override;
             bool verifyMsg(QByteArray &rxMsg) override;                          //验证数据校验是否正确
-            void encodeFrame(QByteArray &data, QByteArray &sendFram) override;   //只负责添加帧头帧尾和校验
+            void encodeFrame(QByteArray &data, QByteArray &sendFrame) override;   //只负责添加帧头帧尾和校验
             
             QString name() const override {
                 return "slip";

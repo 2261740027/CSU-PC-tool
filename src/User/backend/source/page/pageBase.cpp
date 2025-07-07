@@ -7,8 +7,8 @@
 
 namespace page
 {
-    pageBase::pageBase(QList<PageField> pageFieldList, pageMange *pageManager)
-        : _pageManager(pageManager), _pageFieldList(pageFieldList)
+    pageBase::pageBase(QList<PageField> pageFieldList, pageMange *pageManager, pageAttribute_t pageAttribute)
+        : _pageManager(pageManager), _pageFieldList(pageFieldList), _pageAttribute(pageAttribute)
     {
         _pageFieldTable.loadFields(pageFieldList);
     }
@@ -344,5 +344,10 @@ namespace page
         qDebug() << "Resetting polling state for page";
         _pageReflashState = false;
         _currentFieldIndex = 0;
+    }
+
+    const pageAttribute_t &pageBase::getPageAttribute() const
+    {
+        return _pageAttribute;
     }
 }

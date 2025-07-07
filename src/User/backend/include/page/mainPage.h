@@ -18,5 +18,9 @@ namespace page
 
         // 基类已经实现了所有轮询功能，只需要重写handlePageDataUpdate来添加特殊处理（如果需要）
         QString handlePageDataUpdate(const QByteArray &data) override;
+    
+    private:
+        static constexpr pageAttribute_t _mainPageAttribute = {
+            .isRefresh = 0};
     };
 }

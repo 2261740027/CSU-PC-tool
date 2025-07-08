@@ -20,7 +20,7 @@ namespace page
         }
     }
 
-    void PageFieldTable::fieldUpdata(const unsigned short index, const QVariant &value)
+    void PageFieldTable::fieldUpdata(const unsigned int index, const QVariant &value)
     {
         QString name;
         if (_reValueMap.contains(index))
@@ -34,7 +34,7 @@ namespace page
         }
     }
 
-    const QString PageFieldTable::indexToName(const unsigned short index) const
+    const QString PageFieldTable::indexToName(const unsigned int index) const
     {
 
         if (_reValueMap.contains(index))

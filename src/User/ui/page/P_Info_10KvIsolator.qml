@@ -31,7 +31,6 @@ FluContentPage {
     function createTab(){
         tab_view.appendTab("qrc:/image/favicon.ico",qsTr("10Kv AC Isolator Info1"),info10KvIsolatorTab1,{})
         tab_view.appendTab("qrc:/image/favicon.ico",qsTr("10Kv AC Isolator Info2"),info10KvIsolatorTab1,{})
-        tab_view.appendTab("qrc:/image/favicon.ico",qsTr("10Kv AC Isolator Info3"),info10KvIsolatorTab1,{})
     }
 
 

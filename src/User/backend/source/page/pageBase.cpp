@@ -2,13 +2,14 @@
 #include "pageBase.h"
 #include "page/PageFieldTable.h"
 #include "page/pageMang.h"
+#include "serial/SlipProtocol.h"
 #include <QDebug>
 // #include "page/IpageController.h"
 
 namespace page
 {
-    pageBase::pageBase(QList<PageField> pageFieldList, pageMange *pageManager, pageAttribute_t pageAttribute)
-        : _pageManager(pageManager), _pageFieldList(pageFieldList), _pageAttribute(pageAttribute)
+    pageBase::pageBase(QList<PageField> pageFieldList, QList<QByteArray> pageQuerryCmdList,pageMange *pageManager, pageAttribute_t pageAttribute)
+        : _pageManager(pageManager), _pageQuerryCmdList(pageQuerryCmdList) ,_pageFieldList(pageFieldList), _pageAttribute(pageAttribute)
     {
         _pageFieldTable.loadFields(pageFieldList);
     }
@@ -18,9 +19,9 @@ namespace page
         QByteArray data;
         if (_pageFieldTable.getValueMap().contains(name))
         {
-            data.append(_pageFieldTable.getValueMap()[name].group);    // group
-            data.append(_pageFieldTable.getValueMap()[name].category); // category
-            data.append(_pageFieldTable.getValueMap()[name].number);
+            data.append(_pageFieldTable.getValueMap()[name].group);     // group
+            data.append(_pageFieldTable.getValueMap()[name].category);  // category
+            data.append(_pageFieldTable.getValueMap()[name].number);    // number
         }
         return data;
     }
@@ -144,7 +145,7 @@ namespace page
         return QByteArray();
     }
 
-    const QMap<QString, pageMapField> &pageBase::getPageValueMap() const
+    const QMap<QString, pageMapField> &pageBase::getPageTable() const
     {
         return _pageFieldTable.getValueMap();
     }
@@ -233,12 +234,15 @@ namespace page
         return QVariant();
     }
 
-    QString pageBase::handlePageDataUpdate(const QByteArray &data)
+    pageDataUpdateResult_t pageBase::handlePageDataUpdate(const QByteArray &data)
     {
+
+        pageDataUpdateResult_t result;
+        result.num = 0;
 
         if (data.length() < 3)
         {
-            return QString();
+            return result;
         }
 
         unsigned short group = data[0];
@@ -250,15 +254,12 @@ namespace page
         }
         else // handle query ack
         {
-            // 批量问询时检查应答数据的第一个数据名是否与请求数据名一致
-            QByteArray handleRxData = data.mid(1, data.length() - 1);
-            QString varName = _pageFieldTable.indexToName(SLIPDATAINDEX(group, category, number));
-            int valueLength = 0, valueNum = 0;
+            // 暂时不对0x68进行处理
+            int valueLength = protocol::slip::groupDataSizeMap[group];
+            int valueNum = 0;
 
-            if (!varName.isEmpty())
-            {
-                valueLength = _pageFieldTable.getValueMap()[varName].length;
-            }
+            QByteArray handleRxData = data.mid(1, data.length() - 1);
+            
 
             if (handleRxData.length() % (valueLength + 2) == 0)
             {
@@ -266,23 +267,35 @@ namespace page
             }
             else
             {
-                return QString();
+                return result;
             }
 
             for (int i = 0; i < valueNum; i++)
             {
-                QByteArray value = handleRxData.mid(i * valueLength + 2, valueLength);
-                unsigned short index = SLIPDATAINDEX(group, handleRxData[i * valueLength], handleRxData[i * valueLength + 1]);
+                QByteArray value = handleRxData.mid(i * (valueLength + 2) + 2, valueLength);
+                unsigned int index = SLIPDATAINDEX(group, handleRxData[i * (valueLength + 2)], handleRxData[i * (valueLength + 2) + 1]);
 
-                QVariant devalue = unpackRecvQueryData(varName, value);
+
+                QString valueName = _pageFieldTable.indexToName(index);
+                if(valueName.isEmpty() )
+                {
+                    qDebug() << "value is jump";
+                    result.data.insert(index, QString());   //未找到的数据插入空
+                    result.num++;
+                    continue;
+                }
+                QVariant devalue = unpackRecvQueryData(valueName, value);
+
                 if (!devalue.isNull())
                 {
+                    result.data.insert(index, valueName);
+                    result.num++;
                     _pageFieldTable.fieldUpdata(index, devalue);
                 }
             }
-            return varName;
         }
-        return QString();
+
+        return result;
     }
 
     // 轮询相关功能实现
@@ -301,7 +314,7 @@ namespace page
 
     void pageBase::queryCurrentField()
     {
-        if (_currentFieldIndex >= _pageFieldList.size())
+        if (_currentFieldIndex >= _pageQuerryCmdList.size())
         {
             // 所有字段都查询完成
             _pageReflashState = false;
@@ -309,17 +322,26 @@ namespace page
             return;
         }
 
-        QString fieldName = _pageFieldList[_currentFieldIndex].name;
-        qDebug() << "Querying field:" << fieldName;
+        //QString fieldName = _pageFieldList[_currentFieldIndex].name;
+        //qDebug() << "Querying field:" << fieldName;
 
         // 通过pageMange发送查询数据，超时和重试由pageMang处理
         if (_pageManager)
         {
-            QByteArray queryData = querryItemData(fieldName);
-            if (!queryData.isEmpty())
+            if((_pageQuerryCmdList.size() > _currentFieldIndex) && (!_pageQuerryCmdList.empty()) )
             {
-                _pageManager->sendRawData(queryData, fieldName);
+                QByteArray queryData = _pageQuerryCmdList[_currentFieldIndex];
+                if(!queryData.isEmpty())
+                {
+                    _pageManager->sendRawData(queryData);
+                }
             }
+
+            // QByteArray queryData = _pageQuerryCmdList[_currentFieldIndex];
+            // if (!queryData.isEmpty())
+            // {
+            //     _pageManager->sendRawData(queryData);
+            // }
         }
     }
 
@@ -329,11 +351,10 @@ namespace page
         queryCurrentField();
     }
 
-    void pageBase::onFieldProcessed(const QString &fieldName, bool success)
+    void pageBase::onFieldProcessed(bool success)
     {
         if (_pageReflashState)
         {
-            qDebug() << "Field processed:" << fieldName << "success:" << success;
             // 无论成功还是失败，都继续下一个字段
             moveToNextField();
         }
@@ -350,4 +371,5 @@ namespace page
     {
         return _pageAttribute;
     }
+
 }

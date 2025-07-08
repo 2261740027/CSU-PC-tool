@@ -5,20 +5,18 @@
 namespace page
 {
     infoIsolatro10KvPage::infoIsolatro10KvPage(pageMange *pageManager)
-        : pageBase(infoIsolatro10KvPageFieldList, pageManager, _isolatro10KvInfoPageAttribute)
+        : pageBase(infoIsolatro10KvPageFieldList, infoIsolatro10KvPageQuerryCmdList,pageManager, _isolatro10KvInfoPageAttribute)
     {
-        // 所有轮询功能都由基类实现，构造函数只需要传递字段列表
+        initPageQuerryCmdList();
     }
 
-    QString infoIsolatro10KvPage::handlePageDataUpdate(const QByteArray &data)
+    void infoIsolatro10KvPage::initPageQuerryCmdList()
     {
-        QString result = pageBase::handlePageDataUpdate(data);
+        // 不能插入未定义的值
+    }
 
-        if (!result.isEmpty())
-        {
-            qDebug() << "infoMainInfoPage: Data processed successfully for field:" << result;
-        }
-
-        return result;
+    pageDataUpdateResult_t infoIsolatro10KvPage::handlePageDataUpdate(const QByteArray &data)
+    {
+        return pageBase::handlePageDataUpdate(data);
     }
 }

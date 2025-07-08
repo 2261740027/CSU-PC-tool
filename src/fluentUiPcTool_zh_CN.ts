@@ -67,11 +67,6 @@
         <source>10Kv AC Isolator Info2</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="34"/>
-        <source>10Kv AC Isolator Info3</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>P_Info_mainInfo</name>

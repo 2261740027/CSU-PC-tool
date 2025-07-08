@@ -31,27 +31,27 @@ namespace page
         connect(_sendQueueTimer, &QTimer::timeout, this, &pageMange::onSendQueueTimeout);
     }
 
-    void pageMange::sendRawData(const QByteArray &data, const QString &fieldName)
+    void pageMange::sendRawData(const QByteArray &data)
     {
         if (!data.isEmpty())
         {
             // 将查询请求加入队列
-            enqueueSendRequest(data, SendRequestType::Query, fieldName);
+            enqueueSendRequest(data, SendRequestType::Query);
         }
     }
 
-    void pageMange::enqueueSendRequest(const QByteArray &data, SendRequestType type, const QString &fieldName)
+    void pageMange::enqueueSendRequest(const QByteArray &data, SendRequestType type)
     {
         // 如果是手动设置请求，优先级更高，插入到队列前面
         if (type == SendRequestType::Setting)
         {
-            _sendQueue.prepend(SendRequest(data, type, fieldName));
-            qDebug() << "Enqueued high-priority setting request for field:" << fieldName;
+            _sendQueue.prepend(SendRequest(data, type));
+            //qDebug() << "Enqueued high-priority setting request for field:" << fieldName;
         }
         else
         {
-            _sendQueue.enqueue(SendRequest(data, type, fieldName));
-            qDebug() << "Enqueued query request for field:" << fieldName;
+            _sendQueue.enqueue(SendRequest(data, type));
+            //qDebug() << "Enqueued query request for field:" << fieldName;
         }
 
         // 尝试立即处理队列
@@ -69,14 +69,10 @@ namespace page
         _isSending = true;
 
         // 如果是新字段，重置重试计数
-        if (!_retryCount.contains(_currentRequest.fieldName))
+        if (!_retryCount.contains(SLIPDATAINDEX(_currentRequest.data[0], _currentRequest.data[1], _currentRequest.data[2])))
         {
-            _retryCount[_currentRequest.fieldName] = 0;
+            _retryCount[SLIPDATAINDEX(_currentRequest.data[0], _currentRequest.data[1], _currentRequest.data[2])] = 0;
         }
-
-        qDebug() << "Processing send request:" << _currentRequest.fieldName
-                 << "Type:" << (_currentRequest.type == SendRequestType::Query ? "Query" : "Setting")
-                 << "Retry count:" << _retryCount[_currentRequest.fieldName];
 
         // 发送数据
         emit toSerialSend(_currentRequest.data);
@@ -103,29 +99,70 @@ namespace page
     void pageMange::handleDataUpdate(QByteArray data)
     {
         qDebug() << "recvData " + _currentPage;
-        QString recvDataName = _pageHash[_currentPage]->handlePageDataUpdate(data);
+        pageDataUpdateResult_t recvInfo = _pageHash[_currentPage]->handlePageDataUpdate(data);
+        unsigned int index = SLIPDATAINDEX(_currentRequest.data[0], _currentRequest.data[1], _currentRequest.data[2]);
+        bool isResponse = false;
+
+        if(_currentRequest.type == SendRequestType::Query)
+        {
+            if((index & 0x00FF) == 0 ) // batch querry
+            {
+                if(recvInfo.num > 1 && recvInfo.data.contains(index + 1)) // 接收应答
+                {
+                    isResponse = true;
+                }
+            }
+            else 
+            {
+                if(recvInfo.num >= 1 && recvInfo.data.contains(index))
+                {
+                    isResponse = true;
+                }
+            }
+        }
+
+
+        if(isResponse)
+        {
+            _retryCount[index] = 0;
+            _isSending = false;
+            _sendQueueTimer->stop(); // 停止超时定时器
+            qDebug() << "recv data success";
+
+            if(_sendQueue.isEmpty())
+            {
+                _pageHash[_currentPage]->onFieldProcessed(true);
+            }
+            else
+            {
+                processSendQueue();
+            }
+            emit pageDataChanged();
+        }
+
+
+        //QString recvDataName = _pageHash[_currentPage]->handlePageDataUpdate(data);
 
 
         
-        // 只有在收到有效响应数据时，才重置重试计数并释放发送锁
-        if ( (recvDataName == _currentRequest.fieldName) && _isSending)
-        {
-            // 成功收到有效响应，重置该字段的重试计数
-            _retryCount[_currentRequest.fieldName] = 0;
-            QString processedFieldName = _currentRequest.fieldName;
+        // // 只有在收到有效响应数据时，才重置重试计数并释放发送锁
+        // if ( (recvDataName == _currentRequest.fieldName) && _isSending)
+        // {
+        //     // 成功收到有效响应，重置该字段的重试计数
+        //     _retryCount[_currentRequest.fieldName] = 0;
+        //     QString processedFieldName = _currentRequest.fieldName;
 
-            _isSending = false;
-            _sendQueueTimer->stop(); // 停止超时定时器
-            qDebug() << "Received valid response for field:" << processedFieldName << ", releasing send lock";
+        //     _isSending = false;
+        //     _sendQueueTimer->stop(); // 停止超时定时器
+        //     qDebug() << "Received valid response for field:" << processedFieldName << ", releasing send lock";
 
-            // 处理下一个请求
-            processSendQueue();
-
-            // 直接调用页面的onFieldProcessed方法
-            _pageHash[_currentPage]->onFieldProcessed(processedFieldName, true);
-        }
-
-        emit pageDataChanged();
+        //     // 先通知页面字段处理完成（可能会向队列添加新请求）
+        //     _pageHash[_currentPage]->onFieldProcessed(processedFieldName, true);
+            
+            
+        //     processSendQueue();
+        // }
+        
     }
 
     QVariantMap pageMange::pageData()
@@ -152,7 +189,7 @@ namespace page
 
         if (!sendData.isEmpty())
         {
-            enqueueSendRequest(sendData, SendRequestType::Setting, name);
+            enqueueSendRequest(sendData, SendRequestType::Setting);
             qDebug() << "Manual setting request for field:" << name << "with value:" << value;
         }
     }
@@ -248,16 +285,13 @@ namespace page
     {
         if (_isSending)
         {
-            QString fieldName = _currentRequest.fieldName;
-            _retryCount[fieldName]++;
+            unsigned int index = SLIPDATAINDEX(_currentRequest.data[0], _currentRequest.data[1], _currentRequest.data[2]);
+            _retryCount[index]++;
 
-            qDebug() << "Send timeout for field:" << fieldName
-                     << "retry count:" << _retryCount[fieldName];
-
-            if (_retryCount[fieldName] < MAX_RETRY_COUNT)
+            if (_retryCount[index] < MAX_RETRY_COUNT)
             {
                 // 重试当前请求
-                qDebug() << "Retrying field:" << fieldName;
+                qDebug() << "Retrying field:" << index;
                 emit toSerialSend(_currentRequest.data);
                 _sendQueueTimer->start(SEND_TIMEOUT_MS);
                 return;
@@ -265,17 +299,30 @@ namespace page
             else
             {
                 // 超过最大重试次数，跳过该字段
-                qDebug() << "Max retries reached for field:" << fieldName << ", skipping";
-                _retryCount[fieldName] = 0; // 重置计数
-
-                // 直接调用页面的onFieldProcessed方法
-                _pageHash[_currentPage]->onFieldProcessed(fieldName, false);
+                qDebug() << "Max retries reached for field:" << index << ", skipping";
+                _retryCount[index] = 0; // 重置计数
+                _isSending = false;
+                 
+                // 先通知页面字段处理失败（可能会向队列添加新请求）
+                //_pageHash[_currentPage]->onFieldProcessed(false);
+                
+                // 然后处理队列中的所有请求（包括新添加的）
+                //processSendQueue();
+                //return;
             }
         }
 
-        // 处理完成或失败，继续下一个请求
-        _isSending = false;
-        processSendQueue();
+        if(_sendQueue.isEmpty())
+        {
+            // 发送队列为空继续处理页面问询数据
+            _pageHash[_currentPage]->onFieldProcessed(false);
+
+        }else 
+        {
+            // 发送队列不为空继续处理发送队列
+            processSendQueue();
+        }
+       
     }
 
     void pageMange::onRefreshTimer()

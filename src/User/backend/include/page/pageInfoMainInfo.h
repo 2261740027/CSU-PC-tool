@@ -21,6 +21,8 @@ namespace page
 
     };
 
+    const static QList<QByteArray> infoMainInfoPageQuerryCmdList = {};
+
     class infoMainInfoPage : public pageBase
     {
         Q_OBJECT
@@ -29,11 +31,11 @@ namespace page
         ~infoMainInfoPage() = default;
 
         // 基类已经实现了所有轮询功能，只需要重写handlePageDataUpdate来添加特殊处理（如果需要）
-        QString handlePageDataUpdate(const QByteArray &data) override;
+        pageDataUpdateResult_t handlePageDataUpdate(const QByteArray &data) override;
 
     private:
         static constexpr pageAttribute_t _infoMainInfoPageAttribute = {
-            .isRefresh = 1};
+            .isRefresh =0};
     };
 }
 

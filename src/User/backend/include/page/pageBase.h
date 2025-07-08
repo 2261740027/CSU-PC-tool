@@ -17,32 +17,35 @@ namespace page
         int isRefresh;
     }pageAttribute_t;
 
+    typedef struct pageDataUpdateResult
+    {
+        int num;                         //接收数据数
+        QHash<unsigned short, QString> data;   //接收数据索引
+    }pageDataUpdateResult_t;
+
     class pageBase : public QObject
     {
     public:
-        pageBase(QList<PageField> pageFieldList, pageMange *pageManager, pageAttribute_t pageAttribute);
+        pageBase(QList<PageField> pageFieldList, 
+                QList<QByteArray> pageQuerryCmdList,
+                pageMange *pageManager, 
+                pageAttribute_t pageAttribute);
+
         ~pageBase() = default;
 
-        virtual void setCmd(QString cmd) {}; // 发送命令
         void refreshPageAllData();
-        virtual QString handlePageDataUpdate(const QByteArray &data);
-        void onFieldProcessed(const QString &fieldName, bool success);
+        void onFieldProcessed(bool success);
+        void resetPollingState();                                                                   // 重置轮询状态（页面切换时使用）
         
-        // 重置轮询状态（页面切换时使用）
-        void resetPollingState();
-        // 获取页面属性
-        const pageAttribute_t &getPageAttribute() const;       
-        //slip querry
-        virtual QByteArray querryItemData(const QString &name);
-        //slip setting value
-        virtual QByteArray setItemData(const QString &name, const QVariant &value);
-        // 
-        const QMap<QString, pageMapField> &getPageValueMap() const;
-        const QMap<QString, pageMapField> &getPageTable() const
-        {
-            return _pageFieldTable.getValueMap();
-        }
+        const pageAttribute_t &getPageAttribute() const;                                            // 获取页面属性
+        const QMap<QString, pageMapField> &getPageTable() const;
 
+        virtual void setCmd(QString cmd) {};                                                        // 发送命令
+        virtual QByteArray querryItemData(const QString &name);                                     // slip querry             
+        virtual QByteArray setItemData(const QString &name, const QVariant &value);                 // slip setting value
+        virtual pageDataUpdateResult_t handlePageDataUpdate(const QByteArray &data);
+
+        QList<QByteArray> _pageQuerryCmdList;                  // 页面查询命令列表
     protected:
         pageMange *_pageManager = nullptr; // pageMange引用，供派生类使用
         

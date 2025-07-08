@@ -20,6 +20,12 @@ namespace page
 
     };
 
+    const static QList<QByteArray> infoIsolatro10KvPageQuerryCmdList = {
+        QByteArray::fromHex("101A00"),
+        QByteArray::fromHex("12F400"),
+        QByteArray::fromHex("12F500"),
+        QByteArray::fromHex("12F600")
+    };
     class infoIsolatro10KvPage : public pageBase
     {
         Q_OBJECT
@@ -28,9 +34,10 @@ namespace page
         ~infoIsolatro10KvPage() = default;
 
         // 基类已经实现了所有轮询功能，只需要重写handlePageDataUpdate来添加特殊处理（如果需要）
-        QString handlePageDataUpdate(const QByteArray &data) override;
+        pageDataUpdateResult_t handlePageDataUpdate(const QByteArray &data) override;
 
     private:
+        void initPageQuerryCmdList();
         static constexpr pageAttribute_t _isolatro10KvInfoPageAttribute = {
             .isRefresh = 1};
     };

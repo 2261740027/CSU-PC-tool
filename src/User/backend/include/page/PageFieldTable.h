@@ -7,7 +7,7 @@
 #include <QList>
 #include <QByteArray>
 
-#define SLIPDATAINDEX(group, category, number) (((group << 15) & 0xFF0000) | ((category << 7) & 0xFF00) | (number & 0xFF))
+#define SLIPDATAINDEX(group, category, number) (((group << 16) & 0xFF0000) | ((category << 8) & 0xFF00) | (number & 0xFF))
 
 namespace page
 {
@@ -39,9 +39,9 @@ namespace page
 
     public:
         explicit PageFieldTable(QObject *parent = nullptr);
-        const QString indexToName(const unsigned short index) const;
+        const QString indexToName(const unsigned int index) const;
         void loadFields(const QList<PageField> &fields);
-        void fieldUpdata(const unsigned short index, const QVariant &value);
+        void fieldUpdata(const unsigned int index, const QVariant &value);
 
         const QMap<QString, pageMapField> &getValueMap() const
         {
@@ -50,7 +50,7 @@ namespace page
 
     private:
         QMap<QString, pageMapField> _valueMap;     // name ----> value
-        QMap<unsigned short, QString> _reValueMap; // (group|category) ----> name
+        QMap<unsigned int, QString> _reValueMap;   // (group|category|number) ----> name
     };
 }
 

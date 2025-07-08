@@ -24,12 +24,11 @@ namespace page
     {
         QByteArray data;
         SendRequestType type;
-        QString fieldName; // 用于标识请求的字段
 
-        SendRequest() : type(SendRequestType::Query), fieldName("") {}
+        SendRequest() : type(SendRequestType::Query) {}
 
-        SendRequest(const QByteArray &d, SendRequestType t, const QString &field = "")
-            : data(d), type(t), fieldName(field) {}
+        SendRequest(const QByteArray &d, SendRequestType t)
+            : data(d), type(t){}
     };
 
     class pageMange : public QObject
@@ -41,7 +40,7 @@ namespace page
         pageMange();
         ~pageMange() = default;
 
-        // Q_INVOKABLE void getPageData(QString name);                 // 获取单个数据
+        //Q_INVOKABLE void getPageData(QString name);                 // 获取单个数据
         Q_INVOKABLE void setItemData(QString name, QVariant value);   // 设置单个数据
         Q_INVOKABLE void notifyPageSwitch(const QString newPageName); // qml界面切换页面
 
@@ -57,14 +56,14 @@ namespace page
         void refreshPage();          // 刷新当前页面所有数据
         QString currentPage() const; // 获取当前页面名称
         QVariantMap pageData();      // UI界面获取当前界面数据
-        void sendRawData(const QByteArray &data, const QString &fieldName = "");
+        void sendRawData(const QByteArray &data);
 
     private:
         void updatePageData();                                            // 刷新mang向qml界面显示缓冲
         void registerPage(const QString &pageName, pageBase *controller); // 注册页面控制器
 
         // 发送队列相关方法
-        void enqueueSendRequest(const QByteArray &data, SendRequestType type, const QString &fieldName = "");
+        void enqueueSendRequest(const QByteArray &data, SendRequestType type);
         void processSendQueue();
         bool canSendNow();
 
@@ -85,9 +84,9 @@ namespace page
         static const int SEND_TIMEOUT_MS = 500; // 发送超时时间
 
         // 重试机制
-        QMap<QString, int> _retryCount;       // 每个字段的重试计数
-        static const int MAX_RETRY_COUNT = 3; // 最大重试次数
-        SendRequest _currentRequest;          // 当前正在处理的请求
+        QMap<unsigned short, int> _retryCount;      // 每个字段的重试计数
+        static const int MAX_RETRY_COUNT = 3;       // 最大重试次数
+        SendRequest _currentRequest;                // 当前正在处理的请求
 
     signals:
         void toSerialSend(QByteArray data);

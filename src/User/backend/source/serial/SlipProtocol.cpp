@@ -10,30 +10,26 @@ namespace protocol
         bool slipProtocol::decodeFrame(QByteArray &rxMsg, QByteArray &decodeMsg)
         {
             _isGotMsgFlag = false;
+            
             for (unsigned char rxChar : rxMsg)
             {
                 switch (rxChar)
                 {
                 case 0xC0:
-
-                    if (this->verifyMsg(decodeMsg) == true)
+                    if (this->verifyMsg(_receiveBuffer) == true)
                     {
+                        decodeMsg = _receiveBuffer;
                         _isGotMsgFlag = true;
                     }
-                    else
-                    {
-                        decodeMsg.clear();
-                    }
 
+                    clearReceiveBuffer();
                     break;
 
                 case (unsigned char)slip::reserve::esc:
-
                     _nextByteMode = slip::next::esc;
                     break;
 
                 default:
-
                     if (_nextByteMode == slip::next::esc)
                     {
                         unsigned char reserveCode;
@@ -41,39 +37,44 @@ namespace protocol
                         switch (rxChar)
                         {
                         case slip::special::esc:
-
                             reserveCode = slip::reserve::esc;
-                            // rxMsg.push(reserveCode);
-                            decodeMsg.append(reserveCode);
-
+                            _receiveBuffer.append(reserveCode);
                             break;
 
                         case slip::special::end:
-
                             reserveCode = slip::reserve::end;
-                            // rxMsg.push(reserveCode);
-                            decodeMsg.append(reserveCode);
-
+                            _receiveBuffer.append(reserveCode);
                             break;
 
                         default:
-                            // my.onError();
+                            qDebug() << "SLIP: Invalid escape sequence, clearing buffer";
+                            clearReceiveBuffer();
                             break;
                         }
                     }
                     else
                     {
-                        decodeMsg.append(rxChar);
+                        _receiveBuffer.append(rxChar);
                     }
 
                     _nextByteMode = slip::next::general;
                     break;
                 }
+                
+                if (_isGotMsgFlag) {
+                    break;
+                }
             }
 
-            return _isGotMsgFlag ? true : false;
+            return _isGotMsgFlag;
         }
-
+        
+        void slipProtocol::clearReceiveBuffer()
+        {
+            _receiveBuffer.clear();
+            _nextByteMode = slip::next::general;
+        }
+        
         bool slipProtocol::verifyMsg(QByteArray &rxMsg)
         {
             static const unsigned int packetMinLength = 5;

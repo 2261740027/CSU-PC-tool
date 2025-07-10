@@ -24,7 +24,12 @@ namespace page
         QByteArray::fromHex("101A00"),
         QByteArray::fromHex("12F400"),
         QByteArray::fromHex("12F500"),
-        QByteArray::fromHex("12F600")
+        QByteArray::fromHex("12F600"),
+        QByteArray::fromHex("045000"),
+        QByteArray::fromHex("101A00"),
+        QByteArray::fromHex("10F400"),
+        QByteArray::fromHex("10F500"),
+        QByteArray::fromHex("12F400")
     };
     class infoIsolatro10KvPage : public pageBase
     {

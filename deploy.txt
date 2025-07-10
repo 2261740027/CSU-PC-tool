@@ -1,0 +1,1 @@
+D:\application\Qt\6.6.3\mingw_64\bin\windeployqt.exe --qmldir . --qmldir src --qmldir D:\application\Qt\6.6.3\mingw_64\qml --compiler-runtime E:\source\CSU-PC-tool\bin\Release\fluentUiPcTool.exe

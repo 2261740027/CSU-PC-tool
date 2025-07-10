@@ -226,6 +226,7 @@ namespace page
         if  ((true== _autoRefreshEnabled )&& (1 == _pageHash[_currentPage]->getPageAttribute().isRefresh))
         {
             startAutoRefresh();
+            _pageHash[_currentPage]->refreshPageAllData();
             qDebug() << "Restarted auto refresh timer for new page";
         }
     }

@@ -6,7 +6,7 @@ import FluentUI 1.0
 
 FluContentPage {
 
-    title: qsTr("main")
+    title: qsTr("Home")
 
     Component.onCompleted: {
         // 连接信号到C++槽函数
@@ -17,7 +17,7 @@ FluContentPage {
     }
 
     Component.onDestruction: {
-
+        gc();
     }
 
     FluMultilineTextBox {
@@ -50,6 +50,7 @@ FluContentPage {
             anchors.rightMargin: 2
         }
     }
+    
 
     FluFrame {
         id: rightFrame

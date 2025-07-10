@@ -279,7 +279,6 @@ namespace page
                 QString valueName = _pageFieldTable.indexToName(index);
                 if(valueName.isEmpty() )
                 {
-                    qDebug() << "value is jump";
                     result.data.insert(index, QString());   //未找到的数据插入空
                     result.num++;
                     continue;
@@ -370,6 +369,18 @@ namespace page
     const pageAttribute_t &pageBase::getPageAttribute() const
     {
         return _pageAttribute;
+    }
+
+    bool pageBase::appendQuerryCmd(const QByteArray &cmd)
+    {
+        if(cmd.isEmpty())
+        {
+            return false;
+        }
+
+        _pageQuerryCmdList.append(cmd);
+
+        return true;
     }
 
 }

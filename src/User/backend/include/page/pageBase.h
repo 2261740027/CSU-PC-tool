@@ -39,13 +39,14 @@ namespace page
         
         const pageAttribute_t &getPageAttribute() const;                                            // 获取页面属性
         const QMap<QString, pageMapField> &getPageTable() const;
+        bool appendQuerryCmd(const QByteArray &cmd);
 
         virtual void setCmd(QString cmd) {};                                                        // 发送命令
         virtual QByteArray querryItemData(const QString &name);                                     // slip querry             
         virtual QByteArray setItemData(const QString &name, const QVariant &value);                 // slip setting value
         virtual pageDataUpdateResult_t handlePageDataUpdate(const QByteArray &data);
 
-        QList<QByteArray> _pageQuerryCmdList;                  // 页面查询命令列表
+        
     protected:
         pageMange *_pageManager = nullptr; // pageMange引用，供派生类使用
         
@@ -64,6 +65,7 @@ namespace page
         QList<PageField> _pageFieldList;
         PageFieldTable _pageFieldTable;
         pageAttribute_t _pageAttribute;
+        QList<QByteArray> _pageQuerryCmdList;                  // 页面查询命令列表
     };
 }
 

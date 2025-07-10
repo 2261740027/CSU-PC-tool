@@ -30,7 +30,7 @@ FluObject{
         title: qsTr("Info")
         icon: FluentIcons.AllApps
         FluPaneItem{
-            title: qsTr("MainInfo")
+            title: qsTr("Main Info")
             menuDelegate: paneItemMenu
             url: "qrc:/User/ui/page/P_Info_mainInfo.qml"
             onTap: {
@@ -39,7 +39,7 @@ FluObject{
         }
 
         FluPaneItem{
-            title: qsTr("10KvIsolator")
+            title: qsTr("10Kv Isolator")
             menuDelegate: paneItemMenu
             url: "qrc:/User/ui/page/P_Info_10KvIsolator.qml"
             onTap: {

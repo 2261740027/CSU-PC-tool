@@ -46,6 +46,15 @@ FluObject{
                 navigationView.push(url)
             }
         }
+
+        FluPaneItem{
+            title: qsTr("AC Infomation")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Info_ACInfo.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
       
     }
 

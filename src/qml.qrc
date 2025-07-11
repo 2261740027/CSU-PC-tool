@@ -13,5 +13,6 @@
         <file>User/ui/page/P_Info_mainInfo.qml</file>
         <file>User/ui/page/P_Info_10KvIsolator.qml</file>
         <file>image/favicon.ico</file>
+        <file>User/ui/page/P_Info_ACInfo.qml</file>
     </qresource>
 </RCC>

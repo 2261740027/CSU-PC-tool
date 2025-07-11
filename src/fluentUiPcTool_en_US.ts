@@ -39,7 +39,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/global/ItemsSide.qml" line="55"/>
+        <location filename="User/ui/global/ItemsSide.qml" line="51"/>
+        <source>AC Infomation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="64"/>
         <source>Setting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -105,6 +110,14 @@
     <message>
         <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="820"/>
         <source>off</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_Info_ACInfo</name>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="9"/>
+        <source>AC Info</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

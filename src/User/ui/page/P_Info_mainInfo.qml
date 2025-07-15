@@ -30,6 +30,7 @@ FluContentPage {
         anchors.fill: parent
         anchors.topMargin: 4
         anchors.bottomMargin: 4
+        anchors.rightMargin: 4
         spacing: 8
 
         // 上部区域 - 数据卡片

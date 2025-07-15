@@ -3,6 +3,7 @@
 #include "page/settingPage.h"
 #include "page/pageInfoMainInfo.h"
 #include "page/pageInfo10kvIsolator.h"
+#include "page/PageInfoAcInfo.h"
 #include <QDebug>
 
 namespace page
@@ -20,6 +21,9 @@ namespace page
 
         static infoIsolatro10KvPage page4Instance(this);
         registerPage("info10KvIsolator", &page4Instance);
+
+        static infoAcInfoPage page5Instance(this);
+        registerPage("infoAcInfo", &page5Instance);
 
         // 页面定时刷新
         _refreshTimer = new QTimer(this);

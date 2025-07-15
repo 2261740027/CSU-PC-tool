@@ -8,7 +8,7 @@ namespace page
 {
     class pageMange;
 
-    const static QList<PageField> infoMainInfoPageFieldList = {
+    static QList<PageField> infoMainInfoPageFieldList = {
         /*                              数据类型   数据长度   group      category     number              */
         {"sysVolt",                     "float",    4,      0x10,       0x24,       0x01},              // 系统电压
         {"sysCurr",                     "float",    4,      0x10,       0x21,       0x02},

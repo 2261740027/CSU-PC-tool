@@ -14,6 +14,7 @@ FluContentPage {
         // 连接信号到C++槽函数
         pageManager.notifyPageSwitch("info10KvIsolator");
         //createTab();
+        gc();
     }
 
     Component.onDestruction: {}
@@ -68,6 +69,7 @@ FluContentPage {
         anchors.fill: parent
         anchors.topMargin: 4
         anchors.bottomMargin: 8
+        anchors.rightMargin: 4
         spacing: 4
 
         FluFrame {

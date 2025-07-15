@@ -8,7 +8,7 @@
 
 namespace page
 {
-    pageBase::pageBase(QList<PageField> pageFieldList, QList<QByteArray> pageQuerryCmdList,pageMange *pageManager, pageAttribute_t pageAttribute)
+    pageBase::pageBase(QList<PageField> &pageFieldList, QList<QByteArray> pageQuerryCmdList,pageMange *pageManager, pageAttribute_t pageAttribute)
         : _pageManager(pageManager), _pageQuerryCmdList(pageQuerryCmdList) ,_pageFieldList(pageFieldList), _pageAttribute(pageAttribute)
     {
         _pageFieldTable.loadFields(pageFieldList);

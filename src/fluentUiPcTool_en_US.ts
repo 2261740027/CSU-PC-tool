@@ -65,50 +65,50 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="143"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="145"/>
         <source>Entry cabinet door</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="152"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="154"/>
         <source>Phase-shifting door</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="433"/>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="537"/>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="642"/>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="747"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="435"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="539"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="644"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="749"/>
         <source>start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="787"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="789"/>
         <source>open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="789"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="791"/>
         <source>close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="791"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="793"/>
         <source>grand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="793"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="795"/>
         <source>unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="818"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="820"/>
         <source>on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="820"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="822"/>
         <source>off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -116,8 +116,38 @@
 <context>
     <name>P_Info_ACInfo</name>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="9"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="8"/>
         <source>AC Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="427"/>
+        <source>AC Total Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="434"/>
+        <source>AC Branch Info</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="446"/>
+        <source>---</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="448"/>
+        <source>On</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="450"/>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="452"/>
+        <source>Trip</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -129,218 +159,218 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="60"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="61"/>
         <source>Sys Volt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="67"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="68"/>
         <source>Sys Curr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="74"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="75"/>
         <source>Sys Power:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="81"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="82"/>
         <source>Load:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="88"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="89"/>
         <source>Load Volt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="95"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="96"/>
         <source>Load Curr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="102"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="103"/>
         <source>Sys Energy:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="109"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="110"/>
         <source>Ambi Temp:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="133"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="134"/>
         <source>BattA Volt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="140"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="141"/>
         <source>BattA Curr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="147"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="148"/>
         <source>BattA Temp:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="154"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="155"/>
         <source>BattA Brk:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="160"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="161"/>
         <source>BattB Volt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="167"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="168"/>
         <source>BattB Curr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="174"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="175"/>
         <source>BattB Temp:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="181"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="182"/>
         <source>BattB Brk:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="505"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="506"/>
         <source>Sys Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="520"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="521"/>
         <source>Rect Num</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="526"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="527"/>
         <source>Sys Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="532"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="533"/>
         <source>MCUMode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="564"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="565"/>
         <source>EFFS</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="576"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="577"/>
         <source>RTC Voltage</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="596"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="597"/>
         <source>System Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="889"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="890"/>
         <source>Floating</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="891"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="892"/>
         <source>Buffer Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="893"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="894"/>
         <source>Manual Equalize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="895"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="896"/>
         <source>Cycle Equalize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="897"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="898"/>
         <source>Capacity Equalize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="899"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="900"/>
         <source>Current Equalize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="901"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="902"/>
         <source>Voltage Equalize</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="903"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="904"/>
         <source>Manual Battery Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="905"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="906"/>
         <source>Cycle Battery Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="907"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="908"/>
         <source>No Module</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="909"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="910"/>
         <source>Battery Discharge</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="911"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="912"/>
         <source>Soft Start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="913"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="914"/>
         <source>Input Power Limit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="915"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="916"/>
         <source>Manual Diode Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="917"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="918"/>
         <source>Cycle Diode Test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="919"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="920"/>
         <source>Energy Management</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="921"/>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="937"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="922"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="938"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="931"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="932"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="933"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="934"/>
         <source>Alarm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_mainInfo.qml" line="935"/>
+        <location filename="User/ui/page/P_Info_mainInfo.qml" line="936"/>
         <source>Fault</source>
         <translation type="unfinished"></translation>
     </message>

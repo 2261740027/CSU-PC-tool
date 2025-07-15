@@ -26,7 +26,7 @@ namespace page
     class pageBase : public QObject
     {
     public:
-        pageBase(QList<PageField> pageFieldList, 
+        pageBase(QList<PageField> &pageFieldList, 
                 QList<QByteArray> pageQuerryCmdList,
                 pageMange *pageManager, 
                 pageAttribute_t pageAttribute);

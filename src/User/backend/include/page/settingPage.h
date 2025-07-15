@@ -5,7 +5,7 @@ namespace page
 {
     class pageMange;
 
-    const static QList<PageField> settingPageFieldList = {
+    static QList<PageField> settingPageFieldList = {
         {"bus1", "ushort", 2, 0x60, 0x10, 0x01},
         {"bus2", "ushort", 2, 0x60, 0x11, 0x01}};
 

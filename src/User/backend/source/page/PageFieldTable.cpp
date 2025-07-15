@@ -9,7 +9,7 @@ namespace page
     {
         for (const PageField &f : fields)
         {
-            _valueMap[f.name].value = 0;
+            _valueMap[f.name].value = 77;
             _valueMap[f.name].valueType = f.valueType;
             _valueMap[f.name].length = f.length;
             _valueMap[f.name].group = f.group;

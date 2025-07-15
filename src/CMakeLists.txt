@@ -68,6 +68,8 @@ set(PAGE_SOURCES
     User/backend/source/page/pageInfoMainInfo.cpp
     User/backend/include/page/pageInfo10kvIsolator.h
     User/backend/source/page/pageInfo10kvIsolator.cpp
+    User/backend/include/page/pageInfoACInfo.h
+    User/backend/source/page/pageInfoACInfo.cpp
 )
 
 set(PROJECT_SOURCES

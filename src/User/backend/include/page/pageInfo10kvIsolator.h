@@ -8,7 +8,7 @@ namespace page
 {
     class pageMange;
 
-    const static QList<PageField> infoIsolatro10KvPageFieldList = {
+    static QList<PageField> infoIsolatro10KvPageFieldList = {
         /*                              数据类型   数据长度   group      category     number              */
         {"AC1Phase1Voltage10Kv",        "float",    4,      0x10,       0x1A,       0x01},              // Uab
         {"AC1Phase2Voltage10Kv",        "float",    4,      0x10,       0x1A,       0x02},              // Ubc

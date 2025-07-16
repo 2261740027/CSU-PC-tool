@@ -56,22 +56,22 @@ namespace page
     };
 
     const static QList<QByteArray> infoMainInfoPageQuerryCmdList = {
-        QByteArray::fromHex("101000"),
-        QByteArray::fromHex("101100"),
-        QByteArray::fromHex("101200"),
-        QByteArray::fromHex("102100"),
-        QByteArray::fromHex("102300"),
-        QByteArray::fromHex("102500"),
-        QByteArray::fromHex("102600"),
-        QByteArray::fromHex("103000"),
-        QByteArray::fromHex("103100"),
-        QByteArray::fromHex("103300"),
-        QByteArray::fromHex("121100"),
-        QByteArray::fromHex("121200"),
-        QByteArray::fromHex("121300"),
-        QByteArray::fromHex("122000"),
-        QByteArray::fromHex("123A00"),
-        QByteArray::fromHex("124000"),
+        // QByteArray::fromHex("101000"),
+        // QByteArray::fromHex("101100"),
+        // QByteArray::fromHex("101200"),
+        // QByteArray::fromHex("102100"),
+        // QByteArray::fromHex("102300"),
+        // QByteArray::fromHex("102500"),
+        // QByteArray::fromHex("102600"),
+        // QByteArray::fromHex("103000"),
+        // QByteArray::fromHex("103100"),
+        // QByteArray::fromHex("103300"),
+        // QByteArray::fromHex("121100"),
+        // QByteArray::fromHex("121200"),
+        // QByteArray::fromHex("121300"),
+        // QByteArray::fromHex("122000"),
+        // QByteArray::fromHex("123A00"),
+        // QByteArray::fromHex("124000"),
     
     };
 

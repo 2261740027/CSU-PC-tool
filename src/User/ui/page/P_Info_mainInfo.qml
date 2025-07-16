@@ -137,61 +137,73 @@ FluContentPage {
     }
 
     function updateSystemData(sourceData) {
-        systemData.sysVolt = sourceData.sysVolt || 0;
-        systemData.sysCurr = sourceData.sysCurr || 0;
-        systemData.sysPower = sourceData.sysPower || 0;
-        systemData.load = sourceData.load || 0;
-        systemData.loadVolt = sourceData.loadVolt || 0;
-        systemData.loadCurr = sourceData.loadCurr || 0;
-        systemData.sysEnergy = sourceData.sysEnergy || 0;
-        systemData.ambiTemp = sourceData.ambiTemp || 0;
+        systemData = {
+            sysVolt: sourceData.sysVolt || 0,
+            sysCurr: sourceData.sysCurr || 0,
+            sysPower: sourceData.sysPower || 0,
+            load: sourceData.load || 0,
+            loadVolt: sourceData.loadVolt || 0,
+            loadCurr: sourceData.loadCurr || 0,
+            sysEnergy: sourceData.sysEnergy || 0,
+            ambiTemp: sourceData.ambiTemp || 0
+        };
     }
 
     function updateBatteryData(sourceData) {
-        batteryData.battAVolt = sourceData.BattAVolt || 0;
-        batteryData.battACurr = sourceData.BattACurr || 0;
-        batteryData.battATemp = sourceData.BattATemp || 0;
-        batteryData.battABrk = sourceData.BattABrk || 0;
-        batteryData.battBVolt = sourceData.BattBVolt || 0;
-        batteryData.battBCurr = sourceData.BattBCurr || 0;
-        batteryData.battBTemp = sourceData.BattBTemp || 0;
-        batteryData.battBBrk = sourceData.BattBBrk || 0;
+        batteryData = {
+            battAVolt: sourceData.BattAVolt || 0,
+            battACurr: sourceData.BattACurr || 0,
+            battATemp: sourceData.BattATemp || 0,
+            battABrk: sourceData.BattABrk || 0,
+            battBVolt: sourceData.BattBVolt || 0,
+            battBCurr: sourceData.BattBCurr || 0,
+            battBTemp: sourceData.BattBTemp || 0,
+            battBBrk: sourceData.BattBBrk || 0
+        };
     }
 
     function updateAC1Data(sourceData) {
-        ac1Data.phase1Volt = sourceData.AC1Phase1Volt || 0;
-        ac1Data.phase2Volt = sourceData.AC1Phase2Volt || 0;
-        ac1Data.phase3Volt = sourceData.AC1Phase3Volt || 0;
-        ac1Data.freq = sourceData.AC1Freq || 0;
-        ac1Data.phase1Curr = sourceData.AC1Phase1Curr || 0;
-        ac1Data.phase2Curr = sourceData.AC1Phase2Curr || 0;
-        ac1Data.phase3Curr = sourceData.AC1Phase3Curr || 0;
+        ac1Data = {
+            phase1Volt: sourceData.AC1Phase1Volt || 0,
+            phase2Volt: sourceData.AC1Phase2Volt || 0,
+            phase3Volt: sourceData.AC1Phase3Volt || 0,
+            freq: sourceData.AC1Freq || 0,
+            phase1Curr: sourceData.AC1Phase1Curr || 0,
+            phase2Curr: sourceData.AC1Phase2Curr || 0,
+            phase3Curr: sourceData.AC1Phase3Curr || 0
+        };
     }
 
     function updateAC2Data(sourceData) {
-        ac2Data.phase1Volt = sourceData.AC2Phase1Volt || 0;
-        ac2Data.phase2Volt = sourceData.AC2Phase2Volt || 0;
-        ac2Data.phase3Volt = sourceData.AC2Phase3Volt || 0;
-        ac2Data.freq = sourceData.AC2Freq || 0;
-        ac2Data.phase1Curr = sourceData.AC2Phase1Curr || 0;
-        ac2Data.phase2Curr = sourceData.AC2Phase2Curr || 0;
-        ac2Data.phase3Curr = sourceData.AC2Phase3Curr || 0;
+        ac2Data = {
+            phase1Volt: sourceData.AC2Phase1Volt || 0,
+            phase2Volt: sourceData.AC2Phase2Volt || 0,
+            phase3Volt: sourceData.AC2Phase3Volt || 0,
+            freq: sourceData.AC2Freq || 0,
+            phase1Curr: sourceData.AC2Phase1Curr || 0,
+            phase2Curr: sourceData.AC2Phase2Curr || 0,
+            phase3Curr: sourceData.AC2Phase3Curr || 0
+        };
     }
 
     function updateCSUData(sourceData) {
-        csuData.csuASysStatus = sourceData.CSUASysStatus || 0;
-        csuData.csuBSysStatus = sourceData.CSUBSysStatus || 0;
-        csuData.csuCSysStatus = sourceData.CSUCSysStatus || 0;
-        csuData.csuARectNum = sourceData.CSUARectNum || 0;
-        csuData.csuBRectNum = sourceData.CSUBRectNum || 0;
-        csuData.csuCRectNum = sourceData.CSUCRectNum || 0;
+        csuData = {
+            csuASysStatus: sourceData.CSUASysStatus || 0,
+            csuBSysStatus: sourceData.CSUBSysStatus || 0,
+            csuCSysStatus: sourceData.CSUCSysStatus || 0,
+            csuARectNum: sourceData.CSUARectNum || 0,
+            csuBRectNum: sourceData.CSUBRectNum || 0,
+            csuCRectNum: sourceData.CSUCRectNum || 0
+        };
     }
 
     function updateStatusData(sourceData) {
-        statusData.sysAlarm = sourceData.sysAlarm || 0;
-        statusData.sysEFFS = sourceData.sysEFFS || 0;
-        statusData.rtcBattVolt = sourceData.RTCBattVolt || 0;
-        statusData.supplyPower = sourceData.supplyPower || 0;
+        statusData = {
+            sysAlarm: sourceData.sysAlarm || 0,
+            sysEFFS: sourceData.sysEFFS || 0,
+            rtcBattVolt: sourceData.RTCBattVolt || 0,
+            supplyPower: sourceData.supplyPower || 0
+        };
     }
 
     // ==================== 第5层：清理管理层 ====================
@@ -286,8 +298,8 @@ FluContentPage {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredWidth: parent.width * 0.6
-                ac1Data: root.ac1Data
-                ac2Data: root.ac2Data
+                pageAc1Data: ac1Data
+                pageAc2Data: ac2Data
                 supplyStatus: statusData ? statusData.supplyPower : 0
             }
 
@@ -449,9 +461,18 @@ FluContentPage {
 
     // AC信息区域组件
     component ACInfoSection: Item {
-        property var ac1Data: null
-        property var ac2Data: null
-        property int supplyStatus: 0
+        id: acInfoSection
+        property var pageAc1Data: null
+        property var pageAc2Data: null
+        property var supplyStatus: 0
+
+        // 调试：监控 pageAc1Data/pageAc2Data 变化
+        onPageAc1DataChanged: {
+            console.log("[ACInfoSection] pageAc1Data changed:", JSON.stringify(pageAc1Data));
+        }
+        onPageAc2DataChanged: {
+            console.log("[ACInfoSection] pageAc2Data changed:", JSON.stringify(pageAc2Data));
+        }
 
         ColumnLayout {
             anchors.fill: parent
@@ -464,8 +485,8 @@ FluContentPage {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 98
                 acTitle: "AC 1"
-                acData: parent.ac1Data
-                //supplyStatus: parent.supplyStatus
+                acData: acInfoSection.pageAc1Data
+                supplyStatus: acInfoSection.supplyStatus
                 isAC1: true
             }
 
@@ -474,8 +495,8 @@ FluContentPage {
                 Layout.fillWidth: true
                 Layout.preferredHeight: 98
                 acTitle: "AC 2"
-                acData: parent.ac2Data
-                //supplyStatus: parent.supplyStatus
+                acData: acInfoSection.pageAc2Data
+                supplyStatus: acInfoSection.supplyStatus
                 isAC1: false
             }
 
@@ -505,8 +526,13 @@ FluContentPage {
     component ACFrame: FluFrame {
         property string acTitle: ""
         property var acData: null
-        property int supplyStatus: 0
+        property var supplyStatus: 0
         property bool isAC1: true
+
+        // 调试：监控 acData 变化
+        onAcDataChanged: {
+            console.log("[ACFrame] acData changed for", acTitle, JSON.stringify(acData));
+        }
 
         RowLayout {
             anchors.fill: parent

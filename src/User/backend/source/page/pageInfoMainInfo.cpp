@@ -17,7 +17,6 @@ namespace page
         appendQuerryCmd(querryItemData("BattABrk"));
         appendQuerryCmd(querryItemData("BattBBrk"));
         appendQuerryCmd(querryItemData("RTCBattVolt"));
-        appendQuerryCmd(querryItemData("AC1Phase1Volt"));
     }
 
     pageDataUpdateResult_t infoMainInfoPage::handlePageDataUpdate(const QByteArray &data)

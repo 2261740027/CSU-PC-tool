@@ -12,9 +12,9 @@ namespace page
 
     static QList<PageField> infoAcInfoPageFieldList = {
         /*                              数据类型   数据长度   group      category     number              */
-        {"TotalAcPhase1Curretn",        "float",    4,      0x10,       0x18,       0x01},              // 总AC相1电流
-        {"TotalAcPhase2Curretn",        "float",    4,      0x10,       0x18,       0x02},              // 总AC相2电流
-        {"TotalAcPhase3Curretn",        "float",    4,      0x10,       0x18,       0x03},              // 总AC相3电流
+        {"TotalAcPhase1Current",        "float",    4,      0x10,       0x18,       0x01},              // 总AC相1电流
+        {"TotalAcPhase2Current",        "float",    4,      0x10,       0x18,       0x02},              // 总AC相2电流
+        {"TotalAcPhase3Current",        "float",    4,      0x10,       0x18,       0x03},              // 总AC相3电流
         {"TotalAcPower",                "float",    4,      0x10,       0x18,       0x04},              // Total Ac power
         {"TotalAcEnergy",               "float",    4,      0x10,       0x18,       0x05},              // 总AC能量
         {"TotalAcPowerFactor",          "float",    4,      0x10,       0x18,       0x06},              // 总功率因数

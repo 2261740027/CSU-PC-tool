@@ -35,14 +35,16 @@ FluContentPage {
     })
 
     // AC总计数据
-    property var acTotalData: ({
-        power: 0.0,
-        energy: 0.0,
-        powerFactor: 0.0,
-        phase1Current: 0.0,
-        phase2Current: 0.0,
-        phase3Current: 0.0
-    })
+    property var acTotalData: Qt.createQmlObject('
+        import QtQuick 2.0;
+        QtObject {
+            property real power: 0;
+            property real energy: 0;
+            property real powerFactor: 0;
+            property real phase1Current: 0;
+            property real phase2Current: 0;
+            property real phase3Current: 0;
+        }', root)
 
     // AC分路数据 (1-10分路)
     property var acBranchData: ({
@@ -95,25 +97,25 @@ FluContentPage {
 
     // ==================== 第4层：数据更新函数 ====================
     function createACDataStructure() {
-        return {
-            phase1Voltage: 0.0,
-            phase2Voltage: 0.0,
-            phase3Voltage: 0.0,
-            frequency: 0.0,
-            breakerStatus: 0,
-            phase1Current: 0.0,
-            phase2Current: 0.0,
-            phase3Current: 0.0
-        };
+        return Qt.createQmlObject('import QtQuick 2.0; QtObject
+                                { property real phase1Voltage: 0.0;
+                                  property real phase2Voltage: 0.0;
+                                  property real phase3Voltage: 0.0;
+                                  property real frequency: 0.0;
+                                  property real breakerStatus: 0;
+                                  property real phase1Current: 0.0;
+                                  property real phase2Current: 0.0;
+                                  property real phase3Current: 0.0;
+                                  }', root);
     }
 
     function createBranchDataStructure() {
-        return {
-            current: 0.0,
-            powerFactor: 0.0,
-            activePower: 0.0,
-            energy: 0.0
-        };
+        // 使用QtObject以便QML能追踪属性变化
+        return Qt.createQmlObject('import QtQuick 2.0; QtObject
+                                { property real current: 0;
+                                  property real powerFactor: 0;
+                                  property real activePower: 0;
+                                  property real energy: 0; }', root);
     }
 
     function updateAllACData() {
@@ -158,22 +160,34 @@ FluContentPage {
         acTotalData.power = sourceData.TotalAcPower || 0;
         acTotalData.energy = sourceData.TotalAcEnergy || 0;
         acTotalData.powerFactor = sourceData.TotalAcPowerFactor || 0;
-        acTotalData.phase1Current = sourceData.TotalAcPhase1Curretn || 0;
-        acTotalData.phase2Current = sourceData.TotalAcPhase2Curretn || 0;
-        acTotalData.phase3Current = sourceData.TotalAcPhase3Curretn || 0;
+        acTotalData.phase1Current = sourceData.TotalAcPhase1Current || 0;
+        acTotalData.phase2Current = sourceData.TotalAcPhase2Current || 0;
+        acTotalData.phase3Current = sourceData.TotalAcPhase3Current || 0;
     }
 
     function updateACBranchData(sourceData) {
         for (var i = 1; i <= 10; i++) {
             var branchKey = "branch" + i;
             var dataPrefix = "AcBranch" + i;
-            
             if (acBranchData[branchKey]) {
                 acBranchData[branchKey].current = sourceData[dataPrefix + "Current"] || 0;
                 acBranchData[branchKey].powerFactor = sourceData[dataPrefix + "PowerFactor"] || 0;
                 acBranchData[branchKey].activePower = sourceData[dataPrefix + "ActivePower"] || 0;
                 acBranchData[branchKey].energy = sourceData[dataPrefix + "Energy"] || 0;
+            } else {
+                // 如果对象不存在，补充创建
+                acBranchData[branchKey] = createBranchDataStructure();
+                acBranchData[branchKey].current = sourceData[dataPrefix + "Current"] || 0;
+                acBranchData[branchKey].powerFactor = sourceData[dataPrefix + "PowerFactor"] || 0;
+                acBranchData[branchKey].activePower = sourceData[dataPrefix + "ActivePower"] || 0;
+                acBranchData[branchKey].energy = sourceData[dataPrefix + "Energy"] || 0;
             }
+            // console.log("AC分路", branchKey, "数据:", JSON.stringify({
+            //     current: acBranchData[branchKey].current,
+            //     powerFactor: acBranchData[branchKey].powerFactor,
+            //     activePower: acBranchData[branchKey].activePower,
+            //     energy: acBranchData[branchKey].energy
+            // }));
         }
     }
 
@@ -428,14 +442,14 @@ FluContentPage {
     component ACTotalInfoTabContent: Item {
         property var acTotalData: null
 
-        // 数据配置模型
+        // 数据配置模型 - 使用响应式属性
         property var acDataItems: [
-            { title: "Power", unit: "kWh", getValue: function() { return acTotalData ? acTotalData.power : 0; } },
-            { title: "Energy", unit: "kW", getValue: function() { return acTotalData ? acTotalData.energy : 0; } },
-            { title: "PF", unit: "", getValue: function() { return acTotalData ? acTotalData.powerFactor : 0; } },
-            { title: "Ia", unit: "A", getValue: function() { return acTotalData ? acTotalData.phase1Current : 0; } },
-            { title: "Ib", unit: "A", getValue: function() { return acTotalData ? acTotalData.phase2Current : 0; } },
-            { title: "Ic", unit: "A", getValue: function() { return acTotalData ? acTotalData.phase3Current : 0; } }
+            { title: "Power", unit: "kWh", dataKey: "power", decimals: 2 },
+            { title: "Energy", unit: "kW", dataKey: "energy", decimals: 2 },
+            { title: "PF", unit: "", dataKey: "powerFactor", decimals: 2 },
+            { title: "Ia", unit: "A", dataKey: "phase1Current", decimals: 2 },
+            { title: "Ib", unit: "A", dataKey: "phase2Current", decimals: 2 },
+            { title: "Ic", unit: "A", dataKey: "phase3Current", decimals: 2 }
         ]
 
         Item {
@@ -461,7 +475,13 @@ FluContentPage {
                         Layout.fillWidth: true
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                         title: modelData.title
-                        value: modelData.getValue().toFixed(2)
+                        value: {
+                            if (!acTotalData) return "0.00";
+                            var dataKey = modelData.dataKey;
+                            var decimals = modelData.decimals || 2;
+                            if (!acTotalData.hasOwnProperty(dataKey)) return "0.00";
+                            return acTotalData[dataKey].toFixed(decimals);
+                        }
                         unit: modelData.unit
                     }
                 }
@@ -522,7 +542,7 @@ FluContentPage {
                             }
                         }
 
-                        // 数据列
+                        // 数据列 - 简化版本
                         Repeater {
                             model: columnConfig
 
@@ -531,143 +551,67 @@ FluContentPage {
                                 Layout.preferredHeight: rowHeight
                                 Layout.alignment: Qt.AlignVCenter
 
-                                // 表头或数据内容
-                                Loader {
-                                    anchors.fill: parent
-                                    sourceComponent: rowLayout.currentRowIndex === 0 ? headerCellComponent : dataCellComponent
+                                // 表头
+                                FluText {
+                                    anchors.centerIn: parent
+                                    text: rowLayout.currentRowIndex === 0 ? modelData.title : ""
+                                    font.pixelSize: 13
+                                    font.weight: Font.Medium
+                                    color: FluTheme.fontPrimaryColor
+                                    verticalAlignment: Text.AlignVCenter
+                                    horizontalAlignment: Text.AlignHCenter
+                                    visible: rowLayout.currentRowIndex === 0
+                                }
 
-                                    property var columnData: modelData
-                                    property int rowIndex: rowLayout.currentRowIndex
-                                    property int colIndex: index
+                                // 数据单元格
+                                Rectangle {
+                                    id: dataCell
+                                    anchors.centerIn: parent
+                                    width: 80
+                                    height: 26
+                                    color: FluTheme.dark ? Qt.rgba(0.18, 0.18, 0.18, 1) : Qt.rgba(0.97, 0.98, 0.98, 1)
+                                    border.color: FluTheme.dark ? Qt.rgba(0.33, 0.33, 0.33, 1) : Qt.rgba(0.88, 0.88, 0.88, 1)
+                                    border.width: 1
+                                    radius: 2
+                                    visible: rowLayout.currentRowIndex > 0
+
+                                    FluText {
+                                        anchors.centerIn: parent
+                                        text: {
+                                            if (rowLayout.currentRowIndex <= 0 || !acBranchData) return "---";
+                                            var branchKey = "branch" + rowLayout.currentRowIndex;
+                                            var branchInfo = acBranchData[branchKey];
+                                            if (!branchInfo) return "---";
+                                            var dataKey = modelData.dataKey;
+                                            var decimals = modelData.decimals || 2;
+                                            if (!branchInfo.hasOwnProperty(dataKey)) return "---";
+                                            var result = branchInfo[dataKey].toFixed(decimals);
+                                            return result;
+                                        }
+                                        font.pixelSize: 13
+                                        color: FluTheme.fontPrimaryColor
+                                        elide: Text.ElideRight
+                                        verticalAlignment: Text.AlignVCenter
+                                        horizontalAlignment: Text.AlignHCenter
+                                    }
+                                }
+
+                                // 单位标签
+                                FluText {
+                                    anchors.left: dataCell.right
+                                    anchors.leftMargin: 8
+                                    anchors.verticalCenter: dataCell.verticalCenter
+                                    
+                                    text: rowLayout.currentRowIndex > 0 ? (modelData.unit || "") : ""
+                                    font.pixelSize: 13
+                                    color: FluTheme.fontSecondaryColor
+                                    visible: rowLayout.currentRowIndex > 0 && (modelData.unit || "") !== ""
                                 }
                             }
                         }
                     }
                 }
             }
-        }
-
-        // 表头单元格组件
-        Component {
-            id: headerCellComponent
-
-            Item {
-                anchors.fill: parent
-                anchors.margins: 4
-
-                RowLayout {
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    spacing: 4
-
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.minimumWidth: 10
-                    }
-
-                    Rectangle {
-                        Layout.preferredWidth: 80
-                        Layout.maximumWidth: 100
-                        Layout.preferredHeight: 26
-                        Layout.alignment: Qt.AlignVCenter
-
-                        FluText {
-                            anchors.centerIn: parent
-                            text: columnData.title
-                            font.pixelSize: 13
-                            font.weight: Font.Medium
-                            color: FluTheme.fontPrimaryColor
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
-
-                    FluText {
-                        text: ""
-                        font.pixelSize: 13
-                        Layout.preferredWidth: 20
-                        Layout.alignment: Qt.AlignVCenter
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.minimumWidth: 10
-                    }
-                }
-            }
-        }
-
-        // 数据单元格组件
-        Component {
-            id: dataCellComponent
-
-            Item {
-                anchors.fill: parent
-                anchors.margins: 4
-
-                RowLayout {
-                    anchors.centerIn: parent
-                    width: parent.width
-                    height: parent.height
-                    spacing: 4
-
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.minimumWidth: 10
-                    }
-
-                    Rectangle {
-                        Layout.preferredWidth: 80
-                        Layout.maximumWidth: 100
-                        Layout.preferredHeight: 26
-                        Layout.alignment: Qt.AlignVCenter
-
-                        color: FluTheme.dark ? Qt.rgba(0.18, 0.18, 0.18, 1) : Qt.rgba(0.97, 0.98, 0.98, 1)
-                        border.color: FluTheme.dark ? Qt.rgba(0.33, 0.33, 0.33, 1) : Qt.rgba(0.88, 0.88, 0.88, 1)
-                        border.width: 1
-                        radius: 2
-
-                        FluText {
-                            anchors.centerIn: parent
-                            text: getBranchValue(rowIndex, columnData.dataKey, columnData.decimals)
-                            font.pixelSize: 13
-                            color: FluTheme.fontPrimaryColor
-                            elide: Text.ElideRight
-                            verticalAlignment: Text.AlignVCenter
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                    }
-
-                    FluText {
-                        text: columnData.unit || ""
-                        font.pixelSize: 13
-                        color: FluTheme.fontSecondaryColor
-                        Layout.preferredWidth: 20
-                        Layout.alignment: Qt.AlignVCenter
-                        horizontalAlignment: Text.AlignLeft
-                        verticalAlignment: Text.AlignVCenter
-                        visible: text !== ""
-                    }
-
-                    Item {
-                        Layout.fillWidth: true
-                        Layout.minimumWidth: 10
-                    }
-                }
-            }
-        }
-
-        // 获取分路数据的辅助函数
-        function getBranchValue(rowIndex, dataKey, decimals) {
-            if (rowIndex <= 0 || !dataKey || !acBranchData) return "---";
-            
-            var branchKey = "branch" + rowIndex;
-            var branchInfo = acBranchData[branchKey];
-            
-            if (!branchInfo || !branchInfo.hasOwnProperty(dataKey)) return "---";
-            
-            return branchInfo[dataKey].toFixed(decimals || 2);
         }
     }
 

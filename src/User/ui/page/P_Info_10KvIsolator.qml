@@ -15,9 +15,6 @@ FluContentPage {
     property bool isPageActive: false
 
     // ==================== 第2层：数据缓存层 ====================
-    // 使用本地数据副本，避免深层绑定
-    property var localData: ({})
-    
     // 分组数据结构 - 便于管理和清理
     property var acData: ({
         uab: 0.0,
@@ -91,13 +88,12 @@ FluContentPage {
 
     // ==================== 第4层：数据更新函数 ====================
     function createFanDataStructure() {
-        return {
-            status: 0,
-            speed: 0.0,
-            breakerStatus: 0,
-            contactorStatus: 0,
-            temp: 0.0
-        };
+            return Qt.createQmlObject('import QtQuick 2.0; QtObject
+                                  { property real status: 0;
+                                  property real speed: 0;
+                                  property real breakerStatus: 0;
+                                  property real contactorStatus: 0; 
+                                  property real temp: 0}', root);
     }
 
     function updateLocalData() {
@@ -110,26 +106,33 @@ FluContentPage {
         var sourceData = pageManager.pageData;
         
         // 更新AC数据
-        acData.uab = sourceData.AC1Phase1Voltage10Kv || 0;
-        acData.ubc = sourceData.AC1Phase2Voltage10Kv || 0;
-        acData.uca = sourceData.AC1Phase3Voltage10Kv || 0;
-        acData.freq = sourceData.AcFrequency10Kv || 0;
-        acData.breaker = sourceData.ACBreaker10Kv || 0;
-        acData.iab = sourceData.AC1Phase1Current10Kv || 0;
-        acData.ibc = sourceData.AC1Phase2Current10Kv || 0;
-        acData.ica = sourceData.AC1Phase3Current10Kv || 0;
+
+        acData = {
+            uab: sourceData.AC1Phase1Voltage10Kv || 0,
+            ubc: sourceData.AC1Phase2Voltage10Kv || 0,
+            uca: sourceData.AC1Phase3Voltage10Kv || 0,
+            freq: sourceData.AcFrequency10Kv || 0,
+            breaker: sourceData.ACBreaker10Kv || 0,
+            iab: sourceData.AC1Phase1Current10Kv || 0,
+            ibc: sourceData.AC1Phase2Current10Kv || 0,
+            ica: sourceData.AC1Phase3Current10Kv || 0
+        }
 
         // 更新变压器原边数据
-        transformerPrimaryData.tempStatus = sourceData.TransformerPriTempStatus || 0;
-        transformerPrimaryData.tempA = sourceData.TransformerPriTempA || 0;
-        transformerPrimaryData.tempB = sourceData.TransformerPriTempB || 0;
-        transformerPrimaryData.tempC = sourceData.TransformerPriTempC || 0;
+        transformerPrimaryData = {
+            tempStatus: sourceData.TransformerPriTempStatus || 0,
+            tempA: sourceData.TransformerPriTempA || 0,
+            tempB: sourceData.TransformerPriTempB || 0,
+            tempC: sourceData.TransformerPriTempC || 0
+        }
 
         // 更新变压器副边数据
-        transformerSecondaryData.tempStatus = sourceData.TransformerSecTempStatus || 0;
-        transformerSecondaryData.tempA = sourceData.TransformerSecTempA || 0;
-        transformerSecondaryData.tempB = sourceData.TransformerSecTempB || 0;
-        transformerSecondaryData.tempC = sourceData.TransformerSecTempC || 0;
+        transformerSecondaryData = {
+            tempStatus: sourceData.TransformerSecTempStatus || 0,
+            tempA: sourceData.TransformerSecTempA || 0,
+            tempB: sourceData.TransformerSecTempB || 0,
+            tempC: sourceData.TransformerSecTempC || 0
+        }
 
         // 更新风扇数据
         updateFanData(fanData.fan1, sourceData, "Fan1");
@@ -138,11 +141,11 @@ FluContentPage {
         updateFanData(fanData.fan4, sourceData, "Fan4");
 
         // 更新门状态数据
-        doorData.entryCabinet = sourceData.EntryCabinetDoor || 0;
-        doorData.phaseShifting = sourceData.PhaseShiftingDoor || 0;
+        doorData = {
+            entryCabinet: sourceData.EntryCabinetDoor || 0,
+            phaseShifting: sourceData.PhaseShiftingDoor || 0
+        }
 
-        // 触发UI更新
-        localData = sourceData;
     }
 
     function updateFanData(fanObj, sourceData, fanPrefix) {
@@ -193,7 +196,6 @@ FluContentPage {
         transformerSecondaryData = null;
         fanData = null;
         doorData = null;
-        localData = null;
         
         console.log("Data structures cleared");
     }
@@ -546,6 +548,8 @@ FluContentPage {
         property int fanNumber: 1
         property var fanData: null
 
+        //property var fanItemData: fanData.fan1
+
         FluFrame {
             anchors.fill: parent
 
@@ -580,7 +584,7 @@ FluContentPage {
                         color: FluTheme.fontPrimaryColor
                     }
                     DataCell {
-                        text: fanData ? fanData.status.toString() : "---"
+                        text: fanData ? fanData.status : "---"
                     }
 
                     FluText {

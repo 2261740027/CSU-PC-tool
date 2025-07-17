@@ -65,47 +65,47 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="302"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="304"/>
         <source>Entry cabinet door</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="313"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="315"/>
         <source>Phase-shifting door</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="633"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="637"/>
         <source>start</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="683"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="687"/>
         <source>open</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="685"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="689"/>
         <source>close</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="687"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="691"/>
         <source>grand</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="689"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="693"/>
         <source>unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="711"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="715"/>
         <source>on</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="713"/>
+        <location filename="User/ui/page/P_Info_10KvIsolator.qml" line="717"/>
         <source>off</source>
         <translation type="unfinished"></translation>
     </message>
@@ -118,33 +118,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="274"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="288"/>
         <source>AC Total Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="283"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="297"/>
         <source>AC Branch Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="765"/>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="769"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="709"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="713"/>
         <source>---</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="766"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="710"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="767"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="711"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="768"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="712"/>
         <source>Trip</source>
         <translation type="unfinished"></translation>
     </message>

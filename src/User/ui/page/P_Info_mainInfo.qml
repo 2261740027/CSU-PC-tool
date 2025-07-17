@@ -467,12 +467,12 @@ FluContentPage {
         property var supplyStatus: 0
 
         // 调试：监控 pageAc1Data/pageAc2Data 变化
-        onPageAc1DataChanged: {
-            console.log("[ACInfoSection] pageAc1Data changed:", JSON.stringify(pageAc1Data));
-        }
-        onPageAc2DataChanged: {
-            console.log("[ACInfoSection] pageAc2Data changed:", JSON.stringify(pageAc2Data));
-        }
+        // onPageAc1DataChanged: {
+        //     console.log("[ACInfoSection] pageAc1Data changed:", JSON.stringify(pageAc1Data));
+        // }
+        // onPageAc2DataChanged: {
+        //     console.log("[ACInfoSection] pageAc2Data changed:", JSON.stringify(pageAc2Data));
+        // }
 
         ColumnLayout {
             anchors.fill: parent

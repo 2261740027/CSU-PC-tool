@@ -16,7 +16,8 @@ namespace page
     enum class SendRequestType
     {
         Query,  // 查询请求
-        Setting // 设置请求
+        Setting, // 设置请求
+        Log
     };
 
     // 发送请求结构
@@ -56,7 +57,7 @@ namespace page
         void refreshPage();          // 刷新当前页面所有数据
         QString currentPage() const; // 获取当前页面名称
         QVariantMap pageData();      // UI界面获取当前界面数据
-        void sendRawData(const QByteArray &data);
+        void sendRawData(const QByteArray &data, SendRequestType type);
 
     private:
         void updatePageData();                                            // 刷新mang向qml界面显示缓冲

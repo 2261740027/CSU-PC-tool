@@ -311,6 +311,7 @@ namespace page
         queryCurrentField();
     }
 
+    // 默认发送query
     void pageBase::queryCurrentField()
     {
         if (_currentFieldIndex >= _pageQuerryCmdList.size())
@@ -321,9 +322,6 @@ namespace page
             return;
         }
 
-        //QString fieldName = _pageFieldList[_currentFieldIndex].name;
-        //qDebug() << "Querying field:" << fieldName;
-
         // 通过pageMange发送查询数据，超时和重试由pageMang处理
         if (_pageManager)
         {
@@ -332,15 +330,9 @@ namespace page
                 QByteArray queryData = _pageQuerryCmdList[_currentFieldIndex];
                 if(!queryData.isEmpty())
                 {
-                    _pageManager->sendRawData(queryData);
+                    _pageManager->sendRawData(queryData, SendRequestType::Query);
                 }
             }
-
-            // QByteArray queryData = _pageQuerryCmdList[_currentFieldIndex];
-            // if (!queryData.isEmpty())
-            // {
-            //     _pageManager->sendRawData(queryData);
-            // }
         }
     }
 

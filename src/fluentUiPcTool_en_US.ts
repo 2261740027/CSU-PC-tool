@@ -44,7 +44,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/global/ItemsSide.qml" line="64"/>
+        <location filename="User/ui/global/ItemsSide.qml" line="60"/>
+        <source>Alarm Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="73"/>
         <source>Setting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -370,6 +375,19 @@
     <message>
         <location filename="User/ui/page/P_Info_mainInfo.qml" line="1003"/>
         <source>Fault</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_info_AlarmLog</name>
+    <message>
+        <location filename="User/ui/page/P_info_AlarmLog.qml" line="9"/>
+        <source>Alarm Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_info_AlarmLog.qml" line="80"/>
+        <source>No alarm logs available</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

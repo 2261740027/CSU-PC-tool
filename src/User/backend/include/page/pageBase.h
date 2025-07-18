@@ -34,14 +34,14 @@ namespace page
         ~pageBase() = default;
 
         void refreshPageAllData();
-        void onFieldProcessed(bool success);
         void resetPollingState();                                                                   // 重置轮询状态（页面切换时使用）
         
         const pageAttribute_t &getPageAttribute() const;                                            // 获取页面属性
         const QMap<QString, pageMapField> &getPageTable() const;
         bool appendQuerryCmd(const QByteArray &cmd);
 
-        virtual void setCmd(QString cmd) {};                                                        // 发送命令
+        virtual void setCmd(QString cmd) {};   
+        virtual void onFieldProcessed(bool success);                                                     // 发送命令
         virtual QByteArray querryItemData(const QString &name);                                     // slip querry             
         virtual QByteArray setItemData(const QString &name, const QVariant &value);                 // slip setting value
         virtual pageDataUpdateResult_t handlePageDataUpdate(const QByteArray &data);
@@ -55,7 +55,7 @@ namespace page
         int _currentFieldIndex = 0;
         
         // 轮询相关方法
-        void queryCurrentField();
+        virtual void queryCurrentField();
         void moveToNextField();
 
     private:

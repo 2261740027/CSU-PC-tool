@@ -71,6 +71,10 @@
         "stop_token": "cpp",
         "streambuf": "cpp",
         "cinttypes": "cpp",
-        "*.moc": "cpp"
+        "*.moc": "cpp",
+        "qdebug": "cpp",
+        "qabstractlistmodel": "cpp",
+        "qmutexlocker": "cpp",
+        "*.tcc": "cpp"
     }
 }

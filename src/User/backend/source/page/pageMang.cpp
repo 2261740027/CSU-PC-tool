@@ -4,6 +4,7 @@
 #include "page/pageInfoMainInfo.h"
 #include "page/pageInfo10kvIsolator.h"
 #include "page/PageInfoAcInfo.h"
+#include "page/pageInfoAlarmLog.h"
 #include <QDebug>
 
 namespace page
@@ -25,6 +26,9 @@ namespace page
         static infoAcInfoPage page5Instance(this);
         registerPage("infoAcInfo", &page5Instance);
 
+        static infoAlarmLogPage page6Instance(this);
+        registerPage("alarmLog", &page6Instance);
+
         // 页面定时刷新
         _refreshTimer = new QTimer(this);
         connect(_refreshTimer, &QTimer::timeout, this, &pageMange::onRefreshTimer);
@@ -35,12 +39,12 @@ namespace page
         connect(_sendQueueTimer, &QTimer::timeout, this, &pageMange::onSendQueueTimeout);
     }
 
-    void pageMange::sendRawData(const QByteArray &data)
+    void pageMange::sendRawData(const QByteArray &data, SendRequestType type)
     {
         if (!data.isEmpty())
         {
             // 将查询请求加入队列
-            enqueueSendRequest(data, SendRequestType::Query);
+            enqueueSendRequest(data, type);
         }
     }
 
@@ -104,6 +108,13 @@ namespace page
     {
         qDebug() << "recvData " + _currentPage;
         pageDataUpdateResult_t recvInfo = _pageHash[_currentPage]->handlePageDataUpdate(data);
+
+        // 未主动发送数据不进行接收数据
+        if(_currentRequest.data.size() < 5)
+        {
+            return;
+        }
+
         unsigned int index = SLIPDATAINDEX(_currentRequest.data[0], _currentRequest.data[1], _currentRequest.data[2]);
         bool isResponse = false;
 
@@ -123,6 +134,10 @@ namespace page
                     isResponse = true;
                 }
             }
+        }
+        else if(_currentRequest.type == SendRequestType::Log)
+        {
+            isResponse = true;
         }
 
 
@@ -309,11 +324,7 @@ namespace page
                 _isSending = false;
                  
                 // 先通知页面字段处理失败（可能会向队列添加新请求）
-                //_pageHash[_currentPage]->onFieldProcessed(false);
-                
-                // 然后处理队列中的所有请求（包括新添加的）
-                //processSendQueue();
-                //return;
+                _pageHash[_currentPage]->onFieldProcessed(false);
             }
         }
 

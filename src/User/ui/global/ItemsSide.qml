@@ -55,6 +55,15 @@ FluObject{
                 navigationView.push(url)
             }
         }
+
+        FluPaneItem{
+            title: qsTr("Alarm Log")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_info_AlarmLog.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
       
     }
 

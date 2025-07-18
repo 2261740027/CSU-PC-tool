@@ -16,8 +16,8 @@ else()
     set(APPLICATION_DIR_PATH ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 endif()
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick SerialPort)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick SerialPort)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Core Quick SerialPort Qml)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Core Quick SerialPort Qml)
 
 find_program(QT_LUPDATE NAMES lupdate)
 find_program(QT_LRELEASE NAMES lrelease)
@@ -70,6 +70,15 @@ set(PAGE_SOURCES
     User/backend/source/page/pageInfo10kvIsolator.cpp
     User/backend/include/page/pageInfoACInfo.h
     User/backend/source/page/pageInfoACInfo.cpp
+    User/backend/include/page/pageInfoAlarmLog.h
+    User/backend/source/page/pageInfoAlarmLog.cpp
+)
+
+set(LOG_SOURCES
+    User/backend/include/Log/logManager.h
+    User/backend/source/Log/logManager.cpp
+    User/backend/include/Log/alarmLogModel.h
+    User/backend/source/Log/alarmLogModel.cpp
 )
 
 set(PROJECT_SOURCES
@@ -84,6 +93,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${UTILS_SOURCES}
         ${SERIAL_SOURCES}
         ${PAGE_SOURCES}
+        ${LOG_SOURCES}
         
       
     )
@@ -98,6 +108,7 @@ add_dependencies(${PROJECT_NAME} Script-UpdateTranslations)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt${QT_VERSION_MAJOR}::Core
     Qt${QT_VERSION_MAJOR}::Quick
+    Qt${QT_VERSION_MAJOR}::Qml
     Qt6::SerialPort
     fluentuiplugin
 )

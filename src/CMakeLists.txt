@@ -72,6 +72,8 @@ set(PAGE_SOURCES
     User/backend/source/page/pageInfoACInfo.cpp
     User/backend/include/page/pageInfoAlarmLog.h
     User/backend/source/page/pageInfoAlarmLog.cpp
+    User/backend/source/page/pageInfoDcInfo.cpp
+    User/backend/include/page/pageInfoDcInfo.h
 )
 
 set(LOG_SOURCES
@@ -94,8 +96,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${SERIAL_SOURCES}
         ${PAGE_SOURCES}
         ${LOG_SOURCES}
-        
-      
+
     )
 else()
     add_executable(${PROJECT_NAME}

@@ -15,5 +15,6 @@
         <file>image/favicon.ico</file>
         <file>User/ui/page/P_Info_ACInfo.qml</file>
         <file>User/ui/page/P_info_AlarmLog.qml</file>
+        <file>User/ui/page/P_Info_DcInfo.qml</file>
     </qresource>
 </RCC>

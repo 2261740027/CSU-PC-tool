@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
     // 设置应用程序图标（任务管理器中显示的图标）
     app.setWindowIcon(QIcon(":/image/Ace.ico"));
     
-    // 注册LogModel类型到QML系统
-    qmlRegisterType<Log::LogModel>("Log", 1, 0, "LogModel");
+    // // 注册LogModel类型到QML系统
+    // qmlRegisterType<Log::LogModel>("Log", 1, 0, "LogModel");
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();
@@ -32,7 +32,6 @@ int main(int argc, char *argv[])
     }
     QQmlApplicationEngine engine;
 
-    //qmlRegisterType<SerialController>("Serial", 1, 0, "SerialController");
     SerialController *serialControllerI = SerialController::getInstance();
     page::pageMange *pageMangeI = new page::pageMange();
     Log::LogManager *logManagerI = Log::LogManager::getInstance();

@@ -14,6 +14,8 @@
         <file>User/ui/page/P_Info_10KvIsolator.qml</file>
         <file>image/favicon.ico</file>
         <file>User/ui/page/P_Info_ACInfo.qml</file>
-        <file>User/ui/page/P_info_AlarmLog.qml</file>
+        <file>User/ui/page/P_Info_AlarmLog.qml</file>
+        <file>User/ui/page/P_Config_SystemPara.qml</file>
+        <file>User/ui/page/pageComBoxOption/Option_SystemPara.qml</file>
     </qresource>
 </RCC>

@@ -72,6 +72,8 @@ set(PAGE_SOURCES
     User/backend/source/page/pageInfoACInfo.cpp
     User/backend/include/page/pageInfoAlarmLog.h
     User/backend/source/page/pageInfoAlarmLog.cpp
+    User/backend/include/page/pageConfigSys.h
+    User/backend/source/page/pageConfigSys.cpp
 )
 
 set(LOG_SOURCES

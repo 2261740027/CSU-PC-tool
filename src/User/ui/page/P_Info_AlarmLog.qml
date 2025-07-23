@@ -25,6 +25,7 @@ FluContentPage {
             id: alarmLogListView
             anchors.fill: parent
             anchors.margins: 20
+            clip: true
             model: logManager.alarmLogModel
 
             // 添加垂直滚动条
@@ -60,9 +61,9 @@ FluContentPage {
                     }
 
                     FluText {
-                        text: "ID: " + model.eventName
+                        text: "Event: " + model.eventName
                         font: FluTextStyle.Body
-                        Layout.minimumWidth: 200
+                        Layout.minimumWidth: 240
                         Layout.fillWidth: true
                     }
 

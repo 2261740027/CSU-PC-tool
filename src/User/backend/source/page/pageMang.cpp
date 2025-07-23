@@ -5,6 +5,7 @@
 #include "page/pageInfo10kvIsolator.h"
 #include "page/PageInfoAcInfo.h"
 #include "page/pageInfoAlarmLog.h"
+#include "page/pageConfigSys.h"
 #include <QDebug>
 
 namespace page
@@ -28,6 +29,9 @@ namespace page
 
         static infoAlarmLogPage page6Instance(this);
         registerPage("alarmLog", &page6Instance);
+
+        static pageConfigSys page7Instance(this);
+        registerPage("configSys", &page7Instance);
 
         // 页面定时刷新
         _refreshTimer = new QTimer(this);
@@ -110,7 +114,7 @@ namespace page
         pageDataUpdateResult_t recvInfo = _pageHash[_currentPage]->handlePageDataUpdate(data);
 
         // 未主动发送数据不进行接收数据
-        if(_currentRequest.data.size() < 5)
+        if(_currentRequest.data.size() <= 0)
         {
             return;
         }
@@ -118,7 +122,7 @@ namespace page
         unsigned int index = SLIPDATAINDEX(_currentRequest.data[0], _currentRequest.data[1], _currentRequest.data[2]);
         bool isResponse = false;
 
-        if(_currentRequest.type == SendRequestType::Query)
+        if(SendRequestType::Query == _currentRequest.type)
         {
             if((index & 0x00FF) == 0 ) // batch querry
             {
@@ -135,7 +139,14 @@ namespace page
                 }
             }
         }
-        else if(_currentRequest.type == SendRequestType::Log)
+        else if(SendRequestType::Setting == _currentRequest.type)
+        {
+            if(recvInfo.num >= 1 && recvInfo.data.contains(index))
+            {
+                isResponse = true;
+            }
+        }
+        else if(SendRequestType::Log == _currentRequest.type)
         {
             isResponse = true;
         }

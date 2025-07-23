@@ -49,7 +49,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/global/ItemsSide.qml" line="73"/>
+        <location filename="User/ui/global/ItemsSide.qml" line="71"/>
+        <source>Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="74"/>
+        <source>System Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="86"/>
         <source>Setting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -59,6 +69,254 @@
     <message>
         <location filename="User/ui/global/ItemsSideFooter.qml" line="16"/>
         <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Option_SystemPara</name>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="8"/>
+        <source>standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="9"/>
+        <source>sys-I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="10"/>
+        <source>JS-PANAMA_V2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="11"/>
+        <source>sys-II</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="12"/>
+        <source>PANAMA_V2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="13"/>
+        <source>PANAMA_V1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="18"/>
+        <source>Sensor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="19"/>
+        <source>Calcu</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="20"/>
+        <source>MixedBoard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="25"/>
+        <source>U2LC300AA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="26"/>
+        <source>U2TA300AA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="27"/>
+        <source>U2TB030BB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="28"/>
+        <source>U4LC125BA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="29"/>
+        <source>U2AE300AA</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="30"/>
+        <source>U4LC125BB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="31"/>
+        <source>U3TA300AB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="32"/>
+        <source>U2TA300AQ</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="33"/>
+        <source>U3TA300AS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="34"/>
+        <source>U2TA300AH</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="39"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="61"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="66"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="71"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="91"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="102"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="107"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="113"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="123"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="128"/>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="40"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="62"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="67"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="72"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="103"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="108"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="124"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="129"/>
+        <source>Enable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="44"/>
+        <source>mode240v</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="45"/>
+        <source>mode336v</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="49"/>
+        <source>Local</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="50"/>
+        <source>Mixed Board</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="54"/>
+        <source>Breaker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="55"/>
+        <source>Fuse</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="56"/>
+        <source>Union</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="57"/>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="97"/>
+        <source>Uninstall</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="76"/>
+        <source>6 bytes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="77"/>
+        <source>8 bytes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="81"/>
+        <source>COM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="82"/>
+        <source>WEB</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="86"/>
+        <source>Lead acid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="87"/>
+        <source>Li-thium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="92"/>
+        <source>MicroCurrDetec</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="93"/>
+        <source>Meter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="98"/>
+        <source>Install</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="112"/>
+        <source>detect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="114"/>
+        <source>meters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="118"/>
+        <source>Master</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="119"/>
+        <source>Slave</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_Config_SystemPara</name>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="9"/>
+        <source>System Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="234"/>
+        <source>Clear Energy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="293"/>
+        <source>This is an InfoBar in the Success Style</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -151,6 +409,19 @@
     <message>
         <location filename="User/ui/page/P_Info_ACInfo.qml" line="712"/>
         <source>Trip</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_Info_AlarmLog</name>
+    <message>
+        <location filename="User/ui/page/P_Info_AlarmLog.qml" line="9"/>
+        <source>Alarm Log</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Info_AlarmLog.qml" line="81"/>
+        <source>No alarm logs available</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -375,19 +646,6 @@
     <message>
         <location filename="User/ui/page/P_Info_mainInfo.qml" line="1003"/>
         <source>Fault</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>P_info_AlarmLog</name>
-    <message>
-        <location filename="User/ui/page/P_info_AlarmLog.qml" line="9"/>
-        <source>Alarm Log</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="User/ui/page/P_info_AlarmLog.qml" line="80"/>
-        <source>No alarm logs available</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

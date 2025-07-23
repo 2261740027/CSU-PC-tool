@@ -59,6 +59,9 @@ namespace page
         QVariantMap pageData();      // UI界面获取当前界面数据
         void sendRawData(const QByteArray &data, SendRequestType type);
 
+        // 获取当前请求
+        SendRequest getCurrentRequest() const { return _currentRequest; }
+
     private:
         void updatePageData();                                            // 刷新mang向qml界面显示缓冲
         void registerPage(const QString &pageName, pageBase *controller); // 注册页面控制器

@@ -60,7 +60,7 @@ namespace page
 
     private:
         QByteArray packSettingData(const QString &name, const QVariant &value);
-        QVariant unpackRecvQueryData(const QString &name, const QByteArray &data);
+        QVariant unpackByteStream(const QString &name, const QByteArray &data);
 
         QList<PageField> _pageFieldList;
         PageFieldTable _pageFieldTable;

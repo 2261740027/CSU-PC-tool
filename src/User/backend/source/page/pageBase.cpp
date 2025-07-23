@@ -125,7 +125,7 @@ namespace page
             // 获取字段信息
             const pageMapField &field = _pageFieldTable.getValueMap()[name];
             
-            data.append(field.group);
+            data.append(field.group + 1);
             data.append(field.category); 
             data.append(field.number);
             
@@ -150,7 +150,7 @@ namespace page
         return _pageFieldTable.getValueMap();
     }
 
-    QVariant pageBase::unpackRecvQueryData(const QString &name, const QByteArray &data)
+    QVariant pageBase::unpackByteStream(const QString &name, const QByteArray &data)
     {
         QString varType = _pageFieldTable.getValueMap()[name].valueType;
         int length = _pageFieldTable.getValueMap()[name].length;
@@ -251,6 +251,38 @@ namespace page
 
         if (group == 0x08) // handle setting ack
         {
+            unsigned int setResult = data[6];
+
+            if(0x00 == setResult)
+            {
+                unsigned int index = SLIPDATAINDEX(data[3], data[4], data[5]);
+                QString valueName = _pageFieldTable.indexToName(index);
+                int sendlength = _pageFieldTable._valueMap[valueName].length;
+                QByteArray sendData = {};
+
+                if(_pageManager->getCurrentRequest().data.size() < (sendlength + 3) )
+                {
+                    result.num = 0;
+                }
+                else 
+                {
+                    sendData = _pageManager->getCurrentRequest().data.mid(3,sendlength);
+
+                    QVariant devalue = unpackByteStream(valueName, sendData);
+
+                    if (!devalue.isNull())
+                    {
+                        result.data.insert(index, valueName);
+                        result.num++;
+                        _pageFieldTable.fieldUpdata(index, devalue);
+                    }
+  
+                }
+               
+                //_pageManager->getCurrentRequest().data
+                // 通知UI设置成功
+            }
+
         }
         else // handle query ack
         {
@@ -283,7 +315,7 @@ namespace page
                     result.num++;
                     continue;
                 }
-                QVariant devalue = unpackRecvQueryData(valueName, value);
+                QVariant devalue = unpackByteStream(valueName, value);
 
                 if (!devalue.isNull())
                 {

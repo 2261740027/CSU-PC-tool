@@ -26,7 +26,7 @@ FluObject{
     }
 
     FluPaneItemExpander{
-    id: item_expander_basic_input
+    id: item_info
         title: qsTr("Info")
         icon: FluentIcons.AllApps
         FluPaneItem{
@@ -59,12 +59,25 @@ FluObject{
         FluPaneItem{
             title: qsTr("Alarm Log")
             menuDelegate: paneItemMenu
-            url: "qrc:/User/ui/page/P_info_AlarmLog.qml"
+            url: "qrc:/User/ui/page/P_Info_AlarmLog.qml"
             onTap: {
                 navigationView.push(url)
             }
         }
-      
+    }
+
+    FluPaneItemExpander{
+    id: item_config
+        title: qsTr("Config")
+        icon: FluentIcons.Repair
+        FluPaneItem{
+            title: qsTr("System Parameter")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Config_SystemPara.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
     }
 
     FluPaneItem{

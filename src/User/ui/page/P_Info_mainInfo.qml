@@ -18,7 +18,7 @@ FluContentPage {
         sysVolt: 0.0,
         sysCurr: 0.0,
         sysPower: 0.0,
-        load: 0.0,
+        loadRate: 0.0,
         loadVolt: 0.0,
         loadCurr: 0.0,
         sysEnergy: 0.0,
@@ -141,7 +141,7 @@ FluContentPage {
             sysVolt: sourceData.sysVolt || 0,
             sysCurr: sourceData.sysCurr || 0,
             sysPower: sourceData.sysPower || 0,
-            load: sourceData.load || 0,
+            loadRate: sourceData.loadRate || 0,
             loadVolt: sourceData.loadVolt || 0,
             loadCurr: sourceData.loadCurr || 0,
             sysEnergy: sourceData.sysEnergy || 0,
@@ -353,8 +353,8 @@ FluContentPage {
             }
 
             FluentDataItem {
-                label: qsTr("Load:")
-                value: sysData ? sysData.load.toFixed(1) : "---"
+                label: qsTr("LoadRate:")
+                value: sysData ? sysData.loadRate.toFixed(1) : "---"
                 unit: "％"
                 Layout.fillWidth: true
             }

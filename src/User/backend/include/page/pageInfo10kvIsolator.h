@@ -17,7 +17,6 @@ namespace page
         {"AC1Phase2Current10Kv",        "float",    4,      0x10,       0x1A,       0x05},              // Ib
         {"AC1Phase3Current10Kv",        "float",    4,      0x10,       0x1A,       0x06},              // Ic
         {"AcFrequency10Kv",             "float",    4,      0x10,       0x1A,       0x07},              // f
-        {"ACBreaker10Kv",               "ushort",   2,      0x12,       0xF6,       0x03},              // 负荷开关状态
         {"TransformerPriTempA",         "float",    4,      0x10,       0xF4,       0x01},              // 变压器A相温度
         {"TransformerPriTempB",         "float",    4,      0x10,       0xF4,       0x02},              // 变压器B相温度
         {"TransformerPriTempC",         "float",    4,      0x10,       0xF4,       0x03},              // 变压器C相温度
@@ -49,6 +48,7 @@ namespace page
         {"Fan4ContactorStatus",         "ushort",   2,      0x12,       0xF5,       0x34},              // 风扇4接触器状态
         {"EntryCabinetDoor",            "ushort",   2,      0x12,       0xF6,       0x01},              // 进线门开关
         {"PhaseShiftingDoor”",          "ushort",   2,      0x12,       0xF6,       0x02},              // 换相器柜门
+        {"ACBreaker10Kv",               "ushort",   2,      0x12,       0xF6,       0x03},              // 负荷开关状态
 
 
     };

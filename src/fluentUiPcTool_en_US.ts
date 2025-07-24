@@ -574,7 +574,8 @@
     </message>
     <message>
         <location filename="User/ui/page/P_Info_mainInfo.qml" line="356"/>
-        <source>Load:</source>
+        <source>LoadRate:</source>
+        <oldsource>Load:</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

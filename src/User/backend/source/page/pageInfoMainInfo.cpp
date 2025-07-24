@@ -10,6 +10,7 @@ namespace page
         initPageQuerryCmdList();
     }
 
+    // 下面的数据在当前页面的category中只需要一条，因此不在infoMainInfoPageQuerryCmdList中用00全部问询，而是单独添加
     void infoMainInfoPage::initPageQuerryCmdList()
     {
         appendQuerryCmd(querryItemData("sysVolt"));

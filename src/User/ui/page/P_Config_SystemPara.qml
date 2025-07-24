@@ -41,6 +41,33 @@ FluContentPage {
             property real rectStartUpInSequence: 0;
         }', root)
 
+    property var sysParaOneData: Qt.createQmlObject('
+        import QtQuick 2.0;
+        QtObject {
+            property real csuNum: 0;
+            property real acNum: 0;
+            property real ac10kvNum: 0;
+            property real csuARectNum: 0;
+            property real batteryPackNum: 0;
+            property real transformerTempNum: 0;
+            property real csuBRectNum: 0;
+            property real csuABatteryNum: 0;
+            property real transformerFanNum: 0;
+            property real csuCRectNum: 0;
+            property real stateBranchNum: 0;
+            property real extendStateBranchNum: 0;
+            property real loadFuseNum: 0;
+            property real csuADcBranchNum: 0;
+            property real csuBDcBranchNum: 0;
+            property real mixedBoardNum: 0;
+            property real meterNum: 0;
+            property real acBaseFromRect: 0;
+            property real diodeNUm: 0;
+            property real fanRotationCycle: 0;
+            property real mainVoltage: 0;
+            property real mainCurrent: 0;
+        }', root)
+
     
     // ==================== 第3层：连接管理层 ====================
     Connections {
@@ -54,6 +81,25 @@ FluContentPage {
         }
     }
 
+    Connections {
+        id: itemSetResultConnection
+        target: pageManager
+        enabled: root.isPageActive
+        function onItemSetResult(name, resultCode, message) {
+            console.log("itemSetResult:", name, resultCode, message);
+            if(resultCode === 0)
+            {
+                showSuccess(qsTr("set success!"))
+            }
+            else
+            {
+                showError(qsTr("set failed!"))
+            }
+        }
+    }
+
+
+
     // ==================== 页面生命周期管理 ====================
     Component.onCompleted: {
         console.log("configSys page created");
@@ -61,9 +107,13 @@ FluContentPage {
 
         // 注册清理任务
         cleanupTasks.push(dataConnection);
+        cleanupTasks.push(itemSetResultConnection);
 
         // 通知页面切换
         pageManager.notifyPageSwitch("configSys");
+
+        // 创建标签页
+        createTab();
 
         // 初始化数据
         updateAllACData();
@@ -122,7 +172,7 @@ FluContentPage {
         root.isPageActive = false;
         
         // 第2步：清理动态创建的标签页
-        // clearDynamicTabs();
+        clearDynamicTabs();
         
         // 第3步：断开所有连接
         for (var i = 0; i < cleanupTasks.length; i++) {
@@ -142,12 +192,12 @@ FluContentPage {
         
         // 第5步：清理任务列表
         cleanupTasks = null;
-        //dynamicTabs = null;
+        dynamicTabs = null;
         
         // 第6步：强制垃圾回收
         Qt.callLater(function() {
             gc();
-            console.log("ACInfo page cleanup completed");
+            console.log("sysConfig page cleanup completed");
         });
     }
 
@@ -155,10 +205,48 @@ FluContentPage {
         sysConfigData = null;
         console.log("sysConfig data structures cleared");
     }
+
+    function clearDynamicTabs() {
+        if (tab_view && tab_view.count > 0) {
+            console.log("Clearing", tab_view.count, "dynamic tabs");
+
+            // 清理所有标签页
+            for (var i = tab_view.count - 1; i >= 0; i--) {
+                tab_view.removeTab(i);
+            }
+        }
+
+        // 清理标签页引用
+        dynamicTabs = [];
+        console.log("Dynamic tabs cleared");
+    }
     
    
-    // combox选项
+    // ==================== combox选项 ============================
     property var acDataModel: [ {label: "", setName: "", editable: true, options: [] } ]
+
+    property var sysParaOneDataModel: [{label: qsTr("csuNum"), setName: "csuNum", editable: false, options: [] },
+                                       {label: qsTr("AC Num"), setName: "acNum", editable: true, options: [] },
+                                       {label: qsTr("10kV AC NUM"), setName: "ac10kvNum", editable: true, options: [] },
+                                       {label: qsTr("*CSU-A Rect Num"), setName: "csuARectNum", editable: true, options: [] },
+                                       {label: qsTr("Battery Pack Num"), setName: "batteryPackNum", editable: true, options: [] },
+                                       {label: qsTr("Transfomer Temp Unit Num"), setName: "transformerTempNum", editable: true, options: [] },
+                                       {label: qsTr("*CSU-B Rect Num"), setName: "csuBRectNum", editable: true, options: [] },
+                                       {label: qsTr("CSUA Battery"), setName: "csuABatteryNum", editable: true, options: [] },
+                                       {label: qsTr("Transformer Fan Num"), setName: "transformerFanNum", editable: true, options: [] },
+                                       {label: qsTr("*CSU-C Rect Num"), setName: "csuCRectNum", editable: true, options: [] },
+                                       {label: qsTr("State Branch Num"), setName: "stateBranchNum", editable: true, options: [] },
+                                       {label: qsTr("Extend State Branch Num"), setName: "extendStateBranchNum", editable: true, options: [] },
+                                       {label: qsTr("Load Fuse Num"), setName: "loadFuseNum", editable: true, options: [] },
+                                       {label: qsTr("CSUA DC Branch Num"), setName: "csuADcBranchNum", editable: true, options: [] },
+                                       {label: qsTr("CSUB DC Branch Num"), setName: "csuBDcBranchNum", editable: true, options: [] },
+                                       {label: qsTr("Mixed Board Num"), setName: "mixedBoardNum", editable: true, options: [] },
+                                       {label: qsTr("Meter Num"), setName: "meterNum", editable: true, options: [] },
+                                       {label: qsTr("AC Base From Rect"), setName: "acBaseFromRect", editable: true, options: [] },
+                                       {label: qsTr("Diode Num"), setName: "diodeNum", editable: true, options: [] },
+                                       {label: qsTr("Fan Rotation Cycle"), setName: "fanRotationCycle", editable: true, options: [] },
+                                       {label: qsTr("Main Voltage"), setName: "mainVoltage", editable: true, options: [] },
+                                       {label: qsTr("Main Current"), setName: "mainCurrent", editable: true, options: [] }]
 
     Loader {
         id: optionLoader
@@ -189,60 +277,143 @@ FluContentPage {
         }
     }
 
-    FluFrame {
+    // ==================== UI显示 ============================
 
+    FluFrame {
         anchors.fill: parent
         anchors.bottomMargin: 8
         anchors.topMargin: 4
         anchors.rightMargin: 4
 
-        Item{
+        FluTabView {
+            id: tab_view
+            anchors.fill: parent
+            addButtonVisibility: false
+            closeButtonVisibility: FluTabViewType.Never
+            tabWidthBehavior: FluTabViewType.Equal
+        }
+
+    }
+
+    property Component sysConfigComponentSource: Component {
+        SysConfigTabContent {}
+    }
+
+    property Component sysParaOneComponentSource: Component {
+        SysParaOne {}
+    }
+
+
+    // system Config组件
+    component SysConfigTabContent: Item {
+
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.topMargin: 20
+        anchors.bottomMargin: 20
+
+
+        height: parent.height
+        width: (parent.width/4)*3
+
+        GridLayout {
             anchors.centerIn: parent
             height: parent.height
-            width: (parent.width/4)*3
+            anchors.bottomMargin: 32
+            columnSpacing: 100
+            columns: 2
 
-            GridLayout {
-                anchors.fill: parent
-                anchors.bottomMargin: 32
-                columns: 2
-
-                Repeater {
-                    model: acDataModel
-                    Layout.alignment: Qt.AlignRight
-                    SystemParaItem {
-                        label: modelData.label
-                        setName: modelData.setName
-                        model: modelData.options
-                        editable: modelData.editable
-                    }
+            Repeater {
+                model: acDataModel
+                Layout.alignment: Qt.AlignRight
+                SystemParaItem {
+                    label: modelData.label
+                    setName: modelData.setName
+                    model: modelData.options
+                    editable: modelData.editable
                 }
-
-
-                Item{
-                    Layout.fillWidth: true
-                    
-                    Item{
-                        id: clearEnergyFrameItem
-                        width:108
-                        height:32
-                    }
-
-                    FluButton {
-                        anchors.left: clearEnergyFrameItem.right
-                        width:140
-                        
-                        text: qsTr("Clear Energy")
-                        onClicked: {
-
-                            console.log("Save button clicked");
-                            pageManager.setItemData("clearEnergy", 1);
-                        }
-                    }
-                }
-                
             }
 
+            RowLayout {
+                Layout.fillWidth: true
+                Layout.preferredHeight: 32
+                Layout.preferredWidth: 240
+                spacing: 8
+                Item{
+                    id: clearEnergyFrameItem
+                    Layout.preferredWidth: 100
+                }
+                FluButton {
+                    Layout.preferredWidth: 140
+                    anchors.leftMargin: 8
+
+                    text: qsTr("Clear Energy")
+                    onClicked: {
+
+                        console.log("Save button clicked");
+                        pageManager.setItemData("clearEnergy", 1);
+                    }
+                }
+            }
         }
+    }
+    // system para. 1
+    component SysParaOne: Item{
+        id: sysParaOneRoot
+
+        anchors.fill:parent
+        property var valueType: 0       
+
+        FluRadioButtons {
+            spacing: 8
+            orientation: Qt.Horizontal
+            currentIndex: sysParaOneRoot.valueType
+            
+
+            FluRadioButton {
+                text:"value"
+                onClicked: {
+                    sysParaOneRoot.valueType = 0
+                }
+            }
+
+            FluRadioButton {
+                text:"Max"
+                onClicked: {
+                    sysParaOneRoot.valueType = 1
+                }
+            }
+
+            FluRadioButton {
+                text:"Min"
+                onClicked: {
+                    sysParaOneRoot.valueType = 2
+                }
+            }
+        }
+
+        GridLayout {
+            anchors.centerIn: parent
+            //height: parent.height
+            anchors.bottomMargin: 32
+            columnSpacing: 100
+            rowSpacing: 24
+            columns: 3
+        
+            Repeater {
+                model: sysParaOneDataModel
+                Layout.alignment: Qt.AlignRight
+                SystemParaTextBox {
+                    label: modelData.label
+                    setName: modelData.setName
+                    editable: modelData.editable
+                    valueType: sysParaOneRoot.valueType
+                    // model: modelData.options
+                }
+            }
+        }
+
 
     }
 
@@ -254,6 +425,8 @@ FluContentPage {
         property var model
 
         Layout.fillWidth: true
+        Layout.preferredHeight: 32
+        Layout.preferredWidth: 240
 
         RowLayout {
             spacing: 8
@@ -290,11 +463,109 @@ FluContentPage {
                     currentIndex = root.sysConfigData ? root.sysConfigData[systemParaItemRoot.setName] : 0;
 
                     console.log("Selected:", systemParaItemRoot.setName, "Value:", selectedOption.value);
-                    showSuccess(qsTr("This is an InfoBar in the Success Style"))
+                    //showSuccess(qsTr("This is an InfoBar in the Success Style"))
 
                     pageManager.setItemData(systemParaItemRoot.setName, selectedOption.value);
                 }
             }
+        }
+    }
+
+    component SystemParaTextBox: Item {
+        id: systemParaTextBoxRoot
+        property string label: ""
+        property string setName: ""
+        property bool editable: true
+        property var valueType: 0
+
+        Layout.fillWidth: true
+        Layout.preferredHeight: 32
+        Layout.preferredWidth: 200
+
+        RowLayout {
+            spacing: 8
+
+            FluText {
+                Layout.preferredWidth: 100
+                Layout.fillWidth: true
+                text: label + ":"
+                horizontalAlignment: Text.AlignRight
+            }
+
+            FluTextBox {
+                id: dataInput
+                Layout.preferredWidth: 100
+                Layout.fillWidth: true
+
+                property string valueKey: systemParaTextBoxRoot.setName + getSysParaPostfix(systemParaTextBoxRoot.valueType)
+                property var valueData: pageManager.pageData[valueKey]
+
+                enabled: systemParaTextBoxRoot.editable && (valueData !== undefined)
+                text: valueData !== undefined ? valueData : "---"
+
+                validator: RegularExpressionValidator {
+                    // 允许负号，1位可以是0或-0，2位及以上不能以0开头
+                    regularExpression: /^-?(0|[1-9]\d{0,5})(\.\d{1,2})?$/
+                }
+
+                onCommit: {
+                    //console.log("onPressed", dataInput.text);
+                    console.log("valueType", systemParaTextBoxRoot.valueType);
+                    handleSysParaValueSet(systemParaTextBoxRoot.setName, systemParaTextBoxRoot.valueType, dataInput.text)
+                }
+            }
+        }
+    }
+
+    function createTab() {
+        console.log("Creating AC Info tabs");
+
+        var sysConfigTab = tab_view.appendTab("qrc:/image/favicon.ico",
+                                              qsTr("System config"),
+                                              sysConfigComponentSource,
+                                              );
+        dynamicTabs.push(sysConfigTab);
+
+        var sysParaOneTab = tab_view.appendTab("qrc:/image/favicon.ico",
+                                               qsTr("System para. 1"),
+                                               sysParaOneComponentSource,
+                                               );
+        dynamicTabs.push(sysParaOneTab);
+
+        console.log("Created", dynamicTabs.length, "tabs");
+    }
+
+    function handleSysParaValueSet(setName, valueType, value)
+    {
+        if(valueType === 0)  // value
+        {
+            pageManager.setItemData(setName, value);
+            //sysParaOneData[setName] = value
+        }
+        else if(valueType === 1) // max
+        {
+            //sysParaOneData[setName] = value
+        }
+        else if(valueType === 2) // min
+        {
+
+        }
+
+    }
+
+    function getSysParaPostfix(valueType)
+    {
+        if(valueType === 0)
+        {
+            return ""
+        }
+        else if(valueType === 1)
+        {
+            return "Max"
+        }
+        else if(valueType === 2)
+        {
+            return "Min"
         }
     }
 }

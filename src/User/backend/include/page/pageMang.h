@@ -96,6 +96,7 @@ namespace page
         void toSerialSend(QByteArray data);
         void currentControllerChanged();
         void pageDataChanged(); // 通知UI界面数据发生变化
+        void itemSetResult(const QString &name, int resultCode, const QString &message = QString());  // 通知UI界面设置结果
 
     public slots:
         void handleDataUpdate(QByteArray data); // 处理数据更新

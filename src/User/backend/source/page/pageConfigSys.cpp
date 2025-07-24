@@ -11,7 +11,7 @@ namespace page
     // void pageConfigSys::initPageQuerryCmdList()
     // {
     //     // 不能插入未定义的值
-    // }
+    //}
 
     // pageDataUpdateResult_t pageConfigSys::handlePageDataUpdate(const QByteArray &data)
     // {

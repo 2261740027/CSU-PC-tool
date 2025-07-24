@@ -310,13 +310,138 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="234"/>
-        <source>Clear Energy</source>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="92"/>
+        <source>set success!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="293"/>
-        <source>This is an InfoBar in the Success Style</source>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="96"/>
+        <source>set failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="228"/>
+        <source>csuNum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="229"/>
+        <source>AC Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="230"/>
+        <source>10kV AC NUM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="231"/>
+        <source>*CSU-A Rect Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="232"/>
+        <source>Battery Pack Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="233"/>
+        <source>Transfomer Temp Unit Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="234"/>
+        <source>*CSU-B Rect Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="235"/>
+        <source>CSUA Battery</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="236"/>
+        <source>Transformer Fan Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="237"/>
+        <source>*CSU-C Rect Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="238"/>
+        <source>State Branch Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="239"/>
+        <source>Extend State Branch Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="240"/>
+        <source>Load Fuse Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="241"/>
+        <source>CSUA DC Branch Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="242"/>
+        <source>CSUB DC Branch Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="243"/>
+        <source>Mixed Board Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="244"/>
+        <source>Meter Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="245"/>
+        <source>AC Base From Rect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="246"/>
+        <source>Diode Num</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="247"/>
+        <source>Fan Rotation Cycle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="248"/>
+        <source>Main Voltage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="249"/>
+        <source>Main Current</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="524"/>
+        <source>System config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="530"/>
+        <source>System para. 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="351"/>
+        <source>Clear Energy</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -381,33 +506,33 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="288"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="287"/>
         <source>AC Total Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="297"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="296"/>
         <source>AC Branch Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="709"/>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="713"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="708"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="712"/>
         <source>---</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="710"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="709"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="711"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="710"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_ACInfo.qml" line="712"/>
+        <location filename="User/ui/page/P_Info_ACInfo.qml" line="711"/>
         <source>Trip</source>
         <translation type="unfinished"></translation>
     </message>

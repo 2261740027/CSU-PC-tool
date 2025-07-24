@@ -31,25 +31,32 @@ namespace page
         const pageMapField &field = _pageFieldTable.getValueMap()[name];
         QByteArray retData;
 
+        int decimals = 1;
+        if(field.extra.contains("decimals"))
+        {
+            decimals = field.extra["decimals"].toInt() * 10;
+        }
+            
+
         if (field.valueType == "int")
         {
             // 处理整数类型
             if (field.length == 1)
             {
                 // 8位整数
-                qint8 intValue = static_cast<qint8>(value.toInt());
+                qint8 intValue = static_cast<qint8>(value.toInt() * decimals);
                 retData.append(intValue);
             }
             else if (field.length == 2)
             {
                 // 16位整数
-                qint16 intValue = static_cast<qint16>(value.toInt());
+                qint16 intValue = static_cast<qint16>(value.toInt() * decimals);
                 retData.append(reinterpret_cast<const char *>(&intValue), sizeof(intValue));
             }
             else if (field.length == 4)
             {
                 // 32位整数
-                qint32 intValue = value.toInt();
+                qint32 intValue = value.toInt() * decimals;
                 retData.append(reinterpret_cast<const char *>(&intValue), sizeof(intValue));
             }
         }
@@ -58,44 +65,44 @@ namespace page
             if (field.length == 4)
             {
                 // 32位浮点数
-                float floatValue = value.toFloat();
+                float floatValue = value.toFloat() * decimals;
                 retData.append(reinterpret_cast<const char *>(&floatValue), sizeof(floatValue));
             }
             else if (field.length == 8)
             {
                 // 64位双精度浮点数
-                double doubleValue = value.toDouble();
+                double doubleValue = value.toDouble() * decimals;
                 retData.append(reinterpret_cast<const char *>(&doubleValue), sizeof(doubleValue));
             }
         }
         else if (field.valueType == "short")
         {
             // 16位短整数
-            qint16 shortValue = static_cast<qint16>(value.toInt());
+            qint16 shortValue = static_cast<qint16>(value.toInt() * decimals);
             retData.append(reinterpret_cast<const char *>(&shortValue), sizeof(shortValue));
         }
         else if (field.valueType == "ushort" || field.valueType == "uint16")
         {
             // 16位无符号短整数
-            quint16 ushortValue = static_cast<quint16>(value.toUInt());
+            quint16 ushortValue = static_cast<quint16>(value.toUInt() * decimals);
             retData.append(reinterpret_cast<const char *>(&ushortValue), sizeof(ushortValue));
         }
         else if (field.valueType == "uint" || field.valueType == "uint32")
         {
             // 32位无符号整数
-            quint32 uintValue = value.toUInt();
+            quint32 uintValue = value.toUInt() * decimals;
             retData.append(reinterpret_cast<const char *>(&uintValue), sizeof(uintValue));
         }
         else if (field.valueType == "char" || field.valueType == "int8")
         {
             // 8位字符/整数
-            qint8 charValue = static_cast<qint8>(value.toInt());
+            qint8 charValue = static_cast<qint8>(value.toInt() * decimals);
             retData.append(charValue);
         }
         else if (field.valueType == "uchar" || field.valueType == "uint8")
         {
             // 8位无符号字符/整数
-            quint8 ucharValue = static_cast<quint8>(value.toUInt());
+            quint8 ucharValue = static_cast<quint8>(value.toUInt() * decimals);
             retData.append(ucharValue);
         }
         else if (field.valueType == "bool")
@@ -120,7 +127,7 @@ namespace page
         if (_pageFieldTable.getValueMap().contains(name))
         {
             // 更新字段值
-            _pageFieldTable.getValueMap()[name].value = value;
+            //_pageFieldTable.getValueMap()[name].value = value;
             
             // 获取字段信息
             const pageMapField &field = _pageFieldTable.getValueMap()[name];
@@ -240,17 +247,21 @@ namespace page
         pageDataUpdateResult_t result;
         result.num = 0;
 
-        if (data.length() < 3)
+        if(data.length() < 3)
         {
             return result;
         }
-
         unsigned short group = data[0];
-        unsigned short category = data[1];
-        unsigned short number = data[2];
+        // unsigned short category = data[1];
+        // unsigned short number = data[2];
 
         if (group == 0x08) // handle setting ack
         {
+            if(data.length() < 7)
+            {
+                return result;
+            }
+
             unsigned int setResult = data[6];
 
             if(0x00 == setResult)

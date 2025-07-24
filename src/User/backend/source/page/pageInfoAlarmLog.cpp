@@ -94,11 +94,14 @@ namespace page
     pageDataUpdateResult_t infoAlarmLogPage::handlePageDataUpdate(const QByteArray &data)
     {
         uint32_t logsum = 0;
+        pageDataUpdateResult_t result;
+        result.num = 0;
+
         qDebug() << data.toHex();
 
         if(data.size() < 15)
         {
-            return pageDataUpdateResult_t();
+            return result;
         }
         else
         {
@@ -113,7 +116,8 @@ namespace page
                 _askAlarmLogIndex += _logAskLength;
                 uint16_t eventId = 0;
 
-                uint32_t logSum = data.size() / 12;
+                uint32_t logSum = (data.size() - 3) / 12;
+                result.num = logSum;
                 qDebug() << "----> recvLogsum:" << logSum;
 
                 std::vector<Log::alarmLogItem_t> logItems;
@@ -123,7 +127,7 @@ namespace page
                 {
                     Log::alarmLogItem_t alarmLogItem;
                     uint8_t dataOffset = 3;
-                    alarmLogItem.eventIndex = (data[(12*i) +1 +dataOffset] << 8) | data[(12*i) +dataOffset];
+                    alarmLogItem.eventIndex = ((data[(12*i) +1 +dataOffset] << 8) & 0xFF00) | (data[(12*i) +dataOffset] & 0xFF);
                     dataOffset += 4;
                     alarmLogItem.status = (data[(12*i) +1 + dataOffset] & 0x80) >> 7;
                     eventId = ((data[(12*i) +1 + dataOffset] & 0x7F) << 9) | (data[(12*i) + dataOffset] & 0x7F) | ((data[(12*i) + dataOffset] & 0x80) << 1);
@@ -153,6 +157,6 @@ namespace page
 
         }
 
-        return pageDataUpdateResult_t();
+        return result;
     }
 }

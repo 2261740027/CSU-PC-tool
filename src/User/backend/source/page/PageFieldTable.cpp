@@ -15,6 +15,7 @@ namespace page
             _valueMap[f.name].group = f.group;
             _valueMap[f.name].category = f.category;
             _valueMap[f.name].number = f.number;
+            _valueMap[f.name].extra = f.extra;
 
             _reValueMap.insert(SLIPDATAINDEX(f.group, f.category, f.number), f.name);
         }

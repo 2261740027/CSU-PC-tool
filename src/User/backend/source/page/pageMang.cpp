@@ -143,12 +143,17 @@ namespace page
         {
             if(recvInfo.num >= 1 && recvInfo.data.contains(index))
             {
+                emit itemSetResult(recvInfo.data[0], 0, "success");
+                emit pageDataChanged();
                 isResponse = true;
             }
         }
         else if(SendRequestType::Log == _currentRequest.type)
         {
-            isResponse = true;
+            if(0 != recvInfo.num)
+            {
+                isResponse = true;
+            }
         }
 
 
@@ -167,32 +172,12 @@ namespace page
             {
                 processSendQueue();
             }
-            emit pageDataChanged();
+            
+            if(_pageHash[_currentPage]->getPageReflashState() == false)
+            {
+                emit pageDataChanged();
+            }
         }
-
-
-        //QString recvDataName = _pageHash[_currentPage]->handlePageDataUpdate(data);
-
-
-        
-        // // 只有在收到有效响应数据时，才重置重试计数并释放发送锁
-        // if ( (recvDataName == _currentRequest.fieldName) && _isSending)
-        // {
-        //     // 成功收到有效响应，重置该字段的重试计数
-        //     _retryCount[_currentRequest.fieldName] = 0;
-        //     QString processedFieldName = _currentRequest.fieldName;
-
-        //     _isSending = false;
-        //     _sendQueueTimer->stop(); // 停止超时定时器
-        //     qDebug() << "Received valid response for field:" << processedFieldName << ", releasing send lock";
-
-        //     // 先通知页面字段处理完成（可能会向队列添加新请求）
-        //     _pageHash[_currentPage]->onFieldProcessed(processedFieldName, true);
-            
-            
-        //     processSendQueue();
-        // }
-        
     }
 
     QVariantMap pageMange::pageData()
@@ -331,6 +316,13 @@ namespace page
             {
                 // 超过最大重试次数，跳过该字段
                 qDebug() << "Max retries reached for field:" << index << ", skipping";
+                
+                // 设置三次后失败，通知UI界面设置失败
+                if(_currentRequest.type == SendRequestType::Setting)
+                {
+                    emit itemSetResult("", 1, "failed");
+                }
+
                 _retryCount[index] = 0; // 重置计数
                 _isSending = false;
                  

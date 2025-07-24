@@ -39,6 +39,7 @@ namespace page
         const pageAttribute_t &getPageAttribute() const;                                            // 获取页面属性
         const QMap<QString, pageMapField> &getPageTable() const;
         bool appendQuerryCmd(const QByteArray &cmd);
+        bool getPageReflashState() { return _pageReflashState; }
 
         virtual void setCmd(QString cmd) {};   
         virtual void onFieldProcessed(bool success);                                                     // 发送命令

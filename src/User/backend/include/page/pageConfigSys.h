@@ -49,14 +49,70 @@ namespace page
         {"meterNum",                   "uchar",    1,      0x56,       0xF5,       0x05},              //meter num
         {"acBaseFromRect",             "uchar",    1,      0x56,       0xE3,       0x02},              //ac base from rect
         {"diodeNum",                   "uchar",    1,      0x56,       0xF5,       0x03},              //diode num
-        {"csuNum",                     "ushort",   2,      0x50,       0xF2,       0x01},              //
-        {"csuARectNum",                "ushort",   2,      0x50,       0x60,       0x01},              //csu a rect num
-        {"csuBRectNum",                "ushort",   2,      0x50,       0x60,       0x11},              //csu b rect num
-        {"csuCRectNum",                "ushort",   2,      0x50,       0x60,       0x21},              //csu c rect num
-        {"fanRotationCycle",           "ushort",   2,      0x50,       0xE5,       0x0B},              //fan rotation cycle
-        {"mainVoltage",                "ushort",   2,      0x50,       0xE5,       0x0C,        QVariantMap{{"decimals", 1}} },              //main voltage
-        {"mainCurrent",                "ushort",   2,      0x50,       0xE6,       0x01,        QVariantMap{{"decimals", 1}} }     //main current
+        // {"csuNum",                     "ushort",   2,      0x50,       0xF2,       0x01},              //
+        // {"csuARectNum",                "ushort",   2,      0x50,       0x60,       0x01},              //csu a rect num
+        // {"csuBRectNum",                "ushort",   2,      0x50,       0x60,       0x11},              //csu b rect num
+        // {"csuCRectNum",                "ushort",   2,      0x50,       0x60,       0x21},              //csu c rect num
+        // {"fanRotationCycle",           "ushort",   2,      0x50,       0xE5,       0x0B},              //fan rotation cycle
+        // {"mainVoltage",                "ushort",   2,      0x50,       0xE5,       0x0C,        QVariantMap{{"decimals", 1}} },    // main voltage
+        // {"mainCurrent",                "ushort",   2,      0x50,       0xE6,       0x01,        QVariantMap{{"decimals", 1}} }     // main current
 
+    };
+
+    static QList<PageField> configSysPageFieldWithRangeList = {
+
+        {"csuNum",                     "ushort",   2,      0x50,       0xF2,       0x01},                                                   
+        {"csuARectNum",                "ushort",   2,      0x50,       0x60,       0x01},                                                   
+        {"csuBRectNum",                "ushort",   2,      0x50,       0x60,       0x11},                                                   
+        {"csuCRectNum",                "ushort",   2,      0x50,       0x60,       0x21},                               
+        {"fanRotationCycle",           "ushort",   2,      0x50,       0xE5,       0x0B},              
+        {"mainVoltage",                "ushort",   2,      0x50,       0xE5,       0x0C,    QVariantMap{{"decimals", 1}} },     
+        {"mainCurrent",                "ushort",   2,      0x50,       0xE6,       0x01,    QVariantMap{{"decimals", 1}} },  
+
+        {"rmsAShareCurrZeroTH",        "ushort",   2,      0x50,       0x61,       0x01,    QVariantMap{{"decimals", 1}} },              
+        {"rmsBShareCurrZeroTH",        "ushort",   2,      0x50,       0x61,       0x11,    QVariantMap{{"decimals", 1}} },              
+        {"rmsAShareOverCurrTH",        "ushort",   2,      0x50,       0x61,       0x02},              
+        {"rmsBShareOverCurrTH",        "ushort",   2,      0x50,       0x61,       0x12},              
+        {"rackVoltDiff",               "ushort",   2,      0x50,       0xE4,       0x01,    QVariantMap{{"decimals", 1}} },              
+        {"systemAdjustVoltageDiff",    "ushort",   2,      0x50,       0xE3,       0x01,    QVariantMap{{"decimals", 1}} },  
+        {"rectifierLoadShareDiff",     "ushort",   2,      0x50,       0xE2,       0x01,    QVariantMap{{"decimals", 1}} },
+        {"startupDelay",               "ushort",   2,      0x50,       0xEC,       0x01,    QVariantMap{{"decimals", 1}} },
+        {"rectStartupVolt",            "ushort",   2,      0x50,       0xEC,       0x02,    QVariantMap{{"decimals", 1}} },
+        {"rectSoftStartDelay",         "ushort",   2,      0x50,       0xEC,       0x03,    QVariantMap{{"decimals", 1}} },
+        {"startTempofFanTH",           "ushort",   2,      0x50,       0xE5,       0x03},
+        {"systemRatedPower",           "ushort",   2,      0x50,       0xE5,       0x08,    QVariantMap{{"decimals", 1}} },
+        {"fullSpeedTempofFanTH",       "ushort",   2,      0x50,       0xE5,       0x05},
+        {"stopTempOfFanTH",            "ushort",   2,      0x50,       0xE5,       0x04,    QVariantMap{{"decimals", 1}} },
+        {"minFanSpeedTH",              "ushort",   2,      0x50,       0xE5,       0x07},
+        {"maxFanSpeedTH",              "ushort",   2,      0x50,       0xE5,       0x06},
+        {"fullloadDfanMaxSpeedTH",     "ushort",   2,      0x50,       0xE5,       0x09},
+        {"fullloadSfanMaxSpeedTH",     "ushort",   2,      0x50,       0xE5,       0x0A},
+        {"inputOpProtection",          "ushort",   2,      0x50,       0x1B,       0x01,    QVariantMap{{"decimals", 1}} },
+        {"inputLimitPowerRecv",        "ushort",   2,      0x50,       0x1B,       0x02,    QVariantMap{{"decimals", 1}} },
+        {"buffLimitPowerSet",          "ushort",   2,      0x50,       0x1B,       0x03},
+        {"buffLimitCurrent",           "ushort",   2,      0x50,       0x1B,       0x04,    QVariantMap{{"decimals", 1}} },
+        {"staticDuration",             "ushort",   2,      0x50,       0x1B,       0x07,    QVariantMap{{"decimals", 1}} },
+        {"inputRMNum",                 "ushort",   2,      0x50,       0x1B,       0x05},
+
+    };
+
+    //电池温度传感器
+    static QList<PageField> configSysPageBattTempList = {
+
+        {"battTempSensor",                     "uchar",   1,      0x56,       0x30,       0x01},                                                   
+    };
+
+    //管理屏设置
+    static QList<PageField> configSysPageHmiConfigList = {
+
+        {"csuRectModel",                     "uchar",    1,      0x56,       0x4A,       0x01},    
+        {"csuVoltSpec",                      "uchar",    1,      0x56,       0x4A,       0x02},                                                   
+        {"csuRectVoltageIncrease",           "uchar",    1,      0x56,       0x4A,       0x03},                                                   
+        {"csuRectStartUpInSequence",         "uchar",    1,      0x56,       0x4A,       0x04},     
+        {"csuSysSoftStartDelay",             "ushort",   2,      0x50,       0x89,       0x01}, 
+        {"csuRectSoftStartDelay",            "ushort",   2,      0x50,       0x89,       0x03},
+        {"csuRectStartUpVolt",               "ushort",   2,      0x50,       0x89,       0x02, QVariantMap{{"decimals", 1}} },
+        {"csuRectVoltIRisingSlope",          "ushort",   2,      0x50,       0x89,       0x04, QVariantMap{{"decimals", 1}} }
     };
 
     const static QList<QByteArray> configSysPageQuerryCmdList = {
@@ -97,9 +153,14 @@ namespace page
         ~pageConfigSys() = default;
 
     private:
+        void appendPageFieldWithRange(QList<PageField> &pageFieldList);
+        void appendBattTempSensor(QList<PageField> &pageFieldList);
+        void appendManagementscreenconfig(QList<PageField> &pageFieldList);
 
         static constexpr pageAttribute_t _configSysPageAttribute = {
-            .isRefresh = 1};
+            .isRefresh = 1,
+            .csuIndex = 1,
+        };
     };
 }
 

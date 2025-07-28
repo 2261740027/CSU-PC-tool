@@ -36,6 +36,7 @@ namespace page
     {
         Q_OBJECT
         Q_PROPERTY(QVariantMap pageData READ pageData NOTIFY pageDataChanged)
+        Q_PROPERTY(QVariantMap pageAttributeValue READ getPageAttribute NOTIFY pageAttributeChanged)
 
     public:
         pageMange();
@@ -43,10 +44,12 @@ namespace page
 
         //Q_INVOKABLE void getPageData(QString name);                 // 获取单个数据
         Q_INVOKABLE void setItemData(QString name, QVariant value);   // 设置单个数据
+        Q_INVOKABLE void changePageAttribute(QString name, QVariant value);
+        Q_INVOKABLE QVariantMap getPageAttribute();
         Q_INVOKABLE void notifyPageSwitch(const QString newPageName); // qml界面切换页面
 
         // 定时刷新
-        Q_INVOKABLE void manualRefreshPage() {};
+        Q_INVOKABLE void manualRefreshPage();
         Q_INVOKABLE void startAutoRefresh();
         Q_INVOKABLE void stopAutoRefresh();
         Q_INVOKABLE bool autoRefreshEnabled() const { return _autoRefreshEnabled; }
@@ -96,6 +99,7 @@ namespace page
         void toSerialSend(QByteArray data);
         void currentControllerChanged();
         void pageDataChanged(); // 通知UI界面数据发生变化
+        void pageAttributeChanged(); // 通知UI界面属性发生变化
         void itemSetResult(const QString &name, int resultCode, const QString &message = QString());  // 通知UI界面设置结果
 
     public slots:

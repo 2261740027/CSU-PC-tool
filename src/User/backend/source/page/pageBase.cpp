@@ -159,80 +159,72 @@ namespace page
 
     QVariant pageBase::unpackByteStream(const QString &name, const QByteArray &data)
     {
-        QString varType = _pageFieldTable.getValueMap()[name].valueType;
-        int length = _pageFieldTable.getValueMap()[name].length;
+        const pageMapField &field = _pageFieldTable.getValueMap()[name];
+        QString varType = field.valueType;
+        int length = field.length;
 
-        if (varType == "char" || varType == "int8")
-        {
-            if (length == 1)
-            {
+        int decimals = 1;
+        if(field.extra.contains("decimals")) {
+            decimals = field.extra["decimals"].toInt() * 10;
+        }
+
+        if (varType == "int") {
+            if (length == 1 && data.size() >= 1) {
                 qint8 value = static_cast<qint8>(data[0]);
-                qDebug() << Q_FUNC_INFO << "Parsed int8:" << value;
-                return QVariant(static_cast<int>(value));
-            }
-        }
-        else if (varType == "uchar" || varType == "uint8")
-        {
-            if (length == 1)
-            {
-                quint8 value = static_cast<quint8>(data[0]);
-                qDebug() << Q_FUNC_INFO << "Parsed uint8:" << value;
-                return QVariant(static_cast<uint>(value));
-            }
-        }
-        else if (varType == "short" || varType == "int16")
-        {
-            if (length == 2)
-            {
+                return QVariant(static_cast<int>(value) / decimals);
+            } else if (length == 2 && data.size() >= 2) {
                 qint16 value;
                 memcpy(&value, data.constData(), sizeof(qint16));
-                qDebug() << Q_FUNC_INFO << "Parsed int16:" << value;
-                return QVariant(static_cast<int>(value));
-            }
-        }
-        else if (varType == "ushort" || varType == "uint16")
-        {
-            if (length == 2)
-            {
-                quint16 value;
-                memcpy(&value, data.constData(), sizeof(quint16));
-                qDebug() << Q_FUNC_INFO << "Parsed uint16:" << value;
-                return QVariant(static_cast<uint>(value));
-            }
-        }
-        else if (varType == "int")
-        {
-            if (length == 4)
-            {
-                // 4字节整数
+                return QVariant(static_cast<int>(value) / decimals);
+            } else if (length == 4 && data.size() >= 4) {
                 qint32 value;
                 memcpy(&value, data.constData(), sizeof(qint32));
-                qDebug() << Q_FUNC_INFO << "Parsed int32:" << value;
-                return QVariant(value);
+                return QVariant(static_cast<int>(value) / decimals);
             }
-        }
-        else if (varType == "uint")
-        {
-            if (length == 4)
-            {
-                quint32 value;
-                memcpy(&value, data.constData(), sizeof(quint32));
-                qDebug() << Q_FUNC_INFO << "Parsed uint32:" << value;
-                return QVariant(value);
-            }
-        }
-        else if (varType == "float")
-        {
-            if (length == 4)
-            {
+        } else if (varType == "float") {
+            if (length == 4 && data.size() >= 4) {
                 float value;
                 memcpy(&value, data.constData(), sizeof(float));
-                qDebug() << Q_FUNC_INFO << "Parsed float:" << value;
-                return QVariant(value);
+                return QVariant(value / decimals);
+            } else if (length == 8 && data.size() >= 8) {
+                double value;
+                memcpy(&value, data.constData(), sizeof(double));
+                return QVariant(value / decimals);
             }
-        }
-        else
-        {
+        } else if (varType == "short") {
+            if (length == 2 && data.size() >= 2) {
+                qint16 value;
+                memcpy(&value, data.constData(), sizeof(qint16));
+                return QVariant(static_cast<int>(value) / decimals);
+            }
+        } else if (varType == "ushort" || varType == "uint16") {
+            if (length == 2 && data.size() >= 2) {
+                quint16 value;
+                memcpy(&value, data.constData(), sizeof(quint16));
+                return QVariant(static_cast<uint>(value) / decimals);
+            }
+        } else if (varType == "uint" || varType == "uint32") {
+            if (length == 4 && data.size() >= 4) {
+                quint32 value;
+                memcpy(&value, data.constData(), sizeof(quint32));
+                return QVariant(value / decimals);
+            }
+        } else if (varType == "char" || varType == "int8") {
+            if (length == 1 && data.size() >= 1) {
+                qint8 value = static_cast<qint8>(data[0]);
+                return QVariant(static_cast<int>(value) / decimals);
+            }
+        } else if (varType == "uchar" || varType == "uint8") {
+            if (length == 1 && data.size() >= 1) {
+                quint8 value = static_cast<quint8>(data[0]);
+                return QVariant(static_cast<uint>(value) / decimals);
+            }
+        } else if (varType == "bool") {
+            if (length == 1 && data.size() >= 1) {
+                quint8 value = static_cast<quint8>(data[0]);
+                return QVariant(value != 0);
+            }
+        } else {
             qDebug() << Q_FUNC_INFO << "Unsupported data type:" << varType;
             return QVariant();
         }
@@ -340,6 +332,42 @@ namespace page
         return result;
     }
 
+    QByteArray pageBase::getQuerryCmd()
+    {
+        if(_pageAttribute.pageQuerryType == 0)
+        {
+            return _pageQuerryCmdList[_currentFieldIndex];
+        }
+        else if(_pageAttribute.pageQuerryType == 1) // 获取最大值
+        {
+            if(_pageQuerryCmdList[_currentFieldIndex].at(0) == 0x50)
+            {
+                QByteArray cmd = _pageQuerryCmdList[_currentFieldIndex];
+                cmd[0] = 0x52;
+                return cmd;
+            }
+            else 
+            {
+                return _pageQuerryCmdList[_currentFieldIndex];
+            }
+        }
+        else if(_pageAttribute.pageQuerryType == 2) // 获取最小值
+        {
+            if(_pageQuerryCmdList[_currentFieldIndex].at(0) == 0x50)
+            {
+                QByteArray cmd = _pageQuerryCmdList[_currentFieldIndex];
+                cmd[0] = 0x54;
+                return cmd;
+            }
+            else 
+            {
+                return _pageQuerryCmdList[_currentFieldIndex];
+            }
+        }
+
+        return QByteArray();
+    }
+
     // 轮询相关功能实现
     void pageBase::refreshPageAllData()
     {
@@ -351,6 +379,13 @@ namespace page
         _pageReflashState = true;
         _currentFieldIndex = 0;
 
+        queryCurrentField();
+    }
+
+    void pageBase::forceRefreshPageAllData()
+    {
+        _pageReflashState = true;
+        _currentFieldIndex = 0;
         queryCurrentField();
     }
 
@@ -370,7 +405,7 @@ namespace page
         {
             if((_pageQuerryCmdList.size() > _currentFieldIndex) && (!_pageQuerryCmdList.empty()) )
             {
-                QByteArray queryData = _pageQuerryCmdList[_currentFieldIndex];
+                QByteArray queryData = getQuerryCmd();
                 if(!queryData.isEmpty())
                 {
                     _pageManager->sendRawData(queryData, SendRequestType::Query);
@@ -406,6 +441,24 @@ namespace page
         return _pageAttribute;
     }
 
+    void pageBase::changePageAttribute(QString name, int value)
+    {
+        if(name == "pageQuerryType")
+        {
+            if(value >=0 && value <= 2)
+            {
+               _pageAttribute.pageQuerryType = value; 
+            }    
+        }
+        else if(name == "csuIndex")
+        {
+            if(value >= 0 && value <= 3)
+            {
+               _pageAttribute.csuIndex = value; 
+            }    
+        }
+    }
+
     bool pageBase::appendQuerryCmd(const QByteArray &cmd)
     {
         if(cmd.isEmpty())
@@ -416,6 +469,15 @@ namespace page
         _pageQuerryCmdList.append(cmd);
 
         return true;
+    }
+
+    void pageBase::appendPageField(QList<PageField> &pageFieldList)
+    {
+        for (const PageField &field : pageFieldList)
+        {
+            _pageFieldList.append(field);
+        }
+        _pageFieldTable.loadFields(_pageFieldList);
     }
 
 }

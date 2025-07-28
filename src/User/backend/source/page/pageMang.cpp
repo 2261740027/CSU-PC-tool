@@ -209,6 +209,21 @@ namespace page
         }
     }
 
+    void pageMange::changePageAttribute(QString name, QVariant value)
+    {
+        _pageHash[_currentPage]->changePageAttribute(name, value.toInt());
+        emit pageAttributeChanged();
+    }
+
+    QVariantMap pageMange::getPageAttribute()
+    {
+        pageAttribute_t pageAttribute = _pageHash[_currentPage]->getPageAttribute();
+        QVariantMap pageAttributeMap;
+        pageAttributeMap.insert("pageQuerryType", pageAttribute.pageQuerryType);
+        pageAttributeMap.insert("csuIndex", pageAttribute.csuIndex);
+        return pageAttributeMap;
+    }
+
     void pageMange::notifyPageSwitch(const QString newPageName)
     {
         // 1. 停止当前页面的轮询状态
@@ -242,6 +257,29 @@ namespace page
         {
             startAutoRefresh();
             _pageHash[_currentPage]->refreshPageAllData();
+            qDebug() << "Restarted auto refresh timer for new page";
+        }
+    }
+
+    void pageMange::manualRefreshPage()
+    {
+        if (_pageHash.contains(_currentPage))
+        {
+            _pageHash[_currentPage]->resetPollingState();
+        }
+
+        stopAutoRefresh();
+
+        _sendQueue.clear();
+        _isSending = false;
+        _sendQueueTimer->stop();
+
+        _retryCount.clear();
+
+        if ((true == _autoRefreshEnabled) && (1 == _pageHash[_currentPage]->getPageAttribute().isRefresh))
+        {
+            startAutoRefresh();
+            _pageHash[_currentPage]->forceRefreshPageAllData();
             qDebug() << "Restarted auto refresh timer for new page";
         }
     }
@@ -321,6 +359,7 @@ namespace page
                 if(_currentRequest.type == SendRequestType::Setting)
                 {
                     emit itemSetResult("", 1, "failed");
+                    emit pageDataChanged();
                 }
 
                 _retryCount[index] = 0; // 重置计数

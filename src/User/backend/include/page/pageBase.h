@@ -15,6 +15,8 @@ namespace page
     typedef struct pageAttribute 
     {
         int isRefresh;
+        int pageQuerryType = 0;      // 0: value, 1: Max, 2: Min
+        int csuIndex = 0;
     }pageAttribute_t;
 
     typedef struct pageDataUpdateResult
@@ -34,11 +36,15 @@ namespace page
         ~pageBase() = default;
 
         void refreshPageAllData();
+        void forceRefreshPageAllData();
         void resetPollingState();                                                                   // 重置轮询状态（页面切换时使用）
         
         const pageAttribute_t &getPageAttribute() const;                                            // 获取页面属性
+        void changePageAttribute(QString name, int value);
         const QMap<QString, pageMapField> &getPageTable() const;
+        void appendPageField(QList<PageField> &pageFieldList);
         bool appendQuerryCmd(const QByteArray &cmd);
+        bool getPageReflashState() { return _pageReflashState; }
 
         virtual void setCmd(QString cmd) {};   
         virtual void onFieldProcessed(bool success);                                                     // 发送命令
@@ -61,6 +67,7 @@ namespace page
     private:
         QByteArray packSettingData(const QString &name, const QVariant &value);
         QVariant unpackByteStream(const QString &name, const QByteArray &data);
+        QByteArray getQuerryCmd();
 
         QList<PageField> _pageFieldList;
         PageFieldTable _pageFieldTable;

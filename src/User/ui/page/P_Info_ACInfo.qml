@@ -218,8 +218,8 @@ FluContentPage {
         clearDataStructures();
         
         // 第5步：清理任务列表
-        cleanupTasks = null;
-        dynamicTabs = null;
+        cleanupTasks = [];
+        dynamicTabs = [];
         
         // 第6步：强制垃圾回收
         Qt.callLater(function() {
@@ -247,7 +247,6 @@ FluContentPage {
         acInfoData = null;
         acTotalData = null;
         acBranchData = null;
-        
         console.log("AC data structures cleared");
     }
 

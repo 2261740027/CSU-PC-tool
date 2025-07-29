@@ -129,4 +129,20 @@ QtObject {
         { text: qsTr("Enable"), value: 1 },
     ]
 
+    readonly property var optionEnableDisable: [
+        { text: qsTr("Disable"), value: 0 },
+        { text: qsTr("Enable"), value: 1 },
+    ]
+
+    readonly property var optionBattTempSensor: [
+        { text: qsTr("Uninstall"), value: 0},
+        { text: qsTr("Install"), value: 1},
+    ] 
+    
+    readonly property var optionCSU: [
+        //{ text: qsTr("----"), value: 0 },
+        { text: qsTr("CSU A"), value: 1 , },
+        { text: qsTr("CSU B"), value: 2 ,},
+        { text: qsTr("CSU C"), value: 3 ,},
+    ]
 }

@@ -20,6 +20,18 @@ namespace page
         unsigned short group;
         unsigned short category;
         unsigned short number;
+        QVariantMap extra;
+
+        PageField() = default;
+        PageField(const QString& name,
+            const QString& type,
+            int length,
+            int group,
+            int category,
+            int number,
+            const QVariantMap extra = QVariantMap())
+        : name(name), valueType(type), length(length), group(group), category(category), number(number), extra(extra)
+        {}
     };
 
     struct pageMapField
@@ -30,6 +42,19 @@ namespace page
         unsigned short category;
         unsigned short number;
         QVariant value;
+        QVariantMap extra;
+
+        pageMapField() = default;
+        pageMapField(const QString& type,
+            int length,
+            int group,
+            int category,
+            int number,
+            QVariant value,
+            QVariantMap extra = QVariantMap())
+        : valueType(type), length(length), group(group), category(category), number(number), extra(extra)
+        {}
+        
     };
 
     class PageFieldTable : public QObject

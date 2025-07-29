@@ -161,7 +161,10 @@ FluContentPage {
 
     // 新增：更新页面属性缓存
     function updatePageAttributeCache() {
-        pageAttributeCache = pageManager.pageAttributeValue;
+        var newValue = pageManager.pageAttributeValue;
+        Qt.callLater(function() {
+            pageAttributeCache = newValue;
+        });
     }
 
     function updateSysConfigData(sourceData) {
@@ -426,13 +429,15 @@ FluContentPage {
         SysConfigTabContent {}
     }
 
-    property Component sysParaOneComponentSource: Component {
-        SysParaOne {}
-    }
-
-    property Component sysParaTwoComponentSource: Component {
-        SysParaTwo {}
-    }
+          property Component sysParaOneComponentSource: Component {
+          SysParaOne {
+          }
+      }
+  
+      property Component sysParaTwoComponentSource: Component {
+          SysParaTwo {
+          }
+      }
 
     property Component sysParaThreeComponentSource: Component {
         SysParaThree {}
@@ -498,7 +503,6 @@ FluContentPage {
     // system para. 1
     component SysParaOne: Item{
         id: sysParaOneRoot
-
         anchors.fill:parent
 
         PagaQuerryTypeSelect{
@@ -937,11 +941,18 @@ FluContentPage {
     }
 
     component PagaQuerryTypeSelect: Item{
-
         FluRadioButtons {
             //spacing: 8
             orientation: Qt.Horizontal
             currentIndex: root.pageAttributeCache ? root.pageAttributeCache["pageQuerryType"] : 0
+            
+            // 直接绑定到 root.pageAttributeCache 确保同步
+            property var directBinding: root.pageAttributeCache ? root.pageAttributeCache["pageQuerryType"] : 0
+            onDirectBindingChanged: {
+                if (currentIndex !== directBinding) {
+                    currentIndex = directBinding;
+                }
+            }
 
 
             FluRadioButton {
@@ -1036,7 +1047,6 @@ FluContentPage {
     }
 
     function createTab() {
-        console.log("Creating AC Info tabs");
 
         var sysConfigTab = tab_view.appendTab("qrc:/image/favicon.ico",
                                               qsTr("System config"),
@@ -1046,13 +1056,13 @@ FluContentPage {
 
         var sysParaOneTab = tab_view.appendTab("qrc:/image/favicon.ico",
                                                qsTr("System para. 1"),
-                                               sysParaOneComponentSource,
+                                               sysParaOneComponentSource
                                                );
         dynamicTabs.push(sysParaOneTab);
 
         var sysParaTwoTab = tab_view.appendTab("qrc:/image/favicon.ico",
                                                qsTr("System para. 2"),
-                                               sysParaTwoComponentSource,
+                                               sysParaTwoComponentSource
                                                );
         dynamicTabs.push(sysParaTwoTab);
 
@@ -1064,11 +1074,11 @@ FluContentPage {
 
         var sysParaFourTab = tab_view.appendTab("qrc:/image/favicon.ico",
                                                qsTr("System para. 4"),
-                                               sysParaFourComponentSource,
+                                               sysParaFourComponentSource
                                                );
         dynamicTabs.push(sysParaFourTab);
 
-        console.log("Created", dynamicTabs.length, "tabs");
+
     }
 
     function handleSysParaValueSet(setName, valueType, multipleCsu, value)

@@ -3,6 +3,7 @@
 #include "page/settingPage.h"
 #include "page/pageInfoMainInfo.h"
 #include "page/pageInfo10kvIsolator.h"
+#include "page/pageInfoDcInfo.h"
 #include "page/PageInfoAcInfo.h"
 #include "page/pageInfoAlarmLog.h"
 #include "page/pageConfigSys.h"
@@ -26,6 +27,9 @@ namespace page
 
         static infoAcInfoPage page5Instance(this);
         registerPage("infoAcInfo", &page5Instance);
+
+        static infoDcInfoPage dcInfoInstance(this);
+        registerPage("infoDcInfo", &dcInfoInstance);
 
         static infoAlarmLogPage page6Instance(this);
         registerPage("alarmLog", &page6Instance);
@@ -322,7 +326,8 @@ namespace page
             if (_retryCount[index] < MAX_RETRY_COUNT)
             {
                 // 重试当前请求
-                qDebug() << "Retrying field:" << index;
+                //qDebug() << "Retrying field:" << index;
+                qDebug() << "Retrying field:" << _currentRequest.data.toHex();
                 emit toSerialSend(_currentRequest.data);
                 _sendQueueTimer->start(SEND_TIMEOUT_MS);
                 return;
@@ -330,7 +335,7 @@ namespace page
             else
             {
                 // 超过最大重试次数，跳过该字段
-                qDebug() << "Max retries reached for field:" << index << ", skipping";
+                qDebug() << "Max retries reached for field:" << _currentRequest.data.toHex() << ", skipping";
                 _retryCount[index] = 0; // 重置计数
                 _isSending = false;
                  

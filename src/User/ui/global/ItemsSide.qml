@@ -57,6 +57,15 @@ FluObject{
         }
 
         FluPaneItem{
+            title: qsTr("DC Infomation")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Info_DcInfo.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
+
+        FluPaneItem{
             title: qsTr("Alarm Log")
             menuDelegate: paneItemMenu
             url: "qrc:/User/ui/page/P_Info_AlarmLog.qml"

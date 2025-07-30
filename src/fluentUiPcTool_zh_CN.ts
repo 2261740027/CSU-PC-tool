@@ -59,7 +59,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/global/ItemsSide.qml" line="86"/>
+        <location filename="User/ui/global/ItemsSide.qml" line="83"/>
+        <source>Alarm Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="95"/>
         <source>Setting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -318,6 +323,154 @@
     <message>
         <location filename="User/ui/page/pageComBoxOption/Option_SystemPara.qml" line="146"/>
         <source>CSU C</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>P_Config_AlarmPara</name>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="9"/>
+        <source>Alarm Parameter</source>
+        <oldsource>System Parameter</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="66"/>
+        <source>AC Volt High</source>
+        <oldsource>*AC Volt High</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="67"/>
+        <source>AC Unbalance</source>
+        <oldsource>*AC Unbalance</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="68"/>
+        <source>AC Freq High</source>
+        <oldsource>*AC Freq High</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="69"/>
+        <source>AC Volt Low</source>
+        <oldsource>*AC Volt Low</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="70"/>
+        <source>AC Over Curr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="71"/>
+        <source>AC Freq Low</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="72"/>
+        <source>AC Off Volt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="73"/>
+        <source>AC Restore Volt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="75"/>
+        <source>CSU A DC OV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="76"/>
+        <source>CSU A DC LV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="77"/>
+        <source>Battery OT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="78"/>
+        <source>CSU B DC OV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="79"/>
+        <source>CSU B DC LV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="80"/>
+        <source>Ambient OT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="81"/>
+        <source>CSU C DC OV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="82"/>
+        <source>CSU C DC LV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="83"/>
+        <source>Ambient LT</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="85"/>
+        <source>Dischg Unbalance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="86"/>
+        <source>Negative IR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="87"/>
+        <source>Sys Curr Share Diff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="88"/>
+        <source>Total Load OC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="89"/>
+        <source>Positive IR</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="90"/>
+        <source>Batt Lo SOC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="91"/>
+        <source>Main DC OV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="92"/>
+        <source>Main DC LV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="93"/>
+        <source>Battery cell OV</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_AlarmPara.qml" line="271"/>
+        <source>Alarm para. 1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -594,32 +747,32 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="490"/>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="485"/>
         <source>Clear Energy</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1042"/>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1037"/>
         <source>System config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1048"/>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1043"/>
         <source>System para. 1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1054"/>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1049"/>
         <source>System para. 2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1060"/>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1055"/>
         <source>System para. 3</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1066"/>
+        <location filename="User/ui/page/P_Config_SystemPara.qml" line="1061"/>
         <source>System para. 4</source>
         <translation type="unfinished"></translation>
     </message>

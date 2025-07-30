@@ -78,6 +78,15 @@ FluObject{
                 navigationView.push(url)
             }
         }
+
+        FluPaneItem{
+            title: qsTr("Alarm Parameter")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Config_AlarmPara.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
     }
 
     FluPaneItem{

@@ -22,7 +22,7 @@ namespace page
     typedef struct pageDataUpdateResult
     {
         int num;                         //接收数据数
-        QHash<unsigned short, QString> data;   //接收数据索引
+        QHash<unsigned int, QString> data;   //接收数据索引
     }pageDataUpdateResult_t;
 
     class pageBase : public QObject

@@ -34,7 +34,7 @@ namespace page
         int decimals = 1;
         if(field.extra.contains("decimals"))
         {
-            decimals = field.extra["decimals"].toInt() * 10;
+            decimals = std::pow(10, field.extra["decimals"].toInt());
         }
             
 
@@ -165,21 +165,21 @@ namespace page
 
         int decimals = 1;
         if(field.extra.contains("decimals")) {
-            decimals = field.extra["decimals"].toInt() * 10;
+            decimals = std::pow(10, field.extra["decimals"].toInt());
         }
 
         if (varType == "int") {
             if (length == 1 && data.size() >= 1) {
                 qint8 value = static_cast<qint8>(data[0]);
-                return QVariant(static_cast<int>(value) / decimals);
+                return QVariant(static_cast<float>(value) / (decimals));
             } else if (length == 2 && data.size() >= 2) {
                 qint16 value;
                 memcpy(&value, data.constData(), sizeof(qint16));
-                return QVariant(static_cast<int>(value) / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             } else if (length == 4 && data.size() >= 4) {
                 qint32 value;
                 memcpy(&value, data.constData(), sizeof(qint32));
-                return QVariant(static_cast<int>(value) / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             }
         } else if (varType == "float") {
             if (length == 4 && data.size() >= 4) {
@@ -195,29 +195,29 @@ namespace page
             if (length == 2 && data.size() >= 2) {
                 qint16 value;
                 memcpy(&value, data.constData(), sizeof(qint16));
-                return QVariant(static_cast<int>(value) / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             }
         } else if (varType == "ushort" || varType == "uint16") {
             if (length == 2 && data.size() >= 2) {
                 quint16 value;
                 memcpy(&value, data.constData(), sizeof(quint16));
-                return QVariant(static_cast<uint>(value) / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             }
         } else if (varType == "uint" || varType == "uint32") {
             if (length == 4 && data.size() >= 4) {
                 quint32 value;
                 memcpy(&value, data.constData(), sizeof(quint32));
-                return QVariant(value / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             }
         } else if (varType == "char" || varType == "int8") {
             if (length == 1 && data.size() >= 1) {
                 qint8 value = static_cast<qint8>(data[0]);
-                return QVariant(static_cast<int>(value) / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             }
         } else if (varType == "uchar" || varType == "uint8") {
             if (length == 1 && data.size() >= 1) {
                 quint8 value = static_cast<quint8>(data[0]);
-                return QVariant(static_cast<uint>(value) / decimals);
+                return QVariant(static_cast<float>(value) / decimals);
             }
         } else if (varType == "bool") {
             if (length == 1 && data.size() >= 1) {
@@ -396,6 +396,7 @@ namespace page
         {
             // 所有字段都查询完成
             _pageReflashState = false;
+            emit _pageManager->pageDataChanged();
             qDebug() << "All fields queried, cycle complete";
             return;
         }

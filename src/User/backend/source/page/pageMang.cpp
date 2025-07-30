@@ -6,32 +6,36 @@
 #include "page/PageInfoAcInfo.h"
 #include "page/pageInfoAlarmLog.h"
 #include "page/pageConfigSys.h"
+#include "page/pageConfigAlarmPara.h"
 #include <QDebug>
 
 namespace page
 {
     pageMange::pageMange()
     {
-        static mainPage page1Instance(this);
-        registerPage("main", &page1Instance);
+        static mainPage mainPageInstance(this);
+        registerPage("main", &mainPageInstance);
 
-        static settingPage page2Instance(this);
-        registerPage("setting", &page2Instance);
+        static settingPage settingPageInstance(this);
+        registerPage("setting", &settingPageInstance);
 
-        static infoMainInfoPage page3Instance(this);
-        registerPage("infoMainInfo", &page3Instance);
+        static infoMainInfoPage infoMainInfoPageInstance(this);
+        registerPage("infoMainInfo", &infoMainInfoPageInstance);
 
-        static infoIsolatro10KvPage page4Instance(this);
-        registerPage("info10KvIsolator", &page4Instance);
+        static infoIsolatro10KvPage infoIsolatro10KvPageInstance(this);
+        registerPage("info10KvIsolator", &infoIsolatro10KvPageInstance);
 
-        static infoAcInfoPage page5Instance(this);
-        registerPage("infoAcInfo", &page5Instance);
+        static infoAcInfoPage infoAcInfoPageInstance(this);
+        registerPage("infoAcInfo", &infoAcInfoPageInstance);
 
-        static infoAlarmLogPage page6Instance(this);
-        registerPage("alarmLog", &page6Instance);
+        static infoAlarmLogPage infoAlarmLogPageInstance(this);
+        registerPage("alarmLog", &infoAlarmLogPageInstance);
 
-        static pageConfigSys page7Instance(this);
-        registerPage("configSys", &page7Instance);
+        static pageConfigSys pageConfigSysInstance(this);
+        registerPage("configSys", &pageConfigSysInstance);
+
+        static pageConfigAlarmPara pageConfigAlarmParaInstance(this);
+        registerPage("configAlarmPara", &pageConfigAlarmParaInstance);
 
         // 页面定时刷新
         _refreshTimer = new QTimer(this);
@@ -126,7 +130,8 @@ namespace page
         {
             if((index & 0x00FF) == 0 ) // batch querry
             {
-                if(recvInfo.num > 1 && recvInfo.data.contains(index + 1)) // 接收应答
+                qDebug() << recvInfo.data.contains((index + 1));
+                if(recvInfo.num >= 1 && recvInfo.data.contains((index + 1))) // 接收应答
                 {
                     isResponse = true;
                 }
@@ -173,10 +178,10 @@ namespace page
                 processSendQueue();
             }
             
-            if(_pageHash[_currentPage]->getPageReflashState() == false)
-            {
-                emit pageDataChanged();
-            }
+            // if(_pageHash[_currentPage]->getPageReflashState() == false)
+            // {
+            //     emit pageDataChanged();
+            // }
         }
     }
 
@@ -345,7 +350,7 @@ namespace page
             if (_retryCount[index] < MAX_RETRY_COUNT)
             {
                 // 重试当前请求
-                qDebug() << "Retrying field:" << index;
+                qDebug() << "Retrying field: 0x" << QString::number(index, 16).toUpper();
                 emit toSerialSend(_currentRequest.data);
                 _sendQueueTimer->start(SEND_TIMEOUT_MS);
                 return;
@@ -353,7 +358,7 @@ namespace page
             else
             {
                 // 超过最大重试次数，跳过该字段
-                qDebug() << "Max retries reached for field:" << index << ", skipping";
+                qDebug() << "Max retries reached for field: 0x" << QString::number(index, 16).toUpper() << ", skipping";
                 
                 // 设置三次后失败，通知UI界面设置失败
                 if(_currentRequest.type == SendRequestType::Setting)

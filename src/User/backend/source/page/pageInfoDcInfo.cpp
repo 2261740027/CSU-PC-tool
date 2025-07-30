@@ -5,7 +5,7 @@
 namespace page
 {
     infoDcInfoPage::infoDcInfoPage(pageMange *pageManager)
-        : pageBase(infoDcInfoPageFieldList, infoDcInfoPageQuerryCmdList, pageManager, _infoDcInfoPageAttribute)
+        : pageBase(initinfoDcInfoPageFieldList(), infoDcInfoPageQuerryCmdList, pageManager, _infoDcInfoPageAttribute)
     {
         initPageQuerryCmdList();
     }
@@ -17,6 +17,36 @@ namespace page
         appendQuerryCmd(querryItemData("LoadBreaker"));
         appendQuerryCmd(querryItemData("ShareBreaker"));
 
+    }
+
+    QList<PageField> &infoDcInfoPage::initinfoDcInfoPageFieldList()
+    {
+        PageField tempField;
+
+        for(int i = 0; i < DC_BRANCH_NUM; i++)
+        {
+            tempField.valueType = "float";
+            tempField.length = 4;
+            tempField.group = 0x32;
+
+            tempField.name = "DcBranch" + QString::number(i + 1) + "LoadCurr";
+            tempField.category = 0x11;
+            tempField.number = ((i + 1) & 0x00FF);
+            infoDcInfoPageFieldList.append(tempField);
+
+            tempField.name = "DcBranch" + QString::number(i + 1) + "ActivePower";
+            tempField.category = 0x12;
+            tempField.number = ((i + 1) & 0x00FF);
+            infoDcInfoPageFieldList.append(tempField);
+
+            tempField.name = "DcBranch" + QString::number(i + 1) + "Energy";
+            tempField.category = 0x13;
+            tempField.number = ((i + 1) & 0x00FF);
+            infoDcInfoPageFieldList.append(tempField);
+
+        }
+        
+        return infoDcInfoPageFieldList;
     }
 
     pageDataUpdateResult_t infoDcInfoPage::handlePageDataUpdate(const QByteArray &data)

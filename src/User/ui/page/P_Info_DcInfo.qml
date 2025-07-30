@@ -12,6 +12,8 @@ FluContentPage {
     property var cleanupTasks: []
     property bool isPageActive: false
 
+    // 定义DC分支数量常量
+    readonly property int _DC_BRANCH_NUM: 10
 
     // ==================== 第2层：数据缓存层 ====================
     property var dcData: ({
@@ -33,6 +35,21 @@ FluContentPage {
         ShareBreaker: 0.0,  
     })
 
+    // DC分路数据 (1-10分路) - 参照AC Info的固定声明方式
+    property var dcBranchData: ({
+        branch1: createDcBranchDataStructure(),
+        branch2: createDcBranchDataStructure(),
+        branch3: createDcBranchDataStructure(),
+        branch4: createDcBranchDataStructure(),
+        branch5: createDcBranchDataStructure(),
+        branch6: createDcBranchDataStructure(),
+        branch7: createDcBranchDataStructure(),
+        branch8: createDcBranchDataStructure(),
+        branch9: createDcBranchDataStructure(),
+        branch10: createDcBranchDataStructure()
+    })
+        
+            
     // ==================== 第3层：连接管理层 ====================
     // 使用 Connections 替代直接绑定
     Connections {
@@ -41,7 +58,11 @@ FluContentPage {
         enabled: root.isPageActive
 
         function onPageDataChanged() {
-            if (!root.isPageActive) return;
+            console.log("DC Info - pageDataChanged signal received, isPageActive:", root.isPageActive);
+            if (!root.isPageActive) {
+                console.log("DC Info - Page not active, skipping update");
+                return;
+            }
             updateAllData();
         }
     }
@@ -67,7 +88,22 @@ FluContentPage {
     }
 
     // ==================== 第4层：数据更新函数 ====================
+
+    function createDcBranchDataStructure() {
+        // 使用QtObject以便QML能追踪属性变化
+        // 修复：属性名改为小写开头，符合QML规范
+        return Qt.createQmlObject('import QtQuick 2.0; QtObject
+                                { property real loadCurr: 0.0;
+                                  property real activePower: 0.0;
+                                  property real energy: 0.0; }', root);
+    }
+
     function updateAllData() {
+        if (!pageManager) {
+            console.error("pageManager is null or undefined");
+            return;
+        }
+        
         if (!pageManager.pageData) {
             console.warn("pageManager.pageData is null");
             return;
@@ -75,10 +111,11 @@ FluContentPage {
 
         // 缓存原始数据引用
         var sourceData = pageManager.pageData;
+        console.log("DC Info - Source data keys:", Object.keys(sourceData));
         
         // 更新dc数据
         updateDcData(sourceData);
-        
+        updateDcBranchData(sourceData);        
         
         console.log("All data updated successfully");
     }
@@ -102,6 +139,47 @@ FluContentPage {
             LoadBreaker: sourceData.LoadBreaker || 0,
             ShareBreaker: sourceData.ShareBreaker || 0,
 
+        }
+    }
+
+    function updateDcBranchData(sourceData) {
+        // 确保dcBranchData已初始化
+        if (!dcBranchData) {
+            console.warn("dcBranchData is not initialized, reinitializing...");
+            dcBranchData = {
+                branch1: createDcBranchDataStructure(),
+                branch2: createDcBranchDataStructure(),
+                branch3: createDcBranchDataStructure(),
+                branch4: createDcBranchDataStructure(),
+                branch5: createDcBranchDataStructure(),
+                branch6: createDcBranchDataStructure(),
+                branch7: createDcBranchDataStructure(),
+                branch8: createDcBranchDataStructure(),
+                branch9: createDcBranchDataStructure(),
+                branch10: createDcBranchDataStructure()
+            };
+        }
+        
+        for (var i = 1; i <= _DC_BRANCH_NUM; i++) {
+            var branchKey = "branch" + i;
+            var dataPrefix = "DcBranch" + i;
+            if (dcBranchData[branchKey]) {
+                // 使用小写属性名
+                dcBranchData[branchKey].loadCurr = sourceData[dataPrefix + "LoadCurr"] || 0;
+                dcBranchData[branchKey].activePower = sourceData[dataPrefix + "ActivePower"] || 0;
+                dcBranchData[branchKey].energy = sourceData[dataPrefix + "Energy"] || 0;
+            } else {
+                // 如果对象不存在，补充创建（修复函数名）
+                dcBranchData[branchKey] = createDcBranchDataStructure();
+                dcBranchData[branchKey].loadCurr = sourceData[dataPrefix + "LoadCurr"] || 0;
+                dcBranchData[branchKey].activePower = sourceData[dataPrefix + "ActivePower"] || 0;
+                dcBranchData[branchKey].energy = sourceData[dataPrefix + "Energy"] || 0;
+            }
+            console.log("DC分路", branchKey, "数据:", JSON.stringify({
+                loadCurr: dcBranchData[branchKey].loadCurr,
+                activePower: dcBranchData[branchKey].activePower,
+                energy: dcBranchData[branchKey].energy
+            }));
         }
     }
 
@@ -135,11 +213,12 @@ FluContentPage {
         Qt.callLater(function() {
             gc();
         });
+    }
 
-        function clearDataStructures() {
-            dcData = null;
-            console.log("All data structures cleared");
-        }
+    function clearDataStructures() {
+        dcData = null;
+        dcBranchData = null;
+        console.log("All data structures cleared");
     }
 
     // ==================== UI 层 ====================
@@ -686,12 +765,124 @@ FluContentPage {
             anchors.fill: parent
             color: "transparent"
 
-            FluText {
-                text: qsTr("DC Branch Info")
-                font.pixelSize: 14
-                font.bold: true
-                color: FluTheme.primaryColor
-                Layout.alignment: Qt.AlignHCenter
+            // 列配置
+            property var columnConfig: [
+                { title: "Current", unit: "A", dataKey: "loadCurr", decimals: 2 },
+                { title: "Power", unit: "W", dataKey: "activePower", decimals: 2 },
+                { title: "Energy", unit: "Wh", dataKey: "energy", decimals: 2 }
+            ]
+
+            readonly property int rowHeight: 40
+            readonly property int labelWidth: 120
+            readonly property int totalRows: 11 // 1行表头 + 10行数据
+
+            Item {
+                anchors.fill: parent
+
+                ColumnLayout {
+                    anchors.fill: parent
+                    anchors.margins: 16
+                    spacing: 0
+
+                    Repeater {
+                        model: totalRows
+
+                        RowLayout {
+                            id: rowLayout
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: rowHeight
+                            Layout.alignment: Qt.AlignVCenter
+                            spacing: 0
+
+                            property int currentRowIndex: index
+
+                            // 第一列（标签列或空白）
+                            Item {
+                                Layout.preferredWidth: labelWidth
+                                Layout.preferredHeight: rowHeight
+                                Layout.alignment: Qt.AlignVCenter
+
+                                FluText {
+                                    anchors.centerIn: parent
+                                    text: rowLayout.currentRowIndex === 0 ? "" : ("Branch" + rowLayout.currentRowIndex + ":")
+                                    font.pixelSize: 13
+                                    font.weight: Font.Medium
+                                    color: FluTheme.fontPrimaryColor
+                                    verticalAlignment: Text.AlignVCenter
+                                    horizontalAlignment: Text.AlignHCenter
+                                }
+                            }
+
+                            // 数据列
+                            Repeater {
+                                model: columnConfig
+
+                                Item {
+                                    Layout.fillWidth: true
+                                    Layout.preferredHeight: rowHeight
+                                    Layout.alignment: Qt.AlignVCenter
+
+                                    // 表头
+                                    FluText {
+                                        anchors.centerIn: parent
+                                        text: rowLayout.currentRowIndex === 0 ? modelData.title : ""
+                                        font.pixelSize: 13
+                                        font.weight: Font.Medium
+                                        color: FluTheme.fontPrimaryColor
+                                        verticalAlignment: Text.AlignVCenter
+                                        horizontalAlignment: Text.AlignHCenter
+                                        visible: rowLayout.currentRowIndex === 0
+                                    }
+
+                                    // 数据单元格
+                                    Rectangle {
+                                        id: dataCell
+                                        anchors.centerIn: parent
+                                        width: 80
+                                        height: 26
+                                        color: FluTheme.dark ? Qt.rgba(0.18, 0.18, 0.18, 1) : Qt.rgba(0.97, 0.98, 0.98, 1)
+                                        border.color: FluTheme.dark ? Qt.rgba(0.33, 0.33, 0.33, 1) : Qt.rgba(0.88, 0.88, 0.88, 1)
+                                        border.width: 1
+                                        radius: 2
+                                        visible: rowLayout.currentRowIndex > 0
+
+                                        FluText {
+                                            anchors.centerIn: parent
+                                            text: {
+                                                if (rowLayout.currentRowIndex <= 0 || !dcBranchData) return "---";
+                                                var branchKey = "branch" + rowLayout.currentRowIndex;
+                                                var branchInfo = dcBranchData[branchKey];
+                                                if (!branchInfo) return "---";
+                                                var dataKey = modelData.dataKey;
+                                                var decimals = modelData.decimals || 2;
+                                                if (!branchInfo.hasOwnProperty(dataKey)) return "---";
+                                                var result = branchInfo[dataKey].toFixed(decimals);
+                                                return result;
+                                            }
+                                            font.pixelSize: 13
+                                            color: FluTheme.fontPrimaryColor
+                                            elide: Text.ElideRight
+                                            verticalAlignment: Text.AlignVCenter
+                                            horizontalAlignment: Text.AlignHCenter
+                                        }
+                                    }
+
+                                    // 单位标签
+                                    FluText {
+                                        anchors.left: dataCell.right
+                                        anchors.leftMargin: 8
+                                        anchors.verticalCenter: dataCell.verticalCenter
+                                        
+                                        text: rowLayout.currentRowIndex > 0 ? (modelData.unit || "") : ""
+                                        font.pixelSize: 13
+                                        color: FluTheme.fontSecondaryColor
+                                        visible: rowLayout.currentRowIndex > 0 && (modelData.unit || "") !== ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -706,8 +897,8 @@ FluContentPage {
         
         Component.onCompleted: {
             // 添加两个标签页
-            tabView.appendTab(FluentIcons.Info, qsTr("DC Info"), dcInfoComponent, {})
-            tabView.appendTab(FluentIcons.TreeFolderFolder, qsTr("DC Branch Info"), dcBranchInfoComponent, {})
+            tabView.appendTab("qrc:/image/favicon.ico", qsTr("DC Info"), dcInfoComponent, {})
+            tabView.appendTab("qrc:/image/favicon.ico", qsTr("DC Branch Info"), dcBranchInfoComponent, {})
         }
     }
 
@@ -721,13 +912,4 @@ FluContentPage {
         default: return qsTr("Unknown");
         }
     }
-
-
-
-
-
-    
-
-
-
 }

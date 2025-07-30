@@ -21,8 +21,8 @@ namespace page
         {"SysTotalPower",               "float",    4,      0x10,       0x26,       0x01},
         {"SysTotalEnergy",              "float",    4,      0x10,       0x26,       0x02},
         {"LoadTotalPwoer",				"float",    4,      0x10,       0x26,       0x03},
-        {"Sys.A.ShareCurr",             "float",    4,      0x10,       0x3B,       0x01},
-        {"Sys.B.ShareCurr",             "float",    4,      0x10,       0x3B,       0x11},
+        {"Sys_A_ShareCurr",             "float",    4,      0x10,       0x3B,       0x01},
+        {"Sys_B_ShareCurr",             "float",    4,      0x10,       0x3B,       0x11},
         {"LoadBreaker",                 "float",    4,      0x12,       0xF1,       0x01},
         {"ShareBreaker",                "float",    4,      0x12,       0xF7,       0x09},
 

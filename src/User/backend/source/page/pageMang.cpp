@@ -3,6 +3,7 @@
 #include "page/settingPage.h"
 #include "page/pageInfoMainInfo.h"
 #include "page/pageInfo10kvIsolator.h"
+#include "page/pageInfoDcInfo.h"
 #include "page/PageInfoAcInfo.h"
 #include "page/pageInfoAlarmLog.h"
 #include "page/pageConfigSys.h"
@@ -27,6 +28,9 @@ namespace page
 
         static infoAcInfoPage infoAcInfoPageInstance(this);
         registerPage("infoAcInfo", &infoAcInfoPageInstance);
+
+        static infoDcInfoPage dcInfoInstance(this);
+        registerPage("infoDcInfo", &dcInfoInstance);
 
         static infoAlarmLogPage infoAlarmLogPageInstance(this);
         registerPage("alarmLog", &infoAlarmLogPageInstance);

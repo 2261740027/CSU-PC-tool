@@ -742,151 +742,150 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="177"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="273"/>
         <source>Current Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="195"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="291"/>
         <source>Load TotalCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="214"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="310"/>
         <source>System TotalCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="259"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="355"/>
         <source>Voltage Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="277"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="373"/>
         <source>LoadVolt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="296"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="392"/>
         <source>SysVolt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="315"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="411"/>
         <source>MainVolt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="334"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="430"/>
         <source>ShareVoltDiff:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="365"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="461"/>
         <source>Power &amp; Efficiency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="383"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="479"/>
         <source>SysTotalPower:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="402"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="498"/>
         <source>LoadTotalPower:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="421"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="517"/>
         <source>SysEfficiency:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="440"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="536"/>
         <source>Load Rate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="472"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="568"/>
         <source>Current Sharing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="490"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="586"/>
         <source>Sys.A.ShareCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="509"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="605"/>
         <source>Sys.B.ShareCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="540"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="636"/>
         <source>Breaker Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="558"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="654"/>
         <source>Load Breaker:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="600"/>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="718"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="696"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="926"/>
         <source>ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="600"/>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="719"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="696"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="927"/>
         <source>OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="717"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="925"/>
         <source>Uninstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="720"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="928"/>
         <source>TRIP</source>
         <oldsource>Trip</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="721"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="929"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="585"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="681"/>
         <source>Share Breaker:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="623"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="719"/>
         <source>System Overview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="641"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="737"/>
         <source>Total Energy:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="660"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="756"/>
         <source>Rect LoadRate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="709"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="917"/>
         <source>DC Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="690"/>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="710"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="918"/>
         <source>DC Branch Info</source>
         <translation type="unfinished"></translation>
     </message>

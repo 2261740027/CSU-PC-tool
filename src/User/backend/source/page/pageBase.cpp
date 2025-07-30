@@ -165,7 +165,7 @@ namespace page
 
         int decimals = 1;
         if(field.extra.contains("decimals")) {
-            decimals = field.extra["decimals"].toInt() * 10;
+            decimals = std::pow(10, field.extra["decimals"].toInt());
         }
 
         if (varType == "int") {

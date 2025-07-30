@@ -195,36 +195,22 @@ FluContentPage {
     // ==================== 第5层：清理管理层 ====================
     function performCleanup() {
         
-        // 第1步：标记页面为非活跃状态
         root.isPageActive = false;
         
-        // 第2步：清理动态创建的标签页
-        clearDynamicTabs();
-        
-        // 第3步：断开所有连接
         for (var i = 0; i < cleanupTasks.length; i++) {
             var task = cleanupTasks[i];
             if (task && typeof task === 'object') {
-                if (task.target) {
-                    task.target = null;
-                }
-                if (task.enabled !== undefined) {
-                    task.enabled = false;
-                }
+                task.enabled = false;  // 先禁用连接
+                task.target = null;    // 再断开目标
             }
         }
         
-        // 第4步：清理数据结构
+        clearDynamicTabs();
+        
         clearDataStructures();
         
-        // 第5步：清理任务列表
         cleanupTasks = null;
         dynamicTabs = null;
-        
-        // 第6步：强制垃圾回收
-        Qt.callLater(function() {
-            gc();
-        });
     }
 
     function clearDataStructures() {
@@ -399,11 +385,6 @@ FluContentPage {
                                           {label: "CSU-RectVoltageIncrease",      setName: "csuRectVoltageIncrease",editable: true, options: sysParaFourLoader.item.optionEnableDisable },
                                           {label: "CSU-RectStartUpInSequence",        setName: "csuRectStartUpInSequence",editable: true, options: sysParaFourLoader.item.optionEnableDisable  }
                                         ];
-            
-            // 强制更新ComboBox显示
-            if (csuIndexComboBox) {
-                csuIndexComboBox.currentIndex = csuIndexComboBox.currentIndex;
-            }
         }
     }
 
@@ -501,9 +482,19 @@ FluContentPage {
         }
     }
     // system para. 1
-    component SysParaOne: Item{
+    component SysParaOne: FocusScope{
         id: sysParaOneRoot
         anchors.fill:parent
+
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            onClicked: {
+                if (Window.window.activeFocusItem) {
+                    Window.window.activeFocusItem.focus = false;
+                }
+            }
+        }
 
         PagaQuerryTypeSelect{
             anchors.right: parent.right
@@ -534,14 +525,22 @@ FluContentPage {
                 }
             }
         }
-
-
     }
 
     // sys para.2
-    component SysParaTwo: Item{
+    component SysParaTwo: FocusScope{
         id: sysParaTwoRoot
         anchors.fill: parent
+
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            onClicked: {
+                if (Window.window.activeFocusItem) {
+                    Window.window.activeFocusItem.focus = false;
+                }
+            }
+        }
 
         PagaQuerryTypeSelect{
             anchors.right: parent.right
@@ -575,9 +574,19 @@ FluContentPage {
     }
 
     // sys para.3
-    component SysParaThree: Item {
+    component SysParaThree: FocusScope {
         id: sysParaThreeRoot
         anchors.fill: parent
+
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            onClicked: {
+                if (Window.window.activeFocusItem) {
+                    Window.window.activeFocusItem.focus = false;
+                }
+            }
+        }
 
         GridLayout {
             anchors.centerIn: parent
@@ -601,9 +610,19 @@ FluContentPage {
     }
 
     // sys para.4
-    component SysParaFour: Item{
+    component SysParaFour: FocusScope{
         id: sysParaFourRoot
         anchors.fill: parent
+
+        MouseArea {
+            anchors.fill: parent
+            z: -1
+            onClicked: {
+                if (Window.window.activeFocusItem) {
+                    Window.window.activeFocusItem.focus = false;
+                }
+            }
+        }
 
         PageFourItemSelect{
             anchors.right: parent.right
@@ -649,7 +668,6 @@ FluContentPage {
                     }
                 }
             }
-
         }
     }
     
@@ -920,11 +938,34 @@ FluContentPage {
                 property var valueData: root.pageDataCache ? root.pageDataCache[valueKey] : undefined
 
                 enabled: systemParaTextBoxRoot.editable && (valueData !== undefined)
-                text: valueData !== undefined ? valueData : "---"
-
+                
                 validator: RegularExpressionValidator {
                     // 允许负号，1位可以是0或-0，2位及以上不能以0开头
                     regularExpression: /^-?(0|[1-9]\d{0,5})(\.\d{1,2})?$/
+                }
+
+                onValueDataChanged: {
+                    // 如果文本框有焦点（正在编辑），不更新显示文本
+                    if (focus) {
+                        return;
+                    }
+                    
+                    if (valueData === undefined) {
+                        text = "---";
+                    } else {
+                        var formattedValue = formatNumber(valueData, 2);
+                        if (formattedValue !== text) {
+                            text = formattedValue;
+                        }
+                    }
+                }
+
+                Component.onCompleted: {
+                    if (valueData === undefined) {
+                        text = "---";
+                    } else {
+                        text = formatNumber(valueData, 2);
+                    }
                 }
 
                 onCommit: {
@@ -987,7 +1028,7 @@ FluContentPage {
             id:csuIndexText
             width: 80
             height:32
-            text:"CSU Select:"
+            text:qsTr("CSU Select:")
         }
 
         FluComboBox {
@@ -1085,7 +1126,10 @@ FluContentPage {
     {
         pageManager.setItemData(setName + getSysParaValue(multipleCsu) + getSysParaPostfix(valueType), value);
         
+    }
 
+    function formatNumber(value, decimals) {
+        return Number(value).toFixed(decimals).replace(/\.?0+$/, '')
     }
 
     function getSysParaPostfix(valueType)

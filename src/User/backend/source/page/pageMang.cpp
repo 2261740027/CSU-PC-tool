@@ -150,7 +150,7 @@ namespace page
         }
         else if(SendRequestType::Setting == _currentRequest.type)
         {
-            if(recvInfo.num >= 1 && recvInfo.data.contains(index))
+            if(recvInfo.num >= 1 && recvInfo.data.contains(index & 0x00FEFFFF))
             {
                 emit itemSetResult(recvInfo.data[0], 0, "success");
                 emit pageDataChanged();

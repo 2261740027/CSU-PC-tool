@@ -44,19 +44,19 @@ namespace page
             if (field.length == 1)
             {
                 // 8位整数
-                qint8 intValue = static_cast<qint8>(value.toInt() * decimals);
+                qint8 intValue = static_cast<qint8>(value.toFloat() * decimals);
                 retData.append(intValue);
             }
             else if (field.length == 2)
             {
                 // 16位整数
-                qint16 intValue = static_cast<qint16>(value.toInt() * decimals);
+                qint16 intValue = static_cast<qint16>(value.toFloat() * decimals);
                 retData.append(reinterpret_cast<const char *>(&intValue), sizeof(intValue));
             }
             else if (field.length == 4)
             {
                 // 32位整数
-                qint32 intValue = value.toInt() * decimals;
+                qint32 intValue = value.toFloat() * decimals;
                 retData.append(reinterpret_cast<const char *>(&intValue), sizeof(intValue));
             }
         }
@@ -78,31 +78,31 @@ namespace page
         else if (field.valueType == "short")
         {
             // 16位短整数
-            qint16 shortValue = static_cast<qint16>(value.toInt() * decimals);
+            qint16 shortValue = static_cast<qint16>(value.toFloat() * decimals);
             retData.append(reinterpret_cast<const char *>(&shortValue), sizeof(shortValue));
         }
         else if (field.valueType == "ushort" || field.valueType == "uint16")
         {
             // 16位无符号短整数
-            quint16 ushortValue = static_cast<quint16>(value.toUInt() * decimals);
+            quint16 ushortValue = static_cast<quint16>(value.toFloat() * decimals);
             retData.append(reinterpret_cast<const char *>(&ushortValue), sizeof(ushortValue));
         }
         else if (field.valueType == "uint" || field.valueType == "uint32")
         {
             // 32位无符号整数
-            quint32 uintValue = value.toUInt() * decimals;
+            quint32 uintValue = value.toFloat() * decimals;
             retData.append(reinterpret_cast<const char *>(&uintValue), sizeof(uintValue));
         }
         else if (field.valueType == "char" || field.valueType == "int8")
         {
             // 8位字符/整数
-            qint8 charValue = static_cast<qint8>(value.toInt() * decimals);
+            qint8 charValue = static_cast<qint8>(value.toFloat() * decimals);
             retData.append(charValue);
         }
         else if (field.valueType == "uchar" || field.valueType == "uint8")
         {
             // 8位无符号字符/整数
-            quint8 ucharValue = static_cast<quint8>(value.toUInt() * decimals);
+            quint8 ucharValue = static_cast<quint8>(value.toFloat() * decimals);
             retData.append(ucharValue);
         }
         else if (field.valueType == "bool")

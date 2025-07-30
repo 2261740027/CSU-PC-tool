@@ -78,6 +78,8 @@ set(PAGE_SOURCES
     User/backend/source/page/pageConfigSys.cpp
     User/backend/include/page/pageConfigAlarmPara.h
     User/backend/source/page/pageConfigAlarmPara.cpp
+    User/backend/include/page/pageConfigBattPara.h
+    User/backend/source/page/pageConfigBattPara.cpp
 )
 
 set(LOG_SOURCES

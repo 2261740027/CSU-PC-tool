@@ -105,11 +105,13 @@ namespace page
         }
         else
         {
+            qDebug() << "----> _totalAlarmLogNum:" << _totalAlarmLogNum;
             // 获取总日志条数
             if(_totalAlarmLogNum == 0)
             {
                 Log::LogManager::getInstance()->getAlarmLogModel()->clearLogs();
                 _totalAlarmLogNum = ((data[2] << 8) & 0xFF00) | data[1] & 0xFF;
+                result.num = 1;
             }
             else  // 解析日志
             {

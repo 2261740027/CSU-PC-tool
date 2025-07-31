@@ -96,6 +96,15 @@ FluObject{
                 navigationView.push(url)
             }
         }
+
+        FluPaneItem{
+            title: qsTr("Battery Parameter")
+            menuDelegate: paneItemMenu
+            url: "qrc:/User/ui/page/P_Config_BattPara.qml"
+            onTap: {
+                navigationView.push(url)
+            }
+        }
     }
 
     FluPaneItem{

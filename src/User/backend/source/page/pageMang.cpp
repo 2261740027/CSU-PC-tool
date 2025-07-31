@@ -8,6 +8,7 @@
 #include "page/pageInfoAlarmLog.h"
 #include "page/pageConfigSys.h"
 #include "page/pageConfigAlarmPara.h"
+#include "page/pageConfigBattPara.h"
 #include <QDebug>
 
 namespace page
@@ -40,6 +41,9 @@ namespace page
 
         static pageConfigAlarmPara pageConfigAlarmParaInstance(this);
         registerPage("configAlarmPara", &pageConfigAlarmParaInstance);
+
+        static pageConfigBattPara pageConfigBattParaInstance(this);
+        registerPage("configBattPara", &pageConfigBattParaInstance);
 
         // 页面定时刷新
         _refreshTimer = new QTimer(this);

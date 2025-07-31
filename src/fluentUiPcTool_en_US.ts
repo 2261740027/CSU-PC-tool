@@ -15,6 +15,52 @@
     </message>
 </context>
 <context>
+    <name>CustCalendarPicker</name>
+    <message>
+        <location filename="User/ui/global/CustCalendarPicker.qml" line="12"/>
+        <source>Pick a date</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CustTimePicker</name>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="11"/>
+        <source>AM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="12"/>
+        <source>PM</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="13"/>
+        <source>Hour</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="14"/>
+        <source>Minute</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="15"/>
+        <source>Second</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="16"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustTimePicker.qml" line="17"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ItemsSide</name>
     <message>
         <location filename="User/ui/global/ItemsSide.qml" line="13"/>
@@ -69,7 +115,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/global/ItemsSide.qml" line="104"/>
+        <location filename="User/ui/global/ItemsSide.qml" line="101"/>
+        <source>Battery Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/ItemsSide.qml" line="113"/>
         <source>Setting</source>
         <translation type="unfinished"></translation>
     </message>
@@ -79,6 +130,51 @@
     <message>
         <location filename="User/ui/global/ItemsSideFooter.qml" line="16"/>
         <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Option_BattPara</name>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="8"/>
+        <source>CSU A</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="9"/>
+        <source>CSU B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="10"/>
+        <source>CSU C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="14"/>
+        <source>Curr.Limit</source>
+        <oldsource>Curr.Li</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="15"/>
+        <source>Volt.Limit</source>
+        <oldsource>Volt.Li</oldsource>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="16"/>
+        <source>Manual</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="20"/>
+        <source>Disable</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/pageComBoxOption/Option_BattPara.qml" line="21"/>
+        <source>Enable</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -545,6 +641,154 @@
     </message>
 </context>
 <context>
+    <name>P_Config_BattPara</name>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="10"/>
+        <source>Battery Parameter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="61"/>
+        <source>set success!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="65"/>
+        <source>set failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="85"/>
+        <source>Batt Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="86"/>
+        <source>Float Volt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="87"/>
+        <source>Equ Volt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="88"/>
+        <source>Equ Boost Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="89"/>
+        <source>Equ Boost Volt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="90"/>
+        <source>Equ Boost Curr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="91"/>
+        <source>Equ Period</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="92"/>
+        <source>Equ Max Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="93"/>
+        <source>Equ extra Time</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="94"/>
+        <source>Equ Terminal Curr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="95"/>
+        <source>Charge CL Level2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="96"/>
+        <source>Charge CL Level3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="97"/>
+        <source>Charge CL Level1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="98"/>
+        <source>Rectifiel CL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="99"/>
+        <source>Batt Chg OC</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="100"/>
+        <source>Batt Brk TripVolt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="101"/>
+        <source>Batt Brk TripCurr</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="108"/>
+        <source>CL Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="109"/>
+        <source>Equ Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="110"/>
+        <source>Boost Volt Func</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="111"/>
+        <source>Boost Cap Func</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="112"/>
+        <source>Boost Curr Func</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="113"/>
+        <source>Boost Cyc Func</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="283"/>
+        <source>CSU Select:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="600"/>
+        <source>Batt.Para Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="606"/>
+        <source>TempComp&amp;BT Config</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>P_Config_SystemPara</name>
     <message>
         <location filename="User/ui/page/P_Config_SystemPara.qml" line="9"/>
@@ -965,150 +1209,150 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="273"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="256"/>
         <source>Current Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="291"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="274"/>
         <source>Load TotalCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="310"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="293"/>
         <source>System TotalCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="355"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="338"/>
         <source>Voltage Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="373"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="356"/>
         <source>LoadVolt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="392"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="375"/>
         <source>SysVolt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="411"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="394"/>
         <source>MainVolt:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="430"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="413"/>
         <source>ShareVoltDiff:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="461"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="444"/>
         <source>Power &amp; Efficiency</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="479"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="462"/>
         <source>SysTotalPower:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="498"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="481"/>
         <source>LoadTotalPower:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="517"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="500"/>
         <source>SysEfficiency:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="536"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="519"/>
         <source>Load Rate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="568"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="551"/>
         <source>Current Sharing</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="586"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="569"/>
         <source>Sys.A.ShareCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="605"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="588"/>
         <source>Sys.B.ShareCurr:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="636"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="619"/>
         <source>Breaker Status</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="654"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="637"/>
         <source>Load Breaker:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="696"/>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="926"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="679"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="909"/>
         <source>ON</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="696"/>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="927"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="679"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="910"/>
         <source>OFF</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="925"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="908"/>
         <source>Uninstall</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="928"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="911"/>
         <source>TRIP</source>
         <oldsource>Trip</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="929"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="912"/>
         <source>Unknown</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="681"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="664"/>
         <source>Share Breaker:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="719"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="702"/>
         <source>System Overview</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="737"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="720"/>
         <source>Total Energy:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="756"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="739"/>
         <source>Rect LoadRate:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="917"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="900"/>
         <source>DC Info</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Info_DcInfo.qml" line="918"/>
+        <location filename="User/ui/page/P_Info_DcInfo.qml" line="901"/>
         <source>DC Branch Info</source>
         <translation type="unfinished"></translation>
     </message>

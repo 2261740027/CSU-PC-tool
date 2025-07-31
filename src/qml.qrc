@@ -19,5 +19,9 @@
         <file>User/ui/page/P_Config_SystemPara.qml</file>
         <file>User/ui/page/pageComBoxOption/Option_SystemPara.qml</file>
         <file>User/ui/page/P_Config_AlarmPara.qml</file>
+        <file>User/ui/page/P_Config_BattPara.qml</file>
+        <file>User/ui/page/pageComBoxOption/Option_BattPara.qml</file>
+        <file>User/ui/global/CustCalendarPicker.qml</file>
+        <file>User/ui/global/CustTimePicker.qml</file>
     </qresource>
 </RCC>

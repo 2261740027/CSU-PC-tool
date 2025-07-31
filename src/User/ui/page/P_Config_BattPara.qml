@@ -168,13 +168,12 @@ FluContentPage {
         //     anchors.centerIn: parent
         // }
 
-        CustTimePicker{
-            anchors.centerIn: parent
-            hourFormat:FluTimePickerType.HH
-            onAccepted: {
-                    showSuccess(current.toLocaleTimeString(Qt.locale("de_DE")))
+        CustCalendarPicker{
+                anchors.centerIn: parent
+                onAccepted: {
+                    showSuccess(current.toLocaleString())
                 }
-        }
+            }
 
         ColumnLayout{
             anchors.fill: parent

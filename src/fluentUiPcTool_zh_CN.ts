@@ -21,6 +21,16 @@
         <source>Pick a date</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="User/ui/global/CustCalendarPicker.qml" line="699"/>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/global/CustCalendarPicker.qml" line="712"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CustTimePicker</name>
@@ -773,17 +783,17 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_BattPara.qml" line="283"/>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="282"/>
         <source>CSU Select:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_BattPara.qml" line="600"/>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="599"/>
         <source>Batt.Para Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_BattPara.qml" line="606"/>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="605"/>
         <source>TempComp&amp;BT Config</source>
         <translation type="unfinished"></translation>
     </message>

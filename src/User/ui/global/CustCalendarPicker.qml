@@ -13,7 +13,7 @@ FluButton {
     }
     property date from: new Date(1924, 0, 1)
     property date to: new Date(2124, 11, 31)
-    property var current
+    property var current: new Date()
     signal accepted()
     id:control
     onClicked: {
@@ -73,27 +73,64 @@ FluButton {
         }
         contentItem: Item{
             id:container
-            implicitWidth: 420   // 增加宽度以容纳左右布局
-            implicitHeight: 360
+            implicitWidth: 470 
+            implicitHeight: 420  
             RowLayout {
                 anchors.fill: parent
+                anchors.bottomMargin: 60  // 为底部按钮留出空间
                 spacing: 0
-                // 左侧：时间选择
-                CustTimePicker {
-                    id: timePicker
-                    Layout.preferredWidth: 120
-                    Layout.preferredHeight: 32
-                    hourFormat:FluTimePickerType.HH
-                    current: d.displayDate // 初始时间
-                    onAccepted: {
-                        var date = new Date(d.displayDate)
-                        date.setHours(timePicker.current.getHours())
-                        date.setMinutes(timePicker.current.getMinutes())
-                        control.current = date
-                        control.accepted()
-                        //popup.close()
+
+                ColumnLayout {
+                    Layout.preferredWidth: 170
+                    Layout.fillHeight: true
+
+                    Item {
+                        Layout.preferredWidth: 170
+                        Layout.preferredHeight: 200
+                        FluText {
+                            anchors.centerIn: parent
+                            text: {
+                                if (control.current) {
+                                    var d = control.current
+                                    function pad(n) { return n < 10 ? "0" + n : n }
+                                    return d.getFullYear() + "-" +
+                                            pad(d.getMonth() + 1) + "-" +
+                                            pad(d.getDate()) + " " +
+                                            pad(d.getHours()) + ":" +
+                                            pad(d.getMinutes()) + ":" +
+                                            pad(d.getSeconds())
+                                }
+                                return ""
+                            }
+                        }
                     }
+
+                    Item {
+                        Layout.preferredWidth: 170
+                        Layout.preferredHeight: 200
+
+                        CustTimePicker {
+                            id: timePicker
+                            anchors.centerIn: parent
+                            width: parent.width-8
+                            height: 32
+
+                            hourFormat:FluTimePickerType.HH
+                            current: d.displayDate
+                            onAccepted: {
+                                var date = new Date(d.displayDate)
+                                date.setHours(timePicker.current.getHours())
+                                date.setMinutes(timePicker.current.getMinutes())
+                                date.setSeconds(timePicker.current.getSeconds())
+                                control.current = date
+                                // 不在这里触发 accepted，只在确定按钮点击时触发
+                                //popup.close()
+                            }
+                        }
+                    }
+
                 }
+
                 // 右侧：日历选择
                 ColumnLayout {
                     Layout.fillWidth: true
@@ -608,9 +645,16 @@ FluButton {
                                                 }
                                             }
                                             onClicked: {
-                                                control.current = new Date(year,month,day)
-                                                control.accepted()
-                                                popup.close()
+                                                // 保留之前的时间信息
+                                                var newDate = new Date(year, month, day)
+                                                if (control.current) {
+                                                    newDate.setHours(control.current.getHours())
+                                                    newDate.setMinutes(control.current.getMinutes())
+                                                    newDate.setSeconds(control.current.getSeconds())
+                                                }
+                                                control.current = newDate
+                                                // 不在这里触发 accepted，只在确定按钮点击时触发
+                                                //popup.close()
                                             }
                                         }
                                         background: Item {
@@ -623,6 +667,55 @@ FluButton {
                                 }
                             }
                         }
+                    }
+                }
+            }
+            // 添加底部按钮区域
+            Rectangle{
+                id:layout_actions
+                height: 60
+                color: FluTheme.dark ? Qt.rgba(32/255,32/255,32/255,1) : Qt.rgba(243/255,243/255,243/255,1)
+                border.color: FluTheme.dark ? Qt.rgba(26/255,26/255,26/255,1) : Qt.rgba(191/255,191/255,191/255,1)
+                radius: 5
+                anchors{
+                    bottom:parent.bottom
+                    left: parent.left
+                    right: parent.right
+                }
+                Item {
+                    id:divider
+                    width: 1
+                    height: parent.height
+                    anchors.centerIn: parent
+                }
+                FluButton{
+                    anchors{
+                        left: parent.left
+                        leftMargin: 50
+                        rightMargin: 30
+                        right: divider.left
+                        verticalCenter: parent.verticalCenter
+                    }
+                    text: qsTr("Cancel")
+                    onClicked: {
+                        popup.close()
+                    }
+                }
+                FluFilledButton{
+                    anchors{
+                        right: parent.right
+                        left: divider.right
+                        rightMargin: 50
+                        leftMargin: 30
+                        verticalCenter: parent.verticalCenter
+                    }
+                    text: qsTr("OK")
+                    onClicked: {
+                        // 确认选择并关闭弹窗
+                        if(control.current){
+                            control.accepted()
+                        }
+                        popup.close()
                     }
                 }
             }

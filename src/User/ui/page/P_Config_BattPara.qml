@@ -164,25 +164,59 @@ FluContentPage {
             anchors.topMargin: 18
         }
 
-        // CustCalendarPicker{
-        //     anchors.centerIn: parent
-        // }
+        FluFrame {
+            id: calendarItem
+            anchors.centerIn: parent
+            height: 32
+            width: 300
 
-        CustCalendarPicker{
-                anchors.centerIn: parent
+            FluText{
+                id: calendarItemText
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                
+                z: 99
+                text:qsTr("Batt Install Time:")
+            }
+
+             CustCalendarPicker{
+                id:calendarItemPicker
+
+                anchors.left: calendarItemText.right
+                anchors.leftMargin: 8
+                anchors.verticalCenter: calendarItemText.verticalCenter
+                text:{
+                    var t = root.pageDataCache ? root.pageDataCache["battInstallTime"] : null;
+                    if (t && t.Y !== undefined && t.M !== undefined && t.D !== undefined &&
+                        t.H !== undefined && t.m !== undefined && t.S !== undefined) {
+                        var year = t.Y + 2000;
+                        var month = t.M.toString().padStart(2, '0');
+                        var day = t.D.toString().padStart(2, '0');
+                        var hour = t.H.toString().padStart(2, '0');
+                        var minute = t.m.toString().padStart(2, '0');
+                        var second = t.S.toString().padStart(2, '0');
+                        return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
+                    }
+                    return "YYYY-MM-DD HH:MM:SS"
+                    
+                }
                 onAccepted: {
-                    showSuccess(current.toLocaleString())
+                    if (current) {
+                        showSuccess(current.toLocaleString('en-US'))
+                    }
                 }
             }
 
-        ColumnLayout{
-            anchors.fill: parent
-            spacing: 8
+        }
 
-            Item {
-                Layout.fillWidth: true
-                Layout.preferredHeight: 24
-            }
+        // ColumnLayout{
+        //     anchors.fill: parent
+        //     spacing: 8
+
+        //     Item {
+        //         Layout.fillWidth: true
+        //         Layout.preferredHeight: 24
+        //     }
 
             // Item {
             //     Layout.fillWidth: true
@@ -246,8 +280,6 @@ FluContentPage {
             //         }
             //     }
             // }
-        }
-        
     }
 
     // batt para2

@@ -82,6 +82,15 @@ set(PAGE_SOURCES
     User/backend/source/page/pageConfigBattPara.cpp
 )
 
+set(PARSERS_SOURCES
+    User/backend/include/page/parsers/IDataParser.h
+    User/backend/include/page/parsers/basicDataParser.h
+    User/backend/include/page/parsers/customDataParser.h
+    User/backend/source/page/parsers/basicDataParser.cpp
+    User/backend/source/page/parsers/dataParserFactory.cpp
+    User/backend/source/page/parsers/customDataParser.cpp
+)
+
 set(LOG_SOURCES
     User/backend/include/Log/logManager.h
     User/backend/source/Log/logManager.cpp
@@ -98,11 +107,11 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        ${PARSERS_SOURCES}
         ${UTILS_SOURCES}
         ${SERIAL_SOURCES}
         ${PAGE_SOURCES}
         ${LOG_SOURCES}
-
     )
 else()
     add_executable(${PROJECT_NAME}

@@ -3,6 +3,7 @@
 #include "page/PageFieldTable.h"
 #include "page/pageMang.h"
 #include "serial/SlipProtocol.h"
+#include "page/parsers/IDataParser.h"
 #include <QDebug>
 // #include "page/IpageController.h"
 
@@ -160,77 +161,23 @@ namespace page
     QVariant pageBase::unpackByteStream(const QString &name, const QByteArray &data)
     {
         const pageMapField &field = _pageFieldTable.getValueMap()[name];
-        QString varType = field.valueType;
-        int length = field.length;
-
-        int decimals = 1;
-        if(field.extra.contains("decimals")) {
-            decimals = std::pow(10, field.extra["decimals"].toInt());
+        
+        QVariantMap config;
+        config["type"] = field.valueType;
+        config["length"] = field.length;
+                
+        for (auto it = field.extra.begin(); it != field.extra.end(); ++it) {
+            config[it.key()] = it.value();
         }
 
-        if (varType == "int") {
-            if (length == 1 && data.size() >= 1) {
-                qint8 value = static_cast<qint8>(data[0]);
-                return QVariant(static_cast<float>(value) / (decimals));
-            } else if (length == 2 && data.size() >= 2) {
-                qint16 value;
-                memcpy(&value, data.constData(), sizeof(qint16));
-                return QVariant(static_cast<float>(value) / decimals);
-            } else if (length == 4 && data.size() >= 4) {
-                qint32 value;
-                memcpy(&value, data.constData(), sizeof(qint32));
-                return QVariant(static_cast<float>(value) / decimals);
-            }
-        } else if (varType == "float") {
-            if (length == 4 && data.size() >= 4) {
-                float value;
-                memcpy(&value, data.constData(), sizeof(float));
-                return QVariant(value / decimals);
-            } else if (length == 8 && data.size() >= 8) {
-                double value;
-                memcpy(&value, data.constData(), sizeof(double));
-                return QVariant(value / decimals);
-            }
-        } else if (varType == "short") {
-            if (length == 2 && data.size() >= 2) {
-                qint16 value;
-                memcpy(&value, data.constData(), sizeof(qint16));
-                return QVariant(static_cast<float>(value) / decimals);
-            }
-        } else if (varType == "ushort" || varType == "uint16") {
-            if (length == 2 && data.size() >= 2) {
-                quint16 value;
-                memcpy(&value, data.constData(), sizeof(quint16));
-                return QVariant(static_cast<float>(value) / decimals);
-            }
-        } else if (varType == "uint" || varType == "uint32") {
-            if (length == 4 && data.size() >= 4) {
-                quint32 value;
-                memcpy(&value, data.constData(), sizeof(quint32));
-                return QVariant(static_cast<float>(value) / decimals);
-            }
-        } else if (varType == "char" || varType == "int8") {
-            if (length == 1 && data.size() >= 1) {
-                qint8 value = static_cast<qint8>(data[0]);
-                return QVariant(static_cast<float>(value) / decimals);
-            }
-        } else if (varType == "uchar" || varType == "uint8") {
-            if (length == 1 && data.size() >= 1) {
-                quint8 value = static_cast<quint8>(data[0]);
-                return QVariant(static_cast<float>(value) / decimals);
-            }
-        } else if (varType == "bool") {
-            if (length == 1 && data.size() >= 1) {
-                quint8 value = static_cast<quint8>(data[0]);
-                return QVariant(value != 0);
-            }
-        } else {
-            qDebug() << Q_FUNC_INFO << "Unsupported data type:" << varType;
-            return QVariant();
+        QVariant result = parsers::DataParserFactory::getInstance()->parseData(data, config);
+
+        if(result.isNull())
+        {
+            qDebug() << Q_FUNC_INFO << "Failed to parse data for field:" << name;
         }
 
-        qDebug() << Q_FUNC_INFO << "Failed to parse data for field:" << name;
-        return QVariant();
+        return result;
     }
 
     pageDataUpdateResult_t pageBase::handlePageDataUpdate(const QByteArray &data)

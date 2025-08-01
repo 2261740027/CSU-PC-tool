@@ -2,10 +2,28 @@
 #define PAGECONFIGBATTPARA_H
 
 #include "pageBase.h"
+#include <QJsonObject>    
+#include <QJsonArray>
 
 namespace page {
 
+    inline QVariantMap createCalendarConfig() {
+        QJsonArray fields = {
+            QJsonObject{ {"name", "Y"}, {"type", "uchar"}, {"size", 1}},
+            QJsonObject{ {"name", "M"}, {"type", "uchar"}, {"size", 1}},
+            QJsonObject{ {"name", "D"}, {"type", "uchar"}, {"size", 1}},
+            QJsonObject{ {"name", "H"}, {"type", "uchar"}, {"size", 1}},
+            QJsonObject{ {"name", "m"}, {"type", "uchar"}, {"size", 1}},
+            QJsonObject{ {"name", "S"}, {"type", "uchar"}, {"size", 1}}
+        };
+
+        return {
+            {"fields", fields}
+        };
+    }
+
     static QList<PageField> configBattParaPageFieldList = {
+        {"battInstallTime",                 "calendar",         6, 0x16, 0x30, 0x01, createCalendarConfig()},
     
     };
 
@@ -55,29 +73,29 @@ namespace page {
     };
 
     const static QList<QByteArray> configBattParaPageQuerryCmdList = {
-        QByteArray::fromHex("503400"),  
-        QByteArray::fromHex("503500"),
-        QByteArray::fromHex("503900"),
-        QByteArray::fromHex("504000"),  
-        QByteArray::fromHex("504100"),
-        QByteArray::fromHex("504200"),
-        QByteArray::fromHex("504400"),  
-        QByteArray::fromHex("504500"),
-        QByteArray::fromHex("504600"),
-        QByteArray::fromHex("504700"),  
-        QByteArray::fromHex("563100"),
-        QByteArray::fromHex("564000"),
-        QByteArray::fromHex("564500"),  
-        QByteArray::fromHex("564600"),
-        QByteArray::fromHex("564700"),
-        QByteArray::fromHex("163000"),  
-        QByteArray::fromHex("163100"),
-        QByteArray::fromHex("564800"),
-        QByteArray::fromHex("502000"),  
-        QByteArray::fromHex("502100"),
-        QByteArray::fromHex("503000"),
-        QByteArray::fromHex("503200"),  
-        QByteArray::fromHex("503300"),
+        // QByteArray::fromHex("503400"),  
+        // QByteArray::fromHex("503500"),
+        // QByteArray::fromHex("503900"),
+        // QByteArray::fromHex("504000"),  
+        // QByteArray::fromHex("504100"),
+        // QByteArray::fromHex("504200"),
+        // QByteArray::fromHex("504400"),  
+        // QByteArray::fromHex("504500"),
+        // QByteArray::fromHex("504600"),
+        // QByteArray::fromHex("504700"),  
+        // QByteArray::fromHex("563100"),
+        // QByteArray::fromHex("564000"),
+        // QByteArray::fromHex("564500"),  
+        // QByteArray::fromHex("564600"),
+        // QByteArray::fromHex("564700"),
+        // QByteArray::fromHex("163000"),  
+        // QByteArray::fromHex("163100"),
+        // QByteArray::fromHex("564800"),
+        // QByteArray::fromHex("502000"),  
+        // QByteArray::fromHex("502100"),
+        // QByteArray::fromHex("503000"),
+        // QByteArray::fromHex("503200"),  
+        // QByteArray::fromHex("503300"),
     };
 
     class pageConfigBattPara : public pageBase

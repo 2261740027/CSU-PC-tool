@@ -5,8 +5,10 @@ namespace page
     pageConfigBattPara::pageConfigBattPara(pageMange *pageManager)
         : pageBase(configBattParaPageFieldList, configBattParaPageQuerryCmdList,pageManager, _configBattParaPageAttribute)
     {
-        appendBattParaWithRange(appendConfigBattParaWithRang);
-        appendBattParaOption(appendConfigBattParaOption);
+        //appendBattParaWithRange(appendConfigBattParaWithRang);
+        //appendBattParaOption(appendConfigBattParaOption);
+
+        appendQuerryCmd(querryItemData("battInstallTime"));
     }
 
     void pageConfigBattPara::appendBattParaWithRange(QList<PageField> &pageFieldList)

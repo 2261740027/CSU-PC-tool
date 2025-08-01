@@ -783,17 +783,27 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_BattPara.qml" line="282"/>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="179"/>
+        <source>Batt Install Time:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="194"/>
+        <source></source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="314"/>
         <source>CSU Select:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_BattPara.qml" line="599"/>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="631"/>
         <source>Batt.Para Config</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="User/ui/page/P_Config_BattPara.qml" line="605"/>
+        <location filename="User/ui/page/P_Config_BattPara.qml" line="637"/>
         <source>TempComp&amp;BT Config</source>
         <translation type="unfinished"></translation>
     </message>
